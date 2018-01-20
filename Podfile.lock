@@ -1,0 +1,28 @@
+PODS:
+  - MBProgressHUD (1.1.0)
+  - SwiftState (4.1.0)
+  - SwiftyJSON (4.0.0)
+
+DEPENDENCIES:
+  - MBProgressHUD (~> 1.1)
+  - SwiftState (from `https://github.com/ReactKit/SwiftState.git`, branch `swift/4.0`)
+  - SwiftyJSON (~> 4.0)
+
+EXTERNAL SOURCES:
+  SwiftState:
+    :branch: swift/4.0
+    :git: https://github.com/ReactKit/SwiftState.git
+
+CHECKOUT OPTIONS:
+  SwiftState:
+    :commit: 55418070f9dcb289e7e8d9d6c463b1a8c3bac228
+    :git: https://github.com/ReactKit/SwiftState.git
+
+SPEC CHECKSUMS:
+  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  SwiftState: eb4f3ca252feac9ec26235cf4374f91e0560e3a1
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+
+PODFILE CHECKSUM: 340eb00c8dee6bf9715275e46bb096ffb7674a91
+
+COCOAPODS: 1.4.0

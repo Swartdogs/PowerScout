@@ -1,0 +1,6 @@
+framework module SwiftState {
+  umbrella header "SwiftState-umbrella.h"
+
+  export *
+  module * { export * }
+}
