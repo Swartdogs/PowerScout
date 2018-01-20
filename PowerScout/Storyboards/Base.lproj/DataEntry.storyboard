@@ -1261,7 +1261,7 @@
         <!--View Controller-->
         <scene sceneID="G6f-4o-nU1">
             <objects>
-                <viewController id="RmR-df-9YL" customClass="ViewController" customModule="Team_525_Power_Up_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="RmR-df-9YL" customClass="ViewController" customModule="PowerScout" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gk3-NX-pnf">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1559,17 +1559,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="postal-code"/>
                             </textField>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Olf-JV-OjY">
-                                <rect key="frame" x="512" y="86" width="393" height="62"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <accessibility key="accessibilityConfiguration" label="Pick Starting Position"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="Left" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="Middle" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="Right" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDa-xg-cDW">
                                 <rect key="frame" x="529" y="48" width="140" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1634,6 +1623,17 @@
                                 <color key="textColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Olf-JV-OjY">
+                                <rect key="frame" x="516" y="79" width="166" height="62"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration" label="Pick Starting Position"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="Left" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="Middle" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="Right" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Dm3-wY-iEl"/>
