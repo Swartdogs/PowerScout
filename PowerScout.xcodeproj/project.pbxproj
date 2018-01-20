@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34DFE39A2013ED4000187C1D /* DetailControllers in Resources */ = {isa = PBXBuildFile; fileRef = 34DFE3992013ED3F00187C1D /* DetailControllers */; };
 		355ECB3A8B9820261BEFEC00 /* Pods_PowerScout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2D24E694F4F9F710E5EE5C5 /* Pods_PowerScout.framework */; };
 		C40BB9422013E6FE0011DB45 /* AutonomousViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB93B2013E6FE0011DB45 /* AutonomousViewController.swift */; };
 		C40BB9432013E6FE0011DB45 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB93C2013E6FE0011DB45 /* MasterViewController.swift */; };
@@ -67,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		34DFE3992013ED3F00187C1D /* DetailControllers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = DetailControllers; sourceTree = "<group>"; };
 		5AD8E0A398A2276A39532494 /* Pods-PowerScout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PowerScout.release.xcconfig"; path = "Pods/Target Support Files/Pods-PowerScout/Pods-PowerScout.release.xcconfig"; sourceTree = "<group>"; };
 		C40BB93B2013E6FE0011DB45 /* AutonomousViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutonomousViewController.swift; sourceTree = "<group>"; };
 		C40BB93C2013E6FE0011DB45 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 		C481786420132531001EAF24 /* PowerScout */ = {
 			isa = PBXGroup;
 			children = (
+				34DFE3992013ED3F00187C1D /* DetailControllers */,
 				C40BB96A2013E7C60011DB45 /* Models */,
 				C40BB95A2013E70D0011DB45 /* Storyboards */,
 				C40BB9492013E7050011DB45 /* Support */,
@@ -396,6 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C40BB9662013E75C0011DB45 /* Main_back.storyboard in Resources */,
+				34DFE39A2013ED4000187C1D /* DetailControllers in Resources */,
 				C481787220132531001EAF24 /* LaunchScreen.storyboard in Resources */,
 				C481786F20132531001EAF24 /* Assets.xcassets in Resources */,
 				C481786D20132531001EAF24 /* Main.storyboard in Resources */,
