@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 import _SwiftUIKitOverlayShims
 
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     @IBOutlet weak var autoScale: UIStepper!
     @IBOutlet weak var autoSwitch: UIStepper!

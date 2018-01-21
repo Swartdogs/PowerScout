@@ -1258,10 +1258,10 @@
             </objects>
             <point key="canvasLocation" x="2112" y="1348"/>
         </scene>
-        <!--View Controller-->
+        <!--Data Entry View Controller-->
         <scene sceneID="G6f-4o-nU1">
             <objects>
-                <viewController storyboardIdentifier="DataEntryViewController" id="RmR-df-9YL" customClass="ViewController" customModule="PowerScout" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DataEntryViewController" id="RmR-df-9YL" customClass="DataEntryViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gk3-NX-pnf">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1619,7 +1619,6 @@
                                                                 </segments>
                                                                 <color key="tintColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                                                 <connections>
-                                                                    <action selector="autoLineCrossed:" destination="RmR-df-9YL" eventType="valueChanged" id="hfK-Dm-wJK"/>
                                                                     <action selector="climbYN:" destination="RmR-df-9YL" eventType="valueChanged" id="2fn-sD-vJv"/>
                                                                 </connections>
                                                             </segmentedControl>
@@ -1687,7 +1686,7 @@
                         <viewLayoutGuide key="safeArea" id="Dm3-wY-iEl"/>
                     </view>
                     <connections>
-                        <outlet property="ClimbYN" destination="HP6-vd-a3P" id="7z9-FW-bUf"/>
+                        <outlet property="ClimbYN" destination="HP6-vd-a3P" id="2bb-Au-KU8"/>
                         <outlet property="ammountExchangedBlocks" destination="z15-Rr-0P9" id="aSp-sW-c8b"/>
                         <outlet property="autoAmmountScale" destination="wM1-kd-PYi" id="PEc-Tp-hvJ"/>
                         <outlet property="autoAmmountSwitch" destination="YfX-Vf-4JF" id="t5Z-6I-QfB"/>
