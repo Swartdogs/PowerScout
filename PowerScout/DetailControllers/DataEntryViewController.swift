@@ -8,10 +8,8 @@
 
 import UIKit
 import Foundation
-import UIKit
-import _SwiftUIKitOverlayShims
 
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     @IBOutlet weak var autoScale: UIStepper!
     @IBOutlet weak var autoSwitch: UIStepper!
@@ -33,9 +31,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBOutlet weak var climbingConditionPick: UIPickerView!
     @IBOutlet weak var positionButton: UIButton!
     @IBOutlet weak var climbButton: UIButton!
-    @IBOutlet weak var ClimbYN: UISegmentedControl!
+    @IBOutlet weak var climbYN: UISegmentedControl!
     
-    var autoScaleBlock:Int          = 0
+    var autoScaleBlock = 0
     var autoScaleVar = 0
     var autoSwitchVar = 0
     var teleScaleVar = 0
@@ -163,11 +161,11 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
     }
    
-    @IBAction func climbYN(_ sender: UISegmentedControl) {
-        if ClimbYN.selectedSegmentIndex == 0{
+    @IBAction func climbYNSelected(_ sender: UISegmentedControl) {
+        if climbYN.selectedSegmentIndex == 0{
              anyClimb = false
         }
-        if ClimbYN.selectedSegmentIndex == 1{
+        if climbYN.selectedSegmentIndex == 1{
              anyClimb = true
         }
     }
@@ -178,7 +176,10 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         autoAmmountScale.text=Int(sender.value).description
     }
     
-    
+    @IBAction func autoSwitchValueChanged(_ sender: UIStepper) {
+        autoSwitchVar = Int(sender.value)
+        autoAmmountSwitch.text = autoSwitchVar.description
+    }
 }
 
     

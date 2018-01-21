@@ -16,14 +16,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let splitViewController = self.window!.rootViewController as! UISplitViewController
-        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-        if splitViewController.displayMode == .primaryHidden {
-            navigationController.topViewController!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Matches", style: splitViewController.displayModeButtonItem.style, target: splitViewController.displayModeButtonItem.target, action: splitViewController.displayModeButtonItem.action)
-        } else {
-            navigationController.topViewController!.navigationItem.leftBarButtonItem = nil
+        if let splitViewController = self.window!.rootViewController as? UISplitViewController {
+            let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+            if splitViewController.displayMode == .primaryHidden {
+                navigationController.topViewController!.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Matches", style: splitViewController.displayModeButtonItem.style, target: splitViewController.displayModeButtonItem.target, action: splitViewController.displayModeButtonItem.action)
+            } else {
+                navigationController.topViewController!.navigationItem.leftBarButtonItem = nil
+            }
+            splitViewController.delegate = self
+            
         }
-        splitViewController.delegate = self
+        
         return true
     }
 
