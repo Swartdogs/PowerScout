@@ -43,14 +43,12 @@ class MasterViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showMatchSummary" || segue.identifier == "segueToRecentMatchResults" {
-            var match = MatchStore.sharedStore.allMatches.last ?? MatchImpl()
-            if segue.identifier == "showMatchSummary", let indexPath = self.tableView.indexPathForSelectedRow {
-                match = MatchStore.sharedStore.allMatches[indexPath.row]
-            }
-            
-            //match.aggregateActionsPerformed()
-            let storyboard = UIStoryboard(name: "Results", bundle: nil)
-            // TODO: Add Results View Controllers
+            // TODO: Add Results View Controllers, then add this code back
+//            var match = MatchStore.sharedStore.allMatches.last ?? MatchImpl()
+//            if segue.identifier == "showMatchSummary", let indexPath = self.tableView.indexPathForSelectedRow {
+//                match = MatchStore.sharedStore.allMatches[indexPath.row]
+//            }
+//            let storyboard = UIStoryboard(name: "Results", bundle: nil)
 //            let sr = storyboard.instantiateViewController(withIdentifier: "ResultsScoringViewController") as! ResultsScoringViewController
 //            let mr = storyboard.instantiateViewController(withIdentifier: "ResultsMatchInfoViewController") as! ResultsMatchInfoViewController
 //            sr.match = match as! SteamMatch
