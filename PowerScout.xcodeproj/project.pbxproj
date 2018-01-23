@@ -33,6 +33,8 @@
 		C4757C162016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C122016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift */; };
 		C4757C172016D36B00C90984 /* ServiceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C132016D36B00C90984 /* ServiceStore.swift */; };
 		C4757C192016D40100C90984 /* ServiceStoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C182016D40100C90984 /* ServiceStoreDelegate.swift */; };
+		C4757C1B2017172600C90984 /* DataSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C1A2017172600C90984 /* DataSelectionViewController.swift */; };
+		C4757C1D201718E500C90984 /* DataTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C1C201718E500C90984 /* DataTransferViewController.swift */; };
 		C47ABEAD2014441B007DAA6B /* DataEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47ABEAC2014441B007DAA6B /* DataEntryViewController.swift */; };
 		C481786620132531001EAF24 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481786520132531001EAF24 /* AppDelegate.swift */; };
 		C481786D20132531001EAF24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C481786B20132531001EAF24 /* Main.storyboard */; };
@@ -86,6 +88,8 @@
 		C4757C122016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServiceStore+ProtocolHandlers.swift"; sourceTree = "<group>"; };
 		C4757C132016D36B00C90984 /* ServiceStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceStore.swift; sourceTree = "<group>"; };
 		C4757C182016D40100C90984 /* ServiceStoreDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceStoreDelegate.swift; sourceTree = "<group>"; };
+		C4757C1A2017172600C90984 /* DataSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSelectionViewController.swift; sourceTree = "<group>"; };
+		C4757C1C201718E500C90984 /* DataTransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferViewController.swift; sourceTree = "<group>"; };
 		C47ABEAC2014441B007DAA6B /* DataEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntryViewController.swift; sourceTree = "<group>"; };
 		C481786220132531001EAF24 /* PowerScout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PowerScout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C481786520132531001EAF24 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +155,7 @@
 			children = (
 				C40BB93C2013E6FE0011DB45 /* MasterViewController.swift */,
 				C40BB93E2013E6FE0011DB45 /* PenaltyViewController.swift */,
+				C4757C1C201718E500C90984 /* DataTransferViewController.swift */,
 			);
 			path = MasterControllers;
 			sourceTree = "<group>";
@@ -219,6 +224,7 @@
 		C47ABEAB2014441B007DAA6B /* DetailControllers */ = {
 			isa = PBXGroup;
 			children = (
+				C4757C1A2017172600C90984 /* DataSelectionViewController.swift */,
 				C47ABEAC2014441B007DAA6B /* DataEntryViewController.swift */,
 			);
 			path = DetailControllers;
@@ -480,6 +486,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C40BB9432013E6FE0011DB45 /* MasterViewController.swift in Sources */,
+				C4757C1B2017172600C90984 /* DataSelectionViewController.swift in Sources */,
 				C47ABEAD2014441B007DAA6B /* DataEntryViewController.swift in Sources */,
 				C40BB9532013E7050011DB45 /* CustomContainerArrayView.swift in Sources */,
 				C4757C172016D36B00C90984 /* ServiceStore.swift in Sources */,
@@ -495,6 +502,7 @@
 				C4757C152016D36B00C90984 /* ServiceState.swift in Sources */,
 				C40BB9582013E7050011DB45 /* themeDefinitions.swift in Sources */,
 				C40BB9592013E7050011DB45 /* UINavigationController+Rotation.swift in Sources */,
+				C4757C1D201718E500C90984 /* DataTransferViewController.swift in Sources */,
 				C40BB9552013E7050011DB45 /* MatchCell.swift in Sources */,
 				C40BB97E2013E7C60011DB45 /* Match.swift in Sources */,
 				C4757C192016D40100C90984 /* ServiceStoreDelegate.swift in Sources */,
