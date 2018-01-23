@@ -18,7 +18,7 @@ class ServiceStore: NSObject {
     let advertiser = MCNearbyServiceAdvertiser(peer: MatchTransfer.localPeerID,
                                                discoveryInfo: [
                                                 MatchTransferDiscoveryInfo.DeviceName: UIDevice().name,
-                                                MatchTransferDiscoveryInfo.MatchTypeKey: "SteamScout",
+                                                MatchTransferDiscoveryInfo.MatchTypeKey: "PowerScout",
                                                 MatchTransferDiscoveryInfo.VersionKey: MatchTransferDiscoveryInfo.SendVersion],
                                                serviceType: MatchTransfer.serviceType)
     

@@ -38,7 +38,7 @@ enum MatchTransferVersion: String, RawRepresentable {
 }
 
 struct MatchTransfer {
-    static let serviceType = "StmSct-dataxfer"
+    static let serviceType = "PwrSct-dataxfer"
     static let localPeerID = MCPeerID(displayName: UIDevice.current.name)
     static let session = MCSession(peer: MatchTransfer.localPeerID, securityIdentity: nil, encryptionPreference: .none)
 }
