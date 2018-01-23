@@ -33,6 +33,8 @@ protocol Match : CsvDataProvider, MatchCoding {
     var matchNumber:Int        { get set }
     var alliance:AllianceType  { get set }
     var isCompleted:Int        { get set }
+    var isExported:Bool        { get set }
+    var selectedForDataTransfer:Bool { get set }
     
     // Final Info
     
@@ -65,6 +67,8 @@ class MatchImpl : Any, Match {
     var matchNumber:Int        = 0
     var alliance:AllianceType  = .unknown
     var isCompleted:Int        = 0
+    var isExported:Bool        = false
+    var selectedForDataTransfer: Bool = true
     
     // Final Info
     
