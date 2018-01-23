@@ -36,7 +36,10 @@ extension ServiceStore: MCNearbyServiceBrowserDelegate {
                 case .v0_1_0:
                     print("Adding peer \(peerID.displayName) (\(String(describing: _info[MatchTransferDiscoveryInfo.DeviceName]))) with type \(String(describing: _info[MatchTransferDiscoveryInfo.MatchTypeKey]))")
                     foundPeers[peerID] = _info
+                    // TEMPORARY
                     browser.invitePeer(peerID, to: MatchTransfer.session, withContext: nil, timeout: 10.0)
+                    
+                    self.delegate?.serviceStore(self, withBrowser: browser, foundPeer: peerID)
                 default:
                     print("Found Peer with invalid version: \(version)! Bypassing...")
                 }
@@ -60,6 +63,7 @@ extension ServiceStore: MCNearbyServiceBrowserDelegate {
                 case .v0_1_0:
                     print("Removing peer \(peerID.displayName) (\(String(describing: _info?[MatchTransferDiscoveryInfo.DeviceName]))) with type \(String(describing: _info?[MatchTransferDiscoveryInfo.MatchTypeKey]))")
                     foundPeers.removeValue(forKey: peerID)
+                    self.delegate?.serviceStore(self, withBrowser: browser, lostPeer: peerID)
                 default:
                     print("Lost Peer with invalid version: \(version)! Bypassing...")
                 }

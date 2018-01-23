@@ -11,6 +11,8 @@ import MultipeerConnectivity
 
 protocol ServiceStoreDelegate: class {
     func serviceStore(_ serviceStore:ServiceStore, withSession session:MCSession, didChangeState state:MCSessionState)
+    func serviceStore(_ serviceStore:ServiceStore, withBrowser browser:MCNearbyServiceBrowser, foundPeer peerId:MCPeerID)
+    func serviceStore(_ serviceStore:ServiceStore, withBrowser browser:MCNearbyServiceBrowser, lostPeer peerId:MCPeerID)
     func serviceStore(_ serviceStore:ServiceStore, withSession session:MCSession, didReceiveData data:Data, fromPeer peerId:MCPeerID)
     func serviceStore(_ serviceStore:ServiceStore, transitionedFromState fromState:ServiceState, toState:ServiceState, forEvent event:ServiceEvent, withUserInfo userInfo:Any?)
 }

@@ -107,6 +107,14 @@ extension DataTransferViewController: ServiceStoreDelegate {
         }
     }
     
+    func serviceStore(_ serviceStore: ServiceStore, withBrowser browser: MCNearbyServiceBrowser, foundPeer peerId: MCPeerID) {
+        print("found peer: \(peerId.displayName)")
+    }
+    
+    func serviceStore(_ serviceStore: ServiceStore, withBrowser browser: MCNearbyServiceBrowser, lostPeer peerId: MCPeerID) {
+        print("lost peer: \(peerId.displayName)")
+    }
+    
     func serviceStore(_ serviceStore: ServiceStore, transitionedFromState fromState: ServiceState, toState: ServiceState, forEvent event: ServiceEvent, withUserInfo userInfo: Any?) {
         // TODO: Implement Further
         
@@ -141,7 +149,7 @@ extension DataTransferViewController: ServiceStoreDelegate {
         case (.advertGoBack, .advertReady, .advertSelectingData) :
             print("Show Data Selection Screen UI")
             
-            self.performSegue(withIdentifier: "segueToDataSelection", sender: self)
+            self.performSegue(withIdentifier: "SegueToDataSelection", sender: self)
             
             break
         case (.advertProceed, .advertSelectingData, .advertReady) : fallthrough

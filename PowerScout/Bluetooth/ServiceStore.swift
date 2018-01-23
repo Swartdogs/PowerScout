@@ -264,7 +264,7 @@ class ServiceStore: NSObject {
         }
         
         // Add Reset Event Handlers
-        machine.addHandler(event: .browseErrorOut) {[unowned self] (event: ServiceEvent?, fromState: ServiceState, toState: ServiceState, userInfo: Any?) -> () in
+        machine.addHandler(event: .reset) {[unowned self] (event: ServiceEvent?, fromState: ServiceState, toState: ServiceState, userInfo: Any?) -> () in
             switch(fromState, toState) {
             // Advertise Reset Transitions
             case (.advertRunning, .notReady) : fallthrough

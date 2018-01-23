@@ -384,7 +384,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kUE-1w-fab">
-                                <rect key="frame" x="8" y="20" width="304" height="334"/>
+                                <rect key="frame" x="8" y="20" width="304" height="410"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ajw-1b-oum">
                                         <rect key="frame" x="81.5" y="0.0" width="141" height="30"/>
@@ -393,8 +393,22 @@
                                             <action selector="handleButtonSelect:" destination="3Ip-v4-Z5c" eventType="touchUpInside" id="YfJ-ZW-maw"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Sb-C9-ypT">
+                                        <rect key="frame" x="134.5" y="38" width="35" height="30"/>
+                                        <state key="normal" title="Ping!"/>
+                                        <connections>
+                                            <action selector="pingConnectedDevices:" destination="3Ip-v4-Z5c" eventType="touchUpInside" id="EAC-Lk-klO"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8t8-Mn-okJ">
+                                        <rect key="frame" x="103" y="76" width="98" height="30"/>
+                                        <state key="normal" title="Show Browser"/>
+                                        <connections>
+                                            <action selector="showBrowserView:" destination="3Ip-v4-Z5c" eventType="touchUpInside" id="DUA-GT-WoF"/>
+                                        </connections>
+                                    </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Owl-Ko-DbJ">
-                                        <rect key="frame" x="0.0" y="38" width="304" height="144"/>
+                                        <rect key="frame" x="0.0" y="114" width="304" height="144"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advertise Controls" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBG-go-M4k">
                                                 <rect key="frame" x="0.0" y="0.0" width="304" height="30"/>
@@ -426,7 +440,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9Ay-52-FBR">
-                                        <rect key="frame" x="0.0" y="190" width="304" height="144"/>
+                                        <rect key="frame" x="0.0" y="266" width="304" height="144"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Browse Controls" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cg-Po-U3K">
                                                 <rect key="frame" x="0.0" y="0.0" width="304" height="30"/>
