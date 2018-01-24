@@ -12,7 +12,8 @@ import MultipeerConnectivity
 extension ServiceStore: MCNearbyServiceAdvertiserDelegate {
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         print("advertiser \(advertiser) did receive invitation from peer \(peerID.displayName) with context \(String(describing: context))")
-        // TEMPORARY
+        proceedWithAdvertising()
+        // TEMPORARY -- Should ask user instead
         invitationHandler(true, MatchTransfer.session)
     }
     
@@ -76,9 +77,36 @@ extension ServiceStore: MCNearbyServiceBrowserDelegate {
 
 extension ServiceStore: MCSessionDelegate {
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
+        let prevState = sessionState
         self.sessionState = state
         self.delegate?.serviceStore(self, withSession: session, didChangeState: state)
-        print("MCSession \(session.myPeerID.displayName) with did change state to \(String(describing: state))")
+        print("MCSession \(session.myPeerID.displayName) with did change state to \(String(describing: state.rawValue))")
+        
+        if advertising {
+            if prevState == .notConnected && state == .connecting {
+                proceedWithAdvertising()
+            } else if prevState == .connecting && state == .connected {
+                proceedWithAdvertising()
+            } else if prevState == .connected && state == .connecting {
+                goBackWithAdvertising()
+            } else if prevState == .connecting && state == .notConnected {
+                goBackWithAdvertising()
+            }
+            // TODO: Detect if this is due to error or not
+//            else if prevState == .connected && state == .notConnected {
+//                proceedWithAdvertising()
+//            }
+        } else if browsing {
+            if prevState == .notConnected && state == .connecting {
+                proceedWithBrowsing()
+            } else if prevState == .connecting && state == .connected {
+                proceedWithBrowsing()
+            } else if prevState == .connected && state == .connecting {
+                goBackWithBrowsing()
+            } else if prevState == .connecting && state == .notConnected {
+                goBackWithBrowsing()
+            }
+        }
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {

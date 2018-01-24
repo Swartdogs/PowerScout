@@ -180,12 +180,12 @@
                                     <navigationItem title="Data Selection" id="1ca-Ua-cTi">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="0dQ-PW-K7s">
                                             <connections>
-                                                <segue destination="jr3-6I-3Bw" kind="unwind" unwindAction="unwindToDataTransferView:" id="3pC-jp-7uP"/>
+                                                <segue destination="jr3-6I-3Bw" kind="unwind" identifier="UnwindSegueCancelSelectingData" unwindAction="unwindToDataTransferView:" id="f3M-M5-U0q"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Done" id="GhQ-Df-fUe">
                                             <connections>
-                                                <segue destination="jr3-6I-3Bw" kind="unwind" unwindAction="unwindToDataTransferView:" id="3xg-c8-Af9"/>
+                                                <segue destination="jr3-6I-3Bw" kind="unwind" identifier="UnwindSegueDoneSelectingData" unwindAction="unwindToDataTransferView:" id="Lpr-s8-ioX"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -384,7 +384,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kUE-1w-fab">
-                                <rect key="frame" x="8" y="20" width="304" height="410"/>
+                                <rect key="frame" x="8" y="20" width="304" height="467"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ajw-1b-oum">
                                         <rect key="frame" x="81.5" y="0.0" width="141" height="30"/>
@@ -407,8 +407,50 @@
                                             <action selector="showBrowserView:" destination="3Ip-v4-Z5c" eventType="touchUpInside" id="DUA-GT-WoF"/>
                                         </connections>
                                     </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Dd3-ze-ITt">
+                                        <rect key="frame" x="0.0" y="114" width="304" height="49"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TmK-13-A4R">
+                                                <rect key="frame" x="0.0" y="0.0" width="304" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service State" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6uN-iB-gry">
+                                                        <rect key="frame" x="0.0" y="0.0" width="205.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tre-RB-Fom">
+                                                        <rect key="frame" x="213.5" y="0.0" width="90.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eMe-WB-yrI">
+                                                <rect key="frame" x="0.0" y="28.5" width="304" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Session State" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U8m-F8-r7X">
+                                                        <rect key="frame" x="0.0" y="0.0" width="205.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wgD-Rf-HUP">
+                                                        <rect key="frame" x="213.5" y="0.0" width="90.5" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="U8m-F8-r7X" firstAttribute="width" secondItem="6uN-iB-gry" secondAttribute="width" id="fun-Gq-e95"/>
+                                        </constraints>
+                                    </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Owl-Ko-DbJ">
-                                        <rect key="frame" x="0.0" y="114" width="304" height="144"/>
+                                        <rect key="frame" x="0.0" y="171" width="304" height="144"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advertise Controls" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBG-go-M4k">
                                                 <rect key="frame" x="0.0" y="0.0" width="304" height="30"/>
@@ -440,7 +482,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9Ay-52-FBR">
-                                        <rect key="frame" x="0.0" y="266" width="304" height="144"/>
+                                        <rect key="frame" x="0.0" y="323" width="304" height="144"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Browse Controls" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cg-Po-U3K">
                                                 <rect key="frame" x="0.0" y="0.0" width="304" height="30"/>
@@ -475,6 +517,7 @@
                                 <constraints>
                                     <constraint firstItem="9Ay-52-FBR" firstAttribute="width" secondItem="kUE-1w-fab" secondAttribute="width" id="7Qf-5c-b7A"/>
                                     <constraint firstItem="Owl-Ko-DbJ" firstAttribute="width" secondItem="kUE-1w-fab" secondAttribute="width" id="JNk-IA-hYd"/>
+                                    <constraint firstItem="Dd3-ze-ITt" firstAttribute="width" secondItem="kUE-1w-fab" secondAttribute="width" id="XDV-gV-G3j"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -492,7 +535,10 @@
                         <outlet property="sendBrowseErrorOut" destination="QtK-nS-mqw" id="Gxv-AQ-tWl"/>
                         <outlet property="sendBrowseGoBack" destination="ShS-uk-Okt" id="Dvt-Pn-dpr"/>
                         <outlet property="sendBrowseProceed" destination="wUW-e1-hrb" id="sGQ-f6-6P5"/>
+                        <outlet property="sendPing" destination="2Sb-C9-ypT" id="J99-5A-lsA"/>
                         <outlet property="sendReset" destination="Ajw-1b-oum" id="CJD-ge-Asw"/>
+                        <outlet property="serviceStateLabel" destination="Tre-RB-Fom" id="6bf-bk-7ir"/>
+                        <outlet property="sessionStateLabel" destination="wgD-Rf-HUP" id="U2v-mP-30G"/>
                         <segue destination="6lC-cu-Lvz" kind="presentation" identifier="SegueToDataSelection" modalPresentationStyle="formSheet" id="cYe-sG-gmv"/>
                     </connections>
                 </viewController>

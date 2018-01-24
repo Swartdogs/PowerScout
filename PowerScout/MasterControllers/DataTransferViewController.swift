@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 import MultipeerConnectivity
 
 class DataTransferViewController: UIViewController {
@@ -17,6 +18,9 @@ class DataTransferViewController: UIViewController {
     @IBOutlet var sendBrowseGoBack: UIButton!
     @IBOutlet var sendBrowseErrorOut: UIButton!
     @IBOutlet var sendReset: UIButton!
+    @IBOutlet var sendPing: UIButton!
+    @IBOutlet var serviceStateLabel: UILabel!
+    @IBOutlet var sessionStateLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +30,15 @@ class DataTransferViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        ServiceStore.shared.delegate = self
+        setServiceStateLabel(for: ServiceStore.shared.machineState)
+        setSessionStateLabel(for: ServiceStore.shared.sessionState)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
-        performSegue(withIdentifier: "SegueToDataSelection", sender: self)
+        ServiceStore.shared.delegate = nil
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,10 +81,55 @@ class DataTransferViewController: UIViewController {
     @IBAction func pingConnectedDevices(_ sender: UIButton) {
         let message = "ping"
         ServiceStore.shared.sendMessage(message)
+        ServiceStore.shared.proceedWithAdvertising()
     }
     
     @IBAction func unwindToDataTransferView(_ sender:UIStoryboardSegue) {
+        print(String(describing: sender.identifier));
         AppUtility.revertOrientation()
+        
+        if let id = sender.identifier {
+            if id.elementsEqual("UnwindSegueDoneSelectingData") {
+                print("Data Selection Complete")
+                ServiceStore.shared.proceedWithAdvertising()
+            } else if id.elementsEqual("UnwindSegueCancelSelectingData") {
+                print("Data Selection Canceled")
+                ServiceStore.shared.goBackWithAdvertising()
+            }
+        }
+    }
+    
+    func updateButtonStates() {
+        let advertising = ServiceStore.shared.advertising
+        let browsing = ServiceStore.shared.browsing
+        
+        sendPing.isEnabled = ServiceStore.shared.machineState == .advertSendingData
+        
+        sendAdvertProceed.isEnabled = advertising || !browsing
+        sendAdvertGoBack.isEnabled = advertising || !browsing
+        sendAdvertErrorOut.isEnabled = advertising || !browsing
+        
+        sendBrowseProceed.isEnabled = browsing || !advertising
+        sendBrowseGoBack.isEnabled = browsing || !advertising
+        sendBrowseErrorOut.isEnabled = browsing || !advertising
+    }
+    
+    func setSessionStateLabel(for state: MCSessionState) {
+        switch state {
+        case .notConnected:
+            sessionStateLabel.text = "Not Connected"
+            break
+        case .connecting:
+            sessionStateLabel.text = "Connecting"
+            break
+        case .connected:
+            sessionStateLabel.text = "Connected"
+            break
+        }
+    }
+    
+    func setServiceStateLabel(for state: ServiceState) {
+        serviceStateLabel.text = String(describing: state)
     }
 
     /*
@@ -91,6 +147,9 @@ class DataTransferViewController: UIViewController {
 extension DataTransferViewController: ServiceStoreDelegate {
     func serviceStore(_ serviceStore: ServiceStore, withSession session: MCSession, didChangeState state: MCSessionState) {
         print("ServiceStore Session: \(session.debugDescription) did change state: \(state)")
+        DispatchQueue.main.async {
+            self.setSessionStateLabel(for: state)
+        }
     }
     
     func serviceStore(_ serviceStore: ServiceStore, withSession session: MCSession, didReceiveData data: Data, fromPeer peerId: MCPeerID) {
@@ -103,6 +162,10 @@ extension DataTransferViewController: ServiceStoreDelegate {
                     alert.addAction(ok)
                     self?.present(alert, animated: true, completion: nil)
                 }
+            }
+            if ServiceStore.shared.browsing {
+                print("Proceeding with Browsing")
+                ServiceStore.shared.proceedWithBrowsing()
             }
         }
     }
@@ -158,20 +221,57 @@ extension DataTransferViewController: ServiceStoreDelegate {
             break
         case (.advertProceed, .advertRunning, .advertInvitationPending) :
             print("Show Invitation Pending UI")
+            DispatchQueue.main.async {
+                MBProgressHUD.hide(for: self.view, animated: false)
+                let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                hud.mode = .indeterminate
+                hud.label.text = "Invitation Pending"
+                hud.hide(animated: true, afterDelay: 2)
+            }
             break
         case (.advertProceed, .advertInvitationPending, .advertConnecting) : fallthrough
         case (.browseProceed, .browseRunning, .browseConnecting) :
             print("Show Connecting UI")
+            DispatchQueue.main.async {
+                MBProgressHUD.hide(for: self.view, animated: false)
+                let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                hud.mode = .indeterminate
+                hud.label.text = "Connecting"
+                hud.hide(animated: true, afterDelay: 2)
+            }
             break
         case (.advertProceed, .advertConnecting, .advertSendingData) :
             print("Show Sending Data UI")
+            DispatchQueue.main.async {
+                MBProgressHUD.hide(for: self.view, animated: false)
+                let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                hud.mode = .indeterminate
+                hud.label.text = "Sending Data"
+                hud.hide(animated: true, afterDelay: 2)
+            }
             break
         case (.browseProceed, .browseConnecting, .browseReceivingData) :
             print("Show Receiving Data UI")
+            DispatchQueue.main.async {
+                MBProgressHUD.hide(for: self.view, animated: false)
+                let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                hud.mode = .indeterminate
+                hud.label.text = "Receiving Data"
+                hud.hide(animated: true, afterDelay: 2)
+            }
             break
         case (.advertProceed, .advertSendingData, .notReady) : fallthrough
         case (.browseProceed, .browseReceivingData, .notReady) :
             print("Show Complete UI and hide after 2 sec delay")
+            DispatchQueue.main.async {
+                MBProgressHUD.hide(for: self.view, animated: false)
+                let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                let imageView = UIImageView(image: UIImage(named: "Check"))
+                hud.mode = .customView
+                hud.customView = imageView
+                hud.label.text = "Completed"
+                hud.hide(animated: true, afterDelay: 2)
+            }
             break
         case (.advertGoBack, .advertInvitationPending, .advertRunning) : fallthrough
         case (.advertGoBack, .advertConnecting, .advertRunning) : fallthrough
@@ -180,6 +280,9 @@ extension DataTransferViewController: ServiceStoreDelegate {
         case (.browseGoBack, .browseReceivingData, .browseRunning) :
             // UI Might not be necesssary
             print("Show Dismissal UI with userInfo: \(String(describing: userInfo))")
+            DispatchQueue.main.async {
+                MBProgressHUD.hide(for: self.view, animated: false)
+            }
             break
         case (.advertErrorOut, .advertRunning, .notReady) : fallthrough
         case (.advertErrorOut, .advertConnecting, .notReady) : fallthrough
@@ -188,11 +291,25 @@ extension DataTransferViewController: ServiceStoreDelegate {
         case (.browseErrorOut, .browseConnecting, .notReady) : fallthrough
         case (.browseErrorOut, .browseReceivingData, .notReady) :
             print("Show \(String(describing: fromState)) Error UI with user info: \(String(describing: userInfo))")
+            DispatchQueue.main.async {
+                MBProgressHUD.hide(for: self.view, animated: false)
+                let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+                let imageView = UIImageView(image: UIImage(named: "Close"))
+                hud.mode = .customView
+                hud.customView = imageView
+                hud.label.text = "Error"
+                hud.hide(animated: true, afterDelay: 2)
+            }
             break
             
         default:
             print("WARN: Unknown transition \(String(describing: fromState)) => \(String(describing: toState)) for \(String(describing: event))!")
             break
+        }
+        
+        DispatchQueue.main.async {
+            self.updateButtonStates()
+            self.setServiceStateLabel(for: toState)
         }
     }
 }

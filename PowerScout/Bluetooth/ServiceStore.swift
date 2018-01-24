@@ -110,6 +110,15 @@ class ServiceStore: NSObject {
         }
     }
     
+    private func _disconnectSession() {
+        guard sessionState != .notConnected else {
+            print("Can't Disconnect the session if it's already disconnected!")
+            return
+        }
+        
+        MatchTransfer.session.disconnect()
+    }
+    
     private func _handleStartAdvertising() {
         MatchTransfer.session.delegate = self
         advertiser.startAdvertisingPeer()
@@ -153,8 +162,13 @@ class ServiceStore: NSObject {
             case (.advertSelectingData,     .advertReady)             : fallthrough
             case (.advertRunning,           .advertInvitationPending) : fallthrough
             case (.advertInvitationPending, .advertConnecting)        : fallthrough
-            case (.advertConnecting,        .advertSendingData)       : fallthrough
+            case (.advertConnecting,        .advertSendingData)       :
+                self._handleDelegateCall(fromState: fromState, toState: toState, forEvent: event!, withUserInfo: userInfo)
+                break
             case (.advertSendingData,       .notReady) :
+                print("Stop Advertiser")
+                self._disconnectSession()
+                self._handleStopAdvertising()
                 self._handleDelegateCall(fromState: fromState, toState: toState, forEvent: event!, withUserInfo: userInfo)
                 break
             default:
@@ -174,10 +188,13 @@ class ServiceStore: NSObject {
                 self._handleStopAdvertising()
                 fallthrough
             case (.advertSelectingData, .notReady)            : fallthrough
-            case (.advertReady,         .advertSelectingData) : fallthrough
+            case (.advertReady,         .advertSelectingData) :
+                self._handleDelegateCall(fromState: fromState, toState: toState, forEvent: event!, withUserInfo: userInfo)
+                break
             case (.advertInvitationPending, .advertRunning)   : fallthrough
             case (.advertConnecting, .advertRunning) : fallthrough
             case (.advertSendingData, .advertRunning) :
+                self._disconnectSession()
                 self._handleDelegateCall(fromState: fromState, toState: toState, forEvent: event!, withUserInfo: userInfo)
             default :
                 print("Invalid case for this event!")
@@ -194,6 +211,8 @@ class ServiceStore: NSObject {
             case (.advertRunning, .notReady) : fallthrough
             case (.advertConnecting, .notReady) : fallthrough
             case (.advertSendingData, .notReady) :
+                print("Stop Advertiser")
+                self._disconnectSession()
                 self._handleStopAdvertising()
                 self._handleDelegateCall(fromState: fromState, toState: toState, forEvent: event!, withUserInfo: userInfo)
                 break
@@ -214,8 +233,13 @@ class ServiceStore: NSObject {
                 self._handleStartBrowser()
                 fallthrough
             case (.browseRunning, .browseConnecting) : fallthrough
-            case (.browseConnecting, .browseReceivingData) : fallthrough
+            case (.browseConnecting, .browseReceivingData) :
+                self._handleDelegateCall(fromState: fromState, toState: toState, forEvent: event!, withUserInfo: userInfo)
+                break
             case (.browseReceivingData, .notReady) :
+                self._disconnectSession()
+                print("Stop Browser")
+                self._handleStopBrowser()
                 self._handleDelegateCall(fromState: fromState, toState: toState, forEvent: event!, withUserInfo: userInfo)
                 break
             default:
@@ -234,8 +258,11 @@ class ServiceStore: NSObject {
                 print("Stop Browser")
                 self._handleStopBrowser()
                 fallthrough
-            case (.browseConnecting, .browseRunning) : fallthrough
+            case (.browseConnecting, .browseRunning) :
+                self._handleDelegateCall(fromState: fromState, toState: toState, forEvent: event!, withUserInfo: userInfo)
+                break
             case (.browseReceivingData, .browseRunning) :
+                self._disconnectSession()
                 self._handleDelegateCall(fromState: fromState, toState: toState, forEvent: event!, withUserInfo: userInfo)
             default:
                 print("Invalid case for this event!")
@@ -253,6 +280,7 @@ class ServiceStore: NSObject {
             case (.browseConnecting, .notReady) : fallthrough
             case (.browseReceivingData, .notReady) :
                 print("Stop Browser")
+                self._disconnectSession()
                 self._handleStopBrowser()
                 self._handleDelegateCall(fromState: fromState, toState: toState, forEvent: event!, withUserInfo: userInfo)
             default:
@@ -272,6 +300,7 @@ class ServiceStore: NSObject {
             case (.advertConnecting, .notReady) : fallthrough
             case (.advertSendingData, .notReady) :
                 print("Stop Advertiser")
+                self._disconnectSession()
                 self._handleStopAdvertising()
                 fallthrough
             case (.advertSelectingData, .notReady) : fallthrough
@@ -285,22 +314,39 @@ class ServiceStore: NSObject {
             case (.browseConnecting, .notReady) : fallthrough
             case (.browseReceivingData, .notReady) :
                 print("Stop Browser")
+                self._disconnectSession()
                 self._handleStopBrowser()
                 self._handleDelegateCall(fromState: fromState, toState: toState, forEvent: event!, withUserInfo: userInfo)
                 print("Browse State Reset")
                 break
                 
+            // Default Reset Transition
+            case (.notReady, .notReady) :
+                self._disconnectSession()
+                print("Stop Advertiser")
+                self._handleStopAdvertising()
+                print("Stop Browser")
+                self._handleStopBrowser()
+                self._handleDelegateCall(fromState: fromState, toState: toState, forEvent: event!, withUserInfo: userInfo)
+                break
             default:
                 print("Invalid case for this event!")
                 break
             }
             
-            print("completed handler for \(ServiceEvent.browseErrorOut): \(fromState) => \(toState)")
+            print("completed handler for \(ServiceEvent.reset): \(fromState) => \(toState)")
         }
     }
     
     private func _createServiceStateMachine() -> StateMachine<ServiceState, ServiceEvent> {
         return StateMachine<ServiceState, ServiceEvent>(state: .notReady, initClosure: { [unowned self] machine in
+            // MARK: Default Transisions
+        
+            /// Not Ready => Not Ready
+            /// Triggered by: User
+            /// Handlers: Self - Disconnect Session, Stop Advertiser and Browser, Reset State
+            machine.addRoute(.notReady => .notReady)
+            
             // MARK: Add Advertisement Transitions
             
             /// Not Ready => Selecting Data
@@ -488,6 +534,7 @@ class ServiceStore: NSObject {
                 case (.browseErrorOut, .browseReceivingData)    : return .notReady
                     
                 // Reset Events
+                case (.reset, .notReady)                        : return .notReady
                 case (.reset, .advertSelectingData)             : return .notReady
                 case (.reset, .advertReady)                     : return .notReady
                 case (.reset, .advertRunning)                   : return .notReady
