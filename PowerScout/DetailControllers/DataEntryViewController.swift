@@ -169,7 +169,7 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
              anyClimb = true
         }
     }
-   
+   //All value changed actions
  
     @IBAction func autoScaleValueChanged(_ sender: UIStepper) {
         autoScaleBlock = Int(sender.value)
