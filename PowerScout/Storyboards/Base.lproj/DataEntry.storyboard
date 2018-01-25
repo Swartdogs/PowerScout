@@ -783,6 +783,9 @@
                                                     </label>
                                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="tjV-W9-3GG">
                                                         <rect key="frame" x="389" y="0.0" width="94" height="29"/>
+                                                        <connections>
+                                                            <action selector="teleopScaleValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="hmq-or-dRC"/>
+                                                        </connections>
                                                     </stepper>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6g9-zA-wjj">
                                                         <rect key="frame" x="674" y="0.0" width="62" height="31.5"/>
@@ -877,6 +880,9 @@
                                                             </label>
                                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="5H9-cL-hfP">
                                                                 <rect key="frame" x="193" y="0.0" width="94" height="29"/>
+                                                                <connections>
+                                                                    <action selector="teleopSwitchValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="Ttj-na-NZf"/>
+                                                                </connections>
                                                             </stepper>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tmo-Cm-bTe">
                                                                 <rect key="frame" x="331.5" y="0.0" width="20.5" height="33"/>
@@ -897,6 +903,9 @@
                                                             </label>
                                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="5Ec-b2-pcU">
                                                                 <rect key="frame" x="215.5" y="0.0" width="94" height="29"/>
+                                                                <connections>
+                                                                    <action selector="teleopBlockExchangedValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="Dw4-zK-YLa"/>
+                                                                </connections>
                                                             </stepper>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z15-Rr-0P9">
                                                                 <rect key="frame" x="355" y="0.0" width="21" height="33"/>

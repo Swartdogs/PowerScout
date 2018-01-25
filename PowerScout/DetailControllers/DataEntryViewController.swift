@@ -178,8 +178,21 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     
     @IBAction func autoSwitchValueChanged(_ sender: UIStepper) {
         autoSwitchVar = Int(sender.value)
-        autoAmmountSwitch.text = autoSwitchVar.description
+        autoAmmountSwitch.text=Int(sender.value).description
     }
+    @IBAction func teleopScaleValueChanged(_ sender: UIStepper) {
+        teleScaleVar = Int(sender.value)
+        teleAmmountScale.text=Int(sender.value).description
+    }
+    @IBAction func teleopSwitchValueChanged(_ sender: UIStepper) {
+        teleSwitchVar = Int(sender.value)
+        teleAmmountSwitch.text=Int(sender.value).description
+    }
+    @IBAction func teleopBlockExchangedValueChanged(_ sender: UIStepper) {
+        exchangedBlocksVar = Int(sender.value)
+        ammountExchangedBlocks.text=Int(sender.value).description
+    }
+    
 }
 
     
