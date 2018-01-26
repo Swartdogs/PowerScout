@@ -111,6 +111,15 @@ extension ServiceStore: MCSessionDelegate {
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("MCSession \(session.myPeerID.displayName) did receive data from peer \(peerID): \(data)")
+        if let string = String(data: data, encoding: .utf8) {
+            if string.elementsEqual("EOD") {
+                if advertising {
+                    proceedWithAdvertising()
+                } else if browsing {
+                    proceedWithBrowsing()
+                }
+            }
+        }
         self.delegate?.serviceStore(self, withSession: session, didReceiveData: data, fromPeer: peerID)
     }
     
