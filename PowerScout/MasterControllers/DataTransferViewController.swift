@@ -10,6 +10,11 @@ import UIKit
 import MBProgressHUD
 import MultipeerConnectivity
 
+protocol DataTransferViewControllerDelegate: class {
+    func dataTransferViewController(_ dataTransferViewController: DataTransferViewController, foundNearbyDevice nearbyDevice: NearbyDevice)
+    func dataTransferViewController(_ dataTransferViewController: DataTransferViewController, lostNearbyDevice nearbyDevice: NearbyDevice)
+}
+
 class DataTransferViewController: UIViewController {
     @IBOutlet var sendAdvertProceed: UIButton!
     @IBOutlet var sendAdvertGoBack: UIButton!
@@ -21,6 +26,8 @@ class DataTransferViewController: UIViewController {
     @IBOutlet var sendPing: UIButton!
     @IBOutlet var serviceStateLabel: UILabel!
     @IBOutlet var sessionStateLabel: UILabel!
+    
+    weak var delegate:DataTransferViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +88,8 @@ class DataTransferViewController: UIViewController {
     @IBAction func pingConnectedDevices(_ sender: UIButton) {
         let message = "ping"
         ServiceStore.shared.sendMessage(message)
-        ServiceStore.shared.proceedWithAdvertising()
+        
+        ServiceStore.shared.sendMessage("EOD")
     }
     
     @IBAction func unwindToDataTransferView(_ sender:UIStoryboardSegue) {
@@ -172,10 +180,16 @@ extension DataTransferViewController: ServiceStoreDelegate {
     
     func serviceStore(_ serviceStore: ServiceStore, withBrowser browser: MCNearbyServiceBrowser, foundPeer peerId: MCPeerID) {
         print("found peer: \(peerId.displayName)")
+        if delegate != nil {
+            delegate?.dataTransferViewController(self, foundNearbyDevice: NearbyDevice(displayName: peerId.displayName, type: .multipeerConnectivity))
+        }
     }
     
     func serviceStore(_ serviceStore: ServiceStore, withBrowser browser: MCNearbyServiceBrowser, lostPeer peerId: MCPeerID) {
         print("lost peer: \(peerId.displayName)")
+        if delegate != nil {
+            delegate?.dataTransferViewController(self, lostNearbyDevice: NearbyDevice(displayName: peerId.displayName, type: .multipeerConnectivity))
+        }
     }
     
     func serviceStore(_ serviceStore: ServiceStore, transitionedFromState fromState: ServiceState, toState: ServiceState, forEvent event: ServiceEvent, withUserInfo userInfo: Any?) {
