@@ -81,10 +81,6 @@ class DataTransferViewController: UIViewController {
         }
     }
     
-    @IBAction func showBrowserView(_ sender: UIButton) {
-        print("ERROR: Need to implement this!")
-    }
-    
     @IBAction func pingConnectedDevices(_ sender: UIButton) {
         let message = "ping"
         ServiceStore.shared.sendMessage(message)
@@ -103,6 +99,9 @@ class DataTransferViewController: UIViewController {
             } else if id.elementsEqual("UnwindSegueCancelSelectingData") {
                 print("Data Selection Canceled")
                 ServiceStore.shared.goBackWithAdvertising()
+            } else if id.elementsEqual("UnwindSegueFromBrowser") {
+                print("resetting delegate")
+                self.delegate = nil
             }
         }
     }
@@ -140,15 +139,20 @@ class DataTransferViewController: UIViewController {
         serviceStateLabel.text = String(describing: state)
     }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier!.elementsEqual("SegueToBrowser") {
+            if let nav = segue.destination as? UINavigationController {
+                if let vc = nav.topViewController as? NearbyDevicesTableViewController {
+                    self.delegate = vc
+                }
+            }
+        }
     }
-    */
 
 }
 

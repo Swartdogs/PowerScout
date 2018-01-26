@@ -28,6 +28,7 @@
 		C40BB9802013E7C60011DB45 /* MatchStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB9732013E7C60011DB45 /* MatchStore.swift */; };
 		C40BB9842013E7C60011DB45 /* SteamMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB9772013E7C60011DB45 /* SteamMatch.swift */; };
 		C40BB9852013E7C60011DB45 /* StrongMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB9782013E7C60011DB45 /* StrongMatch.swift */; };
+		C46C4AC9201A539A00FB4E5D /* NearbyDevicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C46C4AC8201A539A00FB4E5D /* NearbyDevicesTableViewController.swift */; };
 		C4757C142016D36B00C90984 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C102016D36B00C90984 /* Service.swift */; };
 		C4757C152016D36B00C90984 /* ServiceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C112016D36B00C90984 /* ServiceState.swift */; };
 		C4757C162016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C122016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift */; };
@@ -83,6 +84,7 @@
 		C40BB9732013E7C60011DB45 /* MatchStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchStore.swift; sourceTree = "<group>"; };
 		C40BB9772013E7C60011DB45 /* SteamMatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SteamMatch.swift; sourceTree = "<group>"; };
 		C40BB9782013E7C60011DB45 /* StrongMatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StrongMatch.swift; sourceTree = "<group>"; };
+		C46C4AC8201A539A00FB4E5D /* NearbyDevicesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyDevicesTableViewController.swift; sourceTree = "<group>"; };
 		C4757C102016D36B00C90984 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		C4757C112016D36B00C90984 /* ServiceState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceState.swift; sourceTree = "<group>"; };
 		C4757C122016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServiceStore+ProtocolHandlers.swift"; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			children = (
 				C4757C1A2017172600C90984 /* DataSelectionViewController.swift */,
 				C47ABEAC2014441B007DAA6B /* DataEntryViewController.swift */,
+				C46C4AC8201A539A00FB4E5D /* NearbyDevicesTableViewController.swift */,
 			);
 			path = DetailControllers;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				C4757C142016D36B00C90984 /* Service.swift in Sources */,
 				C4757C152016D36B00C90984 /* ServiceState.swift in Sources */,
 				C40BB9582013E7050011DB45 /* themeDefinitions.swift in Sources */,
+				C46C4AC9201A539A00FB4E5D /* NearbyDevicesTableViewController.swift in Sources */,
 				C40BB9592013E7050011DB45 /* UINavigationController+Rotation.swift in Sources */,
 				C4757C1D201718E500C90984 /* DataTransferViewController.swift in Sources */,
 				C40BB9552013E7050011DB45 /* MatchCell.swift in Sources */,
@@ -701,6 +705,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HE974PX7LL;
 				INFOPLIST_FILE = PowerScout/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -717,6 +722,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HE974PX7LL;
 				INFOPLIST_FILE = PowerScout/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

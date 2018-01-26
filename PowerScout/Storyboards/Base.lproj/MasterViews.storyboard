@@ -162,6 +162,67 @@
             </objects>
             <point key="canvasLocation" x="2246" y="-630"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="JTd-kD-85I">
+            <objects>
+                <navigationController id="c3c-JV-bgF" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="E5A-v3-n5R">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Cqh-aa-KAo" kind="relationship" relationship="rootViewController" id="Ok0-SB-gMb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QkW-CA-jbu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1001" y="1327"/>
+        </scene>
+        <!--Nearby Devices-->
+        <scene sceneID="rgh-b5-ZCb">
+            <objects>
+                <tableViewController id="Cqh-aa-KAo" customClass="NearbyDevicesTableViewController" customModule="PowerScout" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="RqT-Go-h13">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="nearbyDeviceCell" textLabel="uj7-cX-aN2" style="IBUITableViewCellStyleDefault" id="WIp-J9-RQs">
+                                <rect key="frame" x="0.0" y="28" width="540" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WIp-J9-RQs" id="4rZ-ad-mUx">
+                                    <rect key="frame" x="0.0" y="0.0" width="540" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uj7-cX-aN2">
+                                            <rect key="frame" x="20" y="0.0" width="500" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Cqh-aa-KAo" id="J8t-ZX-1Fu"/>
+                            <outlet property="delegate" destination="Cqh-aa-KAo" id="OOM-Ok-PGf"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Nearby Devices" id="gDw-Lk-JYY">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="SsY-L5-JOJ">
+                            <connections>
+                                <segue destination="iIC-fD-cjR" kind="unwind" identifier="UnwindSegueFromBrowser" unwindAction="unwindToDataTransferView:" id="Jbq-O8-gmP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Cv-MU-XhN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="iIC-fD-cjR" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1729" y="1327"/>
+        </scene>
         <!--Data Selection View Controller-->
         <scene sceneID="jSb-9J-R0F">
             <objects>
@@ -404,7 +465,7 @@
                                         <rect key="frame" x="103" y="76" width="98" height="30"/>
                                         <state key="normal" title="Show Browser"/>
                                         <connections>
-                                            <action selector="showBrowserView:" destination="3Ip-v4-Z5c" eventType="touchUpInside" id="DUA-GT-WoF"/>
+                                            <segue destination="c3c-JV-bgF" kind="presentation" identifier="SegueToBrowser" modalPresentationStyle="formSheet" id="QSe-ic-oVb"/>
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Dd3-ze-ITt">
