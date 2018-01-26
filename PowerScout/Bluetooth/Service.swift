@@ -9,6 +9,16 @@
 import Foundation
 import MultipeerConnectivity
 
+enum NearbyDevicesType {
+    case multipeerConnectivity
+    case coreBluetooth
+}
+
+struct NearbyDevice {
+    var displayName: String
+    var type: NearbyDevicesType
+}
+
 enum MatchTransferVersion: String, RawRepresentable {
     
     case invalid
@@ -40,7 +50,7 @@ enum MatchTransferVersion: String, RawRepresentable {
 struct MatchTransfer {
     static let serviceType = "PwrSct-dataxfer"
     static let localPeerID = MCPeerID(displayName: UIDevice.current.name)
-    static let session = MCSession(peer: MatchTransfer.localPeerID, securityIdentity: nil, encryptionPreference: .none)
+    static var session = MCSession(peer: MatchTransfer.localPeerID, securityIdentity: nil, encryptionPreference: .none)
 }
 
 struct MatchTransferDiscoveryInfo {

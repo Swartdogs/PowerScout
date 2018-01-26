@@ -18,6 +18,7 @@ enum ServiceState: StateType {
     case advertConnecting
     case advertSendingData
     case browseRunning
+    case browseInvitationPending
     case browseConnecting
     case browseReceivingData
 }

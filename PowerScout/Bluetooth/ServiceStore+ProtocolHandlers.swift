@@ -14,7 +14,7 @@ extension ServiceStore: MCNearbyServiceAdvertiserDelegate {
         print("advertiser \(advertiser) did receive invitation from peer \(peerID.displayName) with context \(String(describing: context))")
         proceedWithAdvertising()
         // TEMPORARY -- Should ask user instead
-//        invitationHandler(true, MatchTransfer.session)
+        invitationHandler(true, MatchTransfer.session)
     }
     
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error) {
@@ -93,9 +93,9 @@ extension ServiceStore: MCSessionDelegate {
                 goBackWithAdvertising()
             }
             // TODO: Detect if this is due to error or not
-//            else if prevState == .connected && state == .notConnected {
-//                proceedWithAdvertising()
-//            }
+            else if prevState == .connected && state == .notConnected {
+                proceedWithAdvertising()
+            }
         } else if browsing {
             if prevState == .notConnected && state == .connecting {
                 proceedWithBrowsing()
@@ -105,6 +105,8 @@ extension ServiceStore: MCSessionDelegate {
                 goBackWithBrowsing()
             } else if prevState == .connecting && state == .notConnected {
                 goBackWithBrowsing()
+            } else if prevState == .connected && state == .notConnected {
+                proceedWithBrowsing()
             }
         }
     }

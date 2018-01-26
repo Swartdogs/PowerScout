@@ -28,6 +28,7 @@ class DataTransferViewController: UIViewController {
     @IBOutlet var sessionStateLabel: UILabel!
     
     weak var delegate:DataTransferViewControllerDelegate?
+    var selectedDevice: NearbyDevice?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +87,7 @@ class DataTransferViewController: UIViewController {
         ServiceStore.shared.sendMessage(message)
         
         ServiceStore.shared.sendMessage("EOD")
+        ServiceStore.shared.proceedWithAdvertising()
     }
     
     @IBAction func unwindToDataTransferView(_ sender:UIStoryboardSegue) {
@@ -99,9 +101,15 @@ class DataTransferViewController: UIViewController {
             } else if id.elementsEqual("UnwindSegueCancelSelectingData") {
                 print("Data Selection Canceled")
                 ServiceStore.shared.goBackWithAdvertising()
-            } else if id.elementsEqual("UnwindSegueFromBrowser") {
+            } else if id.elementsEqual("UnwindSegueDoneFromBrowser") {
+                print("Browser Selection Done")
+                if let sd = selectedDevice {
+                    ServiceStore.shared.proceedWithBrowsing(andSelectDevice: sd)
+                }
+            } else if id.elementsEqual("UnwindSegueCancelFromBrowser") {
                 print("resetting delegate")
                 self.delegate = nil
+                ServiceStore.shared.goBackWithBrowsing()
             }
         }
     }
@@ -175,10 +183,6 @@ extension DataTransferViewController: ServiceStoreDelegate {
                     self?.present(alert, animated: true, completion: nil)
                 }
             }
-            if ServiceStore.shared.browsing {
-                print("Proceeding with Browsing")
-                ServiceStore.shared.proceedWithBrowsing()
-            }
         }
     }
     
@@ -209,6 +213,11 @@ extension DataTransferViewController: ServiceStoreDelegate {
             break
         case (.browseProceed, .notReady, .browseRunning) :
             print("Browser Started")
+            fallthrough
+        case (.browseGoBack, .browseInvitationPending, .browseRunning) : fallthrough
+        case (.browseGoBack, .browseConnecting, .browseRunning) : fallthrough
+        case (.browseGoBack, .browseReceivingData, .browseRunning) :
+            self.performSegue(withIdentifier: "SegueToBrowser", sender: self)
             break
         case (.browseGoBack, .browseRunning, .notReady) :
             print("Browser Stopped")
@@ -220,8 +229,10 @@ extension DataTransferViewController: ServiceStoreDelegate {
         case (.reset, .advertConnecting, .notReady)         : fallthrough
         case (.reset, .advertSendingData, .notReady)        : fallthrough
         case (.reset, .browseRunning, .notReady)            : fallthrough
+        case (.reset, .browseInvitationPending, .notReady)  : fallthrough
         case (.reset, .browseConnecting, .notReady)         : fallthrough
-        case (.reset, .browseReceivingData, .notReady)      :
+        case (.reset, .browseReceivingData, .notReady)      : fallthrough
+        case (.reset, .notReady, .notReady)                 :
             print("Reset Event Ocurred")
             break
             
@@ -237,7 +248,8 @@ extension DataTransferViewController: ServiceStoreDelegate {
         case (.advertGoBack,  .advertSelectingData, .notReady) :
             print("Hide Data Selection Screen UI")
             break
-        case (.advertProceed, .advertRunning, .advertInvitationPending) :
+        case (.advertProceed, .advertRunning, .advertInvitationPending) : fallthrough
+        case (.browseProceed, .browseRunning, .browseInvitationPending) :
             print("Show Invitation Pending UI")
             DispatchQueue.main.async {
                 MBProgressHUD.hide(for: self.view, animated: false)
@@ -248,7 +260,7 @@ extension DataTransferViewController: ServiceStoreDelegate {
             }
             break
         case (.advertProceed, .advertInvitationPending, .advertConnecting) : fallthrough
-        case (.browseProceed, .browseRunning, .browseConnecting) :
+        case (.browseProceed, .browseInvitationPending, .browseConnecting) :
             print("Show Connecting UI")
             DispatchQueue.main.async {
                 MBProgressHUD.hide(for: self.view, animated: false)
@@ -293,9 +305,7 @@ extension DataTransferViewController: ServiceStoreDelegate {
             break
         case (.advertGoBack, .advertInvitationPending, .advertRunning) : fallthrough
         case (.advertGoBack, .advertConnecting, .advertRunning) : fallthrough
-        case (.advertGoBack, .advertSendingData, .advertRunning) : fallthrough
-        case (.browseGoBack, .browseConnecting, .browseRunning) : fallthrough
-        case (.browseGoBack, .browseReceivingData, .browseRunning) :
+        case (.advertGoBack, .advertSendingData, .advertRunning) : 
             // UI Might not be necesssary
             print("Show Dismissal UI with userInfo: \(String(describing: userInfo))")
             DispatchQueue.main.async {
@@ -306,6 +316,7 @@ extension DataTransferViewController: ServiceStoreDelegate {
         case (.advertErrorOut, .advertConnecting, .notReady) : fallthrough
         case (.advertErrorOut, .advertSendingData, .notReady) : fallthrough
         case (.browseErrorOut, .browseRunning, .notReady) : fallthrough
+        case (.browseErrorOut, .browseInvitationPending, .notReady) : fallthrough
         case (.browseErrorOut, .browseConnecting, .notReady) : fallthrough
         case (.browseErrorOut, .browseReceivingData, .notReady) :
             print("Show \(String(describing: fromState)) Error UI with user info: \(String(describing: userInfo))")

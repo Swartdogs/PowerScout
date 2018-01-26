@@ -8,26 +8,10 @@
 
 import UIKit
 import MultipeerConnectivity
-import CoreBluetooth
-
-enum NearbyDevicesType {
-    case multipeerConnectivity
-    case coreBluetooth
-}
-
-struct NearbyDevice {
-    var displayName: String
-    var type: NearbyDevicesType
-}
-
-protocol NearbyDevicesTableViewControllerDelegate: class {
-    func nearbyDevicesTableViewController(_ controller: NearbyDevicesTableViewController, selectedNearbyDevice device: NearbyDevice)
-}
 
 class NearbyDevicesTableViewController: UITableViewController {
 
     var nearbyDevices: [NearbyDevice] = [NearbyDevice]()
-    weak var delegate: NearbyDevicesTableViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,9 +51,7 @@ class NearbyDevicesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let nearbyDevice = nearbyDevices[indexPath.row]
-        if self.delegate != nil {
-            delegate?.nearbyDevicesTableViewController(self, selectedNearbyDevice: nearbyDevice)
-        }
+        self.performSegue(withIdentifier: "UnwindSegueDoneFromBrowser", sender: nearbyDevice)
     }
 
     /*
@@ -107,16 +89,22 @@ class NearbyDevicesTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if let id = segue.identifier {
+            if id.elementsEqual("UnwindSegueDoneFromBrowser") {
+                let selectedDevice = sender as! NearbyDevice
+                print("User selected: \(String(describing: selectedDevice))")
+                if let vc = segue.destination as? DataTransferViewController {
+                    vc.selectedDevice = selectedDevice
+                }
+            }
+        }
     }
-    */
-
 }
 
 extension NearbyDevicesTableViewController: DataTransferViewControllerDelegate {

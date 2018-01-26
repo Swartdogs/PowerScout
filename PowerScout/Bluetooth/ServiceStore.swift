@@ -50,6 +50,7 @@ class ServiceStore: NSObject {
     var browsing:Bool {
         return [
             ServiceState.browseRunning,
+            ServiceState.browseInvitationPending,
             ServiceState.browseConnecting,
             ServiceState.browseReceivingData
         ].contains(stateMachine.state)
@@ -78,6 +79,10 @@ class ServiceStore: NSObject {
     
     func proceedWithBrowsing() {
         _triggerEvent(.browseProceed)
+    }
+    
+    func proceedWithBrowsing(andSelectDevice device: NearbyDevice) {
+        _triggerEvent(.browseProceed, withUserInfo: device)
     }
     
     func goBackWithBrowsing() {
@@ -111,12 +116,23 @@ class ServiceStore: NSObject {
     }
     
     private func _disconnectSession() {
+        
+        foundPeers.removeAll()
+        
         guard sessionState != .notConnected else {
             print("Can't Disconnect the session if it's already disconnected!")
+            MatchTransfer.session.delegate = nil
+            MatchTransfer.session = MCSession(peer: MatchTransfer.localPeerID, securityIdentity: nil, encryptionPreference: .none)
+            MatchTransfer.session.delegate = self
             return
         }
         
+        MatchTransfer.session.delegate = nil
         MatchTransfer.session.disconnect()
+        MatchTransfer.session = MCSession(peer: MatchTransfer.localPeerID, securityIdentity: nil, encryptionPreference: .none)
+        MatchTransfer.session.delegate = self
+        sessionState = .notConnected
+        delegate?.serviceStore(self, withSession: MatchTransfer.session, didChangeState: .notConnected)
     }
     
     private func _handleStartAdvertising() {
@@ -231,8 +247,28 @@ class ServiceStore: NSObject {
             case (.notReady, .browseRunning) :
                 print("Start Browser")
                 self._handleStartBrowser()
+                self._handleDelegateCall(fromState: fromState, toState: toState, forEvent: event!, withUserInfo: userInfo)
+                break
+            case (.browseRunning, .browseInvitationPending) :
+                if let nearbyDevice = userInfo as? NearbyDevice {
+                    if nearbyDevice.type == .multipeerConnectivity {
+                        if let peerInfo = self.foundPeers.first(where: { $0.key.displayName == nearbyDevice.displayName }) {
+                            print("Inviting: \(peerInfo.key.displayName)")
+                            self.browser.invitePeer(peerInfo.key, to: MatchTransfer.session, withContext: nil, timeout: 10.0)
+                        } else {
+                            print("WARN: No found peer matches nearby device \(nearbyDevice.displayName), going back to running")
+                            self.goBackWithBrowsing()
+                        }
+                    } else {
+                        print("WARN: CoreBluetooth devices are not supported at this time, going back to running")
+                        self.goBackWithBrowsing()
+                    }
+                } else {
+                    print("WARN: No nearby device was selected, going back to running")
+                    self.goBackWithBrowsing()
+                }
                 fallthrough
-            case (.browseRunning, .browseConnecting) : fallthrough
+            case (.browseInvitationPending, .browseConnecting) : fallthrough
             case (.browseConnecting, .browseReceivingData) :
                 self._handleDelegateCall(fromState: fromState, toState: toState, forEvent: event!, withUserInfo: userInfo)
                 break
@@ -258,6 +294,7 @@ class ServiceStore: NSObject {
                 print("Stop Browser")
                 self._handleStopBrowser()
                 fallthrough
+            case (.browseInvitationPending, .browseRunning) : fallthrough
             case (.browseConnecting, .browseRunning) :
                 self._handleDelegateCall(fromState: fromState, toState: toState, forEvent: event!, withUserInfo: userInfo)
                 break
@@ -277,6 +314,7 @@ class ServiceStore: NSObject {
             switch(fromState, toState) {
             // Browse Error Out Events
             case (.browseRunning, .notReady) : fallthrough
+            case (.browseInvitationPending, .notReady) : fallthrough
             case (.browseConnecting, .notReady) : fallthrough
             case (.browseReceivingData, .notReady) :
                 print("Stop Browser")
@@ -311,6 +349,7 @@ class ServiceStore: NSObject {
                 
             // Browse Reset Transitions
             case (.browseRunning, .notReady) : fallthrough
+            case (.browseInvitationPending, .notReady) : fallthrough
             case (.browseConnecting, .notReady) : fallthrough
             case (.browseReceivingData, .notReady) :
                 print("Stop Browser")
@@ -446,10 +485,10 @@ class ServiceStore: NSObject {
             /// Handlers:     Proceed - Allow Delegate to update UI, start browser
             machine.addRoute(.notReady => .browseRunning)
             
-            /// Running => Connecting
+            /// Running => Invitation Pending
             /// Triggered by: Proceed
             /// Handlers:     Proceed - Allow Delegate to update UI
-            machine.addRoute(.browseRunning => .browseConnecting)
+            machine.addRoute(.browseRunning => .browseInvitationPending)
             
             /// Running => Not Ready
             /// Triggered by: GoBack, ErrorOut, Reset
@@ -457,6 +496,16 @@ class ServiceStore: NSObject {
             ///               ErrorOut - Allow Delegate to update UI, stop browser
             ///               Reset    - Allow Delegate to update UI, stop browser
             machine.addRoute(.browseRunning => .notReady)
+            
+            /// Invitation Pending => Connecting
+            /// Triggered by: Proceed
+            /// Handlers:     Proceed - Allow Delegate to update UI
+            machine.addRoute(.browseInvitationPending => .browseConnecting)
+            
+            /// Invitation Pending => Running
+            /// Triggered by: GoBack
+            /// Handlers:     GoBack - Allow Delegate to update UI
+            machine.addRoute(.browseInvitationPending => .browseRunning)
             
             /// Connecting => Receiving Data
             /// Triggered by: Proceed
@@ -519,17 +568,20 @@ class ServiceStore: NSObject {
                     
                 // Browse Proceed Events
                 case (.browseProceed, .notReady)                : return .browseRunning
-                case (.browseProceed, .browseRunning)           : return .browseConnecting
+                case (.browseProceed, .browseRunning)           : return .browseInvitationPending
+                case (.browseProceed, .browseInvitationPending) : return .browseConnecting
                 case (.browseProceed, .browseConnecting)        : return .browseReceivingData
                 case (.browseProceed, .browseReceivingData)     : return .notReady
                     
                 // Browse GoBack Events
                 case (.browseGoBack, .browseRunning)            : return .notReady
+                case (.browseGoBack, .browseInvitationPending)  : return .browseRunning
                 case (.browseGoBack, .browseConnecting)         : return .browseRunning
                 case (.browseGoBack, .browseReceivingData)      : return .browseRunning
                     
                 // Browse ErrorOut Events
                 case (.browseErrorOut, .browseRunning)          : return .notReady
+                case (.browseErrorOut, .browseInvitationPending): return .notReady
                 case (.browseErrorOut, .browseConnecting)       : return .notReady
                 case (.browseErrorOut, .browseReceivingData)    : return .notReady
                     
@@ -542,6 +594,7 @@ class ServiceStore: NSObject {
                 case (.reset, .advertConnecting)                : return .notReady
                 case (.reset, .advertSendingData)               : return .notReady
                 case (.reset, .browseRunning)                   : return .notReady
+                case (.reset, .browseInvitationPending)         : return .notReady
                 case (.reset, .browseConnecting)                : return .notReady
                 case (.reset, .browseReceivingData)             : return .notReady
                     
@@ -554,7 +607,7 @@ class ServiceStore: NSObject {
         })
     }
     
-    fileprivate func _triggerEvent(_ event:ServiceEvent) {
+    fileprivate func _triggerEvent(_ event:ServiceEvent, withUserInfo userInfo:Any? = nil) {
         print("event: \(event), browsing: \(browsing), advertising: \(advertising)")
         if([.advertProceed, .advertGoBack, .advertErrorOut].contains(event) && browsing) {
             print("WARN: Cannot send advertise event while browsing -- reset state machine first!")
@@ -564,6 +617,10 @@ class ServiceStore: NSObject {
             return
         }
         
-        stateMachine <-! event
+        if userInfo != nil {
+            stateMachine <-! (event, userInfo)
+        } else {
+            stateMachine <-! event
+        }
     }
 }
