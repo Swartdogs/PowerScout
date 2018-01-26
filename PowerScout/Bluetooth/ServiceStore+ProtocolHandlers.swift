@@ -14,7 +14,7 @@ extension ServiceStore: MCNearbyServiceAdvertiserDelegate {
         print("advertiser \(advertiser) did receive invitation from peer \(peerID.displayName) with context \(String(describing: context))")
         proceedWithAdvertising()
         // TEMPORARY -- Should ask user instead
-        invitationHandler(true, MatchTransfer.session)
+//        invitationHandler(true, MatchTransfer.session)
     }
     
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error) {
@@ -38,7 +38,7 @@ extension ServiceStore: MCNearbyServiceBrowserDelegate {
                     print("Adding peer \(peerID.displayName) (\(String(describing: _info[MatchTransferDiscoveryInfo.DeviceName]))) with type \(String(describing: _info[MatchTransferDiscoveryInfo.MatchTypeKey]))")
                     foundPeers[peerID] = _info
                     // TEMPORARY
-                    browser.invitePeer(peerID, to: MatchTransfer.session, withContext: nil, timeout: 10.0)
+//                    browser.invitePeer(peerID, to: MatchTransfer.session, withContext: nil, timeout: 10.0)
                     
                     self.delegate?.serviceStore(self, withBrowser: browser, foundPeer: peerID)
                 default:
