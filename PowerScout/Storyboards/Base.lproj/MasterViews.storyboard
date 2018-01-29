@@ -124,10 +124,16 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="WdU-fA-dBP"/>
-                        <barButtonItem title="Transfer" id="m3N-6v-emr">
+                        <barButtonItem title="Transfer" id="U2i-hj-sGA">
                             <color key="tintColor" red="1" green="0.4039215686" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="3Ip-v4-Z5c" kind="show" id="eYn-fL-pKK"/>
+                                <segue destination="fs1-Xp-Zot" kind="show" identifier="SegueToTransfer" id="vOs-Dr-M0d"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="DebugTransfer" id="m3N-6v-emr">
+                            <color key="tintColor" red="1" green="0.4039215686" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="3Ip-v4-Z5c" kind="show" identifier="SegueToDebugTransfer" id="eYn-fL-pKK"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -176,7 +182,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QkW-CA-jbu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1001" y="1327"/>
+            <point key="canvasLocation" x="887" y="788"/>
         </scene>
         <!--Nearby Devices-->
         <scene sceneID="rgh-b5-ZCb">
@@ -224,7 +230,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Cv-MU-XhN" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="iIC-fD-cjR" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1729" y="1327"/>
+            <point key="canvasLocation" x="887" y="1481"/>
         </scene>
         <!--Data Selection View Controller-->
         <scene sceneID="jSb-9J-R0F">
@@ -433,12 +439,119 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FAC-IU-PRf" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="jr3-6I-3Bw" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1885" y="629"/>
+            <point key="canvasLocation" x="1690" y="788"/>
         </scene>
         <!--Transfer-->
+        <scene sceneID="WUb-jE-K79">
+            <objects>
+                <viewController title="Transfer" id="fs1-Xp-Zot" customClass="DataTransferViewController" customModule="PowerScout" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vds-qU-ArF"/>
+                        <viewControllerLayoutGuide type="bottom" id="oXZ-tl-2Fq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="I6G-l9-8wh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="960"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="owf-aX-40R">
+                                <rect key="frame" x="16" y="20" width="288" height="163"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qSb-3Q-maU" userLabel="Advertise">
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="58.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advertise" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ceR-zM-rZY">
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gvj-er-0kd">
+                                                <rect key="frame" x="0.0" y="28.5" width="288" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oV7-MV-XC2">
+                                                        <rect key="frame" x="0.0" y="0.0" width="140" height="30"/>
+                                                        <state key="normal" title="Proceed"/>
+                                                        <connections>
+                                                            <action selector="handleButtonSelect:" destination="fs1-Xp-Zot" eventType="touchUpInside" id="ekE-ac-V56"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djC-Ur-CeC">
+                                                        <rect key="frame" x="148" y="0.0" width="140" height="30"/>
+                                                        <state key="normal" title="Go Back"/>
+                                                        <connections>
+                                                            <action selector="handleButtonSelect:" destination="fs1-Xp-Zot" eventType="touchUpInside" id="8GS-H7-YU6"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2Tm-0O-3u7" userLabel="Browse">
+                                        <rect key="frame" x="0.0" y="66.5" width="288" height="58.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Browse" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dqh-9j-WNU">
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9bV-7z-jtz">
+                                                <rect key="frame" x="0.0" y="28.5" width="288" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R1i-56-zSJ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="140" height="30"/>
+                                                        <state key="normal" title="Proceed"/>
+                                                        <connections>
+                                                            <action selector="handleButtonSelect:" destination="fs1-Xp-Zot" eventType="touchUpInside" id="rEr-2k-PGb"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTX-A5-st4">
+                                                        <rect key="frame" x="148" y="0.0" width="140" height="30"/>
+                                                        <state key="normal" title="Go Back"/>
+                                                        <connections>
+                                                            <action selector="handleButtonSelect:" destination="fs1-Xp-Zot" eventType="touchUpInside" id="lnS-dC-AVr"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JEu-8E-xf8">
+                                        <rect key="frame" x="0.0" y="133" width="288" height="30"/>
+                                        <state key="normal" title="Reset State"/>
+                                        <connections>
+                                            <action selector="handleButtonSelect:" destination="fs1-Xp-Zot" eventType="touchUpInside" id="e0p-PN-Hk5"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qSb-3Q-maU" firstAttribute="leading" secondItem="I6G-l9-8wh" secondAttribute="leading" constant="16" id="A7b-br-DgB"/>
+                            <constraint firstItem="qSb-3Q-maU" firstAttribute="top" secondItem="vds-qU-ArF" secondAttribute="bottom" constant="20" id="Ndq-lM-QX1"/>
+                            <constraint firstItem="qSb-3Q-maU" firstAttribute="centerX" secondItem="I6G-l9-8wh" secondAttribute="centerX" id="idy-cx-4Ik"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="advertGoBack" destination="djC-Ur-CeC" id="tx9-GH-ZoG"/>
+                        <outlet property="advertProceed" destination="oV7-MV-XC2" id="qtR-Pa-Q9k"/>
+                        <outlet property="browseGoBack" destination="LTX-A5-st4" id="3JQ-nM-S9K"/>
+                        <outlet property="browseProceed" destination="R1i-56-zSJ" id="yeD-Hh-QEY"/>
+                        <outlet property="reset" destination="JEu-8E-xf8" id="hVi-t7-gn9"/>
+                        <segue destination="c3c-JV-bgF" kind="presentation" identifier="SegueToBrowser" modalPresentationStyle="formSheet" id="Nt8-lo-cZR"/>
+                        <segue destination="6lC-cu-Lvz" kind="presentation" identifier="SegueToDataSelection" modalPresentationStyle="formSheet" id="VM3-k9-hEn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hqq-p9-oNY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="887" y="88"/>
+        </scene>
+        <!--Debug-->
         <scene sceneID="H9Y-rM-5hG">
             <objects>
-                <viewController title="Transfer" id="3Ip-v4-Z5c" customClass="DataTransferViewController" customModule="PowerScout" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Debug" id="3Ip-v4-Z5c" customClass="DebugDataTransferViewController" customModule="PowerScout" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="48O-9s-aKU"/>
                         <viewControllerLayoutGuide type="bottom" id="gBQ-G4-Y6S"/>
@@ -608,10 +721,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YKt-sx-IK0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="887" y="629"/>
+            <point key="canvasLocation" x="1690" y="89"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="VM3-k9-hEn"/>
+        <segue reference="Nt8-lo-cZR"/>
         <segue reference="U1d-ME-dn0"/>
         <segue reference="WbF-9A-5UB"/>
     </inferredMetricsTieBreakers>

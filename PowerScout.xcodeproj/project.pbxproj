@@ -43,6 +43,7 @@
 		C481787220132531001EAF24 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C481787020132531001EAF24 /* LaunchScreen.storyboard */; };
 		C481787D20132531001EAF24 /* PowerScoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481787C20132531001EAF24 /* PowerScoutTests.swift */; };
 		C481788820132531001EAF24 /* PowerScoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481788720132531001EAF24 /* PowerScoutUITests.swift */; };
+		C4FC801A201EF3DE0073D087 /* DebugDataTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC8019201EF3DE0073D087 /* DebugDataTransferViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,7 @@
 		C481788320132531001EAF24 /* PowerScoutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PowerScoutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C481788720132531001EAF24 /* PowerScoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerScoutUITests.swift; sourceTree = "<group>"; };
 		C481788920132531001EAF24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4FC8019201EF3DE0073D087 /* DebugDataTransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugDataTransferViewController.swift; sourceTree = "<group>"; };
 		E2D24E694F4F9F710E5EE5C5 /* Pods_PowerScout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PowerScout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA393782602B7CFAE85CDBEE /* Pods-PowerScout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PowerScout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PowerScout/Pods-PowerScout.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,6 +160,7 @@
 				C40BB93C2013E6FE0011DB45 /* MasterViewController.swift */,
 				C40BB93E2013E6FE0011DB45 /* PenaltyViewController.swift */,
 				C4757C1C201718E500C90984 /* DataTransferViewController.swift */,
+				C4FC8019201EF3DE0073D087 /* DebugDataTransferViewController.swift */,
 			);
 			path = MasterControllers;
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 				C40BB97B2013E7C60011DB45 /* Definitions.swift in Sources */,
 				C40BB9522013E7050011DB45 /* AppUtility.swift in Sources */,
 				C40BB9792013E7C60011DB45 /* SteamGearPlacementType.swift in Sources */,
+				C4FC801A201EF3DE0073D087 /* DebugDataTransferViewController.swift in Sources */,
 				C4757C142016D36B00C90984 /* Service.swift in Sources */,
 				C4757C152016D36B00C90984 /* ServiceState.swift in Sources */,
 				C40BB9582013E7050011DB45 /* themeDefinitions.swift in Sources */,
@@ -705,7 +709,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HE974PX7LL;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PowerScout/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -722,7 +726,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HE974PX7LL;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PowerScout/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

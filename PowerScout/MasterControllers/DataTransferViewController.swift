@@ -15,17 +15,13 @@ protocol DataTransferViewControllerDelegate: class {
     func dataTransferViewController(_ dataTransferViewController: DataTransferViewController, lostNearbyDevice nearbyDevice: NearbyDevice)
 }
 
-class DataTransferViewController: UIViewController {
-    @IBOutlet var sendAdvertProceed: UIButton!
-    @IBOutlet var sendAdvertGoBack: UIButton!
-    @IBOutlet var sendAdvertErrorOut: UIButton!
-    @IBOutlet var sendBrowseProceed: UIButton!
-    @IBOutlet var sendBrowseGoBack: UIButton!
-    @IBOutlet var sendBrowseErrorOut: UIButton!
-    @IBOutlet var sendReset: UIButton!
-    @IBOutlet var sendPing: UIButton!
-    @IBOutlet var serviceStateLabel: UILabel!
-    @IBOutlet var sessionStateLabel: UILabel!
+class DataTransferViewController: UIViewController, ServiceStoreDelegate {
+    
+    @IBOutlet var advertProceed: UIButton!
+    @IBOutlet var advertGoBack: UIButton!
+    @IBOutlet var browseProceed: UIButton!
+    @IBOutlet var browseGoBack: UIButton!
+    @IBOutlet var reset: UIButton!
     
     weak var delegate:DataTransferViewControllerDelegate?
     var selectedDevice: NearbyDevice?
@@ -39,8 +35,6 @@ class DataTransferViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         ServiceStore.shared.delegate = self
-        setServiceStateLabel(for: ServiceStore.shared.machineState)
-        setSessionStateLabel(for: ServiceStore.shared.sessionState)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -56,38 +50,24 @@ class DataTransferViewController: UIViewController {
     
     @IBAction func handleButtonSelect(_ sender: UIButton) {
         switch sender {
-        case sendAdvertProceed:
+        case advertProceed:
             ServiceStore.shared.proceedWithAdvertising()
             break
-        case sendAdvertGoBack:
+        case advertGoBack:
             ServiceStore.shared.goBackWithAdvertising()
             break
-        case sendAdvertErrorOut:
-            ServiceStore.shared.errorOutWithAdvertising()
-            break
-        case sendBrowseProceed:
+        case browseProceed:
             ServiceStore.shared.proceedWithBrowsing()
             break
-        case sendBrowseGoBack:
+        case browseGoBack:
             ServiceStore.shared.goBackWithBrowsing()
             break
-        case sendBrowseErrorOut:
-            ServiceStore.shared.errorOutWithBrowsing()
-            break
-        case sendReset:
+        case reset:
             ServiceStore.shared.resetStateMachine()
             break
         default:
             break
         }
-    }
-    
-    @IBAction func pingConnectedDevices(_ sender: UIButton) {
-        let message = "ping"
-        ServiceStore.shared.sendMessage(message)
-        
-        ServiceStore.shared.sendMessage("EOD")
-        ServiceStore.shared.proceedWithAdvertising()
     }
     
     @IBAction func unwindToDataTransferView(_ sender:UIStoryboardSegue) {
@@ -113,39 +93,6 @@ class DataTransferViewController: UIViewController {
             }
         }
     }
-    
-    func updateButtonStates() {
-        let advertising = ServiceStore.shared.advertising
-        let browsing = ServiceStore.shared.browsing
-        
-        sendPing.isEnabled = ServiceStore.shared.machineState == .advertSendingData
-        
-        sendAdvertProceed.isEnabled = advertising || !browsing
-        sendAdvertGoBack.isEnabled = advertising || !browsing
-        sendAdvertErrorOut.isEnabled = advertising || !browsing
-        
-        sendBrowseProceed.isEnabled = browsing || !advertising
-        sendBrowseGoBack.isEnabled = browsing || !advertising
-        sendBrowseErrorOut.isEnabled = browsing || !advertising
-    }
-    
-    func setSessionStateLabel(for state: MCSessionState) {
-        switch state {
-        case .notConnected:
-            sessionStateLabel.text = "Not Connected"
-            break
-        case .connecting:
-            sessionStateLabel.text = "Connecting"
-            break
-        case .connected:
-            sessionStateLabel.text = "Connected"
-            break
-        }
-    }
-    
-    func setServiceStateLabel(for state: ServiceState) {
-        serviceStateLabel.text = String(describing: state)
-    }
 
     // MARK: - Navigation
 
@@ -161,15 +108,11 @@ class DataTransferViewController: UIViewController {
             }
         }
     }
-
-}
-
-extension DataTransferViewController: ServiceStoreDelegate {
+    
+    // MARK: - ServiceStoreDelegate
+    
     func serviceStore(_ serviceStore: ServiceStore, withSession session: MCSession, didChangeState state: MCSessionState) {
         print("ServiceStore Session: \(session.debugDescription) did change state: \(state)")
-        DispatchQueue.main.async {
-            self.setSessionStateLabel(for: state)
-        }
     }
     
     func serviceStore(_ serviceStore: ServiceStore, withSession session: MCSession, didReceiveData data: Data, fromPeer peerId: MCPeerID) {
@@ -272,6 +215,8 @@ extension DataTransferViewController: ServiceStoreDelegate {
             break
         case (.advertProceed, .advertConnecting, .advertSendingData) :
             print("Show Sending Data UI")
+            ServiceStore.shared.sendMessage("ping")
+            ServiceStore.shared.sendMessage("EOD")
             DispatchQueue.main.async {
                 MBProgressHUD.hide(for: self.view, animated: false)
                 let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -289,6 +234,7 @@ extension DataTransferViewController: ServiceStoreDelegate {
                 hud.label.text = "Receiving Data"
                 hud.hide(animated: true, afterDelay: 2)
             }
+            
             break
         case (.advertProceed, .advertSendingData, .notReady) : fallthrough
         case (.browseProceed, .browseReceivingData, .notReady) :
@@ -305,7 +251,7 @@ extension DataTransferViewController: ServiceStoreDelegate {
             break
         case (.advertGoBack, .advertInvitationPending, .advertRunning) : fallthrough
         case (.advertGoBack, .advertConnecting, .advertRunning) : fallthrough
-        case (.advertGoBack, .advertSendingData, .advertRunning) : 
+        case (.advertGoBack, .advertSendingData, .advertRunning) :
             // UI Might not be necesssary
             print("Show Dismissal UI with userInfo: \(String(describing: userInfo))")
             DispatchQueue.main.async {
@@ -334,11 +280,6 @@ extension DataTransferViewController: ServiceStoreDelegate {
         default:
             print("WARN: Unknown transition \(String(describing: fromState)) => \(String(describing: toState)) for \(String(describing: event))!")
             break
-        }
-        
-        DispatchQueue.main.async {
-            self.updateButtonStates()
-            self.setServiceStateLabel(for: toState)
         }
     }
 }
