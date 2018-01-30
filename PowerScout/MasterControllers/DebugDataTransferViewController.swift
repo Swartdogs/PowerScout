@@ -74,12 +74,15 @@ class DebugDataTransferViewController: DataTransferViewController {
         }
     }
     
+    override func sendData() {
+        ServiceStore.shared.sendMessage("ping")
+        ServiceStore.shared.sendMessage("EOD")
+    }
+    
     @IBAction func pingConnectedDevices(_ sender: UIButton) {
         let message = "ping"
         ServiceStore.shared.sendMessage(message)
-        
         ServiceStore.shared.sendMessage("EOD")
-        ServiceStore.shared.proceedWithAdvertising()
     }
     
     @IBAction override func unwindToDataTransferView(_ sender:UIStoryboardSegue) {
@@ -103,6 +106,17 @@ class DebugDataTransferViewController: DataTransferViewController {
                 self.delegate = nil
                 ServiceStore.shared.goBackWithBrowsing()
             }
+        }
+    }
+    
+    override func updateUI(includeButtons buttons: Bool, includeLabels labels: Bool, includeSwitches switches: Bool) {
+        if buttons {
+            updateButtonStates()
+        }
+        
+        if labels {
+            setSessionStateLabel(for: ServiceStore.shared.sessionState)
+            setServiceStateLabel(for: ServiceStore.shared.machineState)
         }
     }
     
@@ -152,25 +166,5 @@ class DebugDataTransferViewController: DataTransferViewController {
                 }
             }
         }
-    }
-    
-    // MARK: - ServiceStoreDelegate
-    
-    override func serviceStore(_ serviceStore: ServiceStore, withSession session: MCSession, didChangeState state: MCSessionState) {
-        super.serviceStore(serviceStore, withSession: session, didChangeState: state)
-        
-        DispatchQueue.main.async {
-            self.setSessionStateLabel(for: state)
-        }
-    }
-    
-    override func serviceStore(_ serviceStore: ServiceStore, transitionedFromState fromState: ServiceState, toState: ServiceState, forEvent event: ServiceEvent, withUserInfo userInfo: Any?) {
-        super.serviceStore(serviceStore, transitionedFromState: fromState, toState: toState, forEvent: event, withUserInfo: userInfo)
-        
-        DispatchQueue.main.async {
-            self.updateButtonStates()
-            self.setServiceStateLabel(for: toState)
-        }
-        
     }
 }

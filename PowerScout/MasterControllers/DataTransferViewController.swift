@@ -10,6 +10,12 @@ import UIKit
 import MBProgressHUD
 import MultipeerConnectivity
 
+enum DataTransferMode {
+    case doNothing
+    case advertise
+    case browse
+}
+
 protocol DataTransferViewControllerDelegate: class {
     func dataTransferViewController(_ dataTransferViewController: DataTransferViewController, foundNearbyDevice nearbyDevice: NearbyDevice)
     func dataTransferViewController(_ dataTransferViewController: DataTransferViewController, lostNearbyDevice nearbyDevice: NearbyDevice)
@@ -17,14 +23,19 @@ protocol DataTransferViewControllerDelegate: class {
 
 class DataTransferViewController: UIViewController, ServiceStoreDelegate {
     
-    @IBOutlet var advertProceed: UIButton!
-    @IBOutlet var advertGoBack: UIButton!
-    @IBOutlet var browseProceed: UIButton!
-    @IBOutlet var browseGoBack: UIButton!
+    @IBOutlet var advertSwitch: UISwitch!
+    @IBOutlet var browseSwitch: UISwitch!
+    
+    @IBOutlet var proceed: UIButton!
+    @IBOutlet var goBack: UIButton!
     @IBOutlet var reset: UIButton!
+    
+    @IBOutlet var statusLabel: UILabel!
+    
     
     weak var delegate:DataTransferViewControllerDelegate?
     var selectedDevice: NearbyDevice?
+    var transferMode: DataTransferMode = .doNothing
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,13 +45,18 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        ServiceStore.shared.resetStateMachine()
         ServiceStore.shared.delegate = self
+        
+        transferMode = .doNothing
+        updateUI()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
         ServiceStore.shared.delegate = nil
+        ServiceStore.shared.resetStateMachine()
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,19 +64,42 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func handleSwitchChange(_ sender: UISwitch) {
+        switch sender {
+        case advertSwitch:
+            if transferMode == .browse {
+                ServiceStore.shared.resetStateMachine()
+            }
+            transferMode = advertSwitch.isOn ? .advertise : .doNothing
+            updateUI()
+            break
+        case browseSwitch:
+            if transferMode == .advertise {
+                ServiceStore.shared.resetStateMachine()
+            }
+            transferMode = browseSwitch.isOn ? .browse : .doNothing
+            updateUI()
+            break
+        default:
+            break
+        }
+    }
+    
     @IBAction func handleButtonSelect(_ sender: UIButton) {
         switch sender {
-        case advertProceed:
-            ServiceStore.shared.proceedWithAdvertising()
+        case proceed:
+            if transferMode == .advertise {
+                ServiceStore.shared.proceedWithAdvertising()
+            } else if transferMode == .browse {
+                ServiceStore.shared.proceedWithBrowsing()
+            }
             break
-        case advertGoBack:
-            ServiceStore.shared.goBackWithAdvertising()
-            break
-        case browseProceed:
-            ServiceStore.shared.proceedWithBrowsing()
-            break
-        case browseGoBack:
-            ServiceStore.shared.goBackWithBrowsing()
+        case goBack:
+            if transferMode == .advertise {
+                ServiceStore.shared.goBackWithAdvertising()
+            } else if transferMode == .browse {
+                ServiceStore.shared.goBackWithBrowsing()
+            }
             break
         case reset:
             ServiceStore.shared.resetStateMachine()
@@ -93,6 +132,27 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
             }
         }
     }
+    
+    func updateUI(includeButtons buttons: Bool = true, includeLabels labels: Bool = true, includeSwitches switches: Bool = true) {
+        if buttons {
+            proceed.isEnabled = transferMode != .doNothing
+            goBack.isEnabled = transferMode != .doNothing
+        }
+        
+        if labels {
+            statusLabel.text = String(describing: ServiceStore.shared.machineState)
+        }
+        
+        if switches {
+            advertSwitch.isOn = transferMode == .advertise
+            browseSwitch.isOn = transferMode == .browse
+        }
+    }
+    
+    func sendData() {
+        ServiceStore.shared.sendMessage("ping")
+        ServiceStore.shared.sendMessage("EOD")
+    }
 
     // MARK: - Navigation
 
@@ -113,6 +173,10 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
     
     func serviceStore(_ serviceStore: ServiceStore, withSession session: MCSession, didChangeState state: MCSessionState) {
         print("ServiceStore Session: \(session.debugDescription) did change state: \(state)")
+        
+        DispatchQueue.main.async {
+            self.updateUI(includeButtons: false, includeSwitches: false)
+        }
     }
     
     func serviceStore(_ serviceStore: ServiceStore, withSession session: MCSession, didReceiveData data: Data, fromPeer peerId: MCPeerID) {
@@ -215,8 +279,7 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
             break
         case (.advertProceed, .advertConnecting, .advertSendingData) :
             print("Show Sending Data UI")
-            ServiceStore.shared.sendMessage("ping")
-            ServiceStore.shared.sendMessage("EOD")
+            sendData()
             DispatchQueue.main.async {
                 MBProgressHUD.hide(for: self.view, animated: false)
                 let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -280,6 +343,10 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         default:
             print("WARN: Unknown transition \(String(describing: fromState)) => \(String(describing: toState)) for \(String(describing: event))!")
             break
+        }
+        
+        DispatchQueue.main.async {
+            self.updateUI()
         }
     }
 }

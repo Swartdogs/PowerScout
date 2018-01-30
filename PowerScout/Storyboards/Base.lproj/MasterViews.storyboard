@@ -453,64 +453,78 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="960"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="owf-aX-40R">
-                                <rect key="frame" x="16" y="20" width="288" height="163"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="owf-aX-40R">
+                                <rect key="frame" x="16" y="20" width="288" height="212.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qSb-3Q-maU" userLabel="Advertise">
-                                        <rect key="frame" x="0.0" y="0.0" width="288" height="58.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eqH-40-6HC" userLabel="Advertise">
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="31"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advertise" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ceR-zM-rZY">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="20.5"/>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N4g-8e-Dzm">
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="handleSwitchChange:" destination="fs1-Xp-Zot" eventType="valueChanged" id="pNX-wB-oa9"/>
+                                                </connections>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advertise" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RSN-vb-KUQ">
+                                                <rect key="frame" x="57" y="0.0" width="231" height="31"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gvj-er-0kd">
-                                                <rect key="frame" x="0.0" y="28.5" width="288" height="30"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oV7-MV-XC2">
-                                                        <rect key="frame" x="0.0" y="0.0" width="140" height="30"/>
-                                                        <state key="normal" title="Proceed"/>
-                                                        <connections>
-                                                            <action selector="handleButtonSelect:" destination="fs1-Xp-Zot" eventType="touchUpInside" id="ekE-ac-V56"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djC-Ur-CeC">
-                                                        <rect key="frame" x="148" y="0.0" width="140" height="30"/>
-                                                        <state key="normal" title="Go Back"/>
-                                                        <connections>
-                                                            <action selector="handleButtonSelect:" destination="fs1-Xp-Zot" eventType="touchUpInside" id="8GS-H7-YU6"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2Tm-0O-3u7" userLabel="Browse">
-                                        <rect key="frame" x="0.0" y="66.5" width="288" height="58.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Gjs-X5-6b6" userLabel="Browse">
+                                        <rect key="frame" x="0.0" y="39" width="288" height="31"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Browse" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dqh-9j-WNU">
-                                                <rect key="frame" x="0.0" y="0.0" width="288" height="20.5"/>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BlA-GV-i8V">
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="handleSwitchChange:" destination="fs1-Xp-Zot" eventType="valueChanged" id="aTZ-gu-vFX"/>
+                                                </connections>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Browse" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPh-1r-aI3">
+                                                <rect key="frame" x="57" y="0.0" width="231" height="31"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9bV-7z-jtz">
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2Tm-0O-3u7" userLabel="Control">
+                                        <rect key="frame" x="0.0" y="78" width="288" height="58.5"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="firstBaseline" translatesAutoresizingMaskIntoConstraints="NO" id="QQI-lm-YZE" userLabel="Status Stack">
+                                                <rect key="frame" x="0.0" y="0.0" width="288" height="20.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Status:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dqh-9j-WNU">
+                                                        <rect key="frame" x="0.0" y="0.0" width="54" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9y8-dC-scK">
+                                                        <rect key="frame" x="246" y="0.0" width="42" height="20.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="9bV-7z-jtz" userLabel="Button Stack">
                                                 <rect key="frame" x="0.0" y="28.5" width="288" height="30"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R1i-56-zSJ">
                                                         <rect key="frame" x="0.0" y="0.0" width="140" height="30"/>
                                                         <state key="normal" title="Proceed"/>
                                                         <connections>
-                                                            <action selector="handleButtonSelect:" destination="fs1-Xp-Zot" eventType="touchUpInside" id="rEr-2k-PGb"/>
+                                                            <action selector="handleButtonSelect:" destination="fs1-Xp-Zot" eventType="touchUpInside" id="LTt-Wm-Qb5"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LTX-A5-st4">
                                                         <rect key="frame" x="148" y="0.0" width="140" height="30"/>
                                                         <state key="normal" title="Go Back"/>
                                                         <connections>
-                                                            <action selector="handleButtonSelect:" destination="fs1-Xp-Zot" eventType="touchUpInside" id="lnS-dC-AVr"/>
+                                                            <action selector="handleButtonSelect:" destination="fs1-Xp-Zot" eventType="touchUpInside" id="uf5-2w-kjJ"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -518,28 +532,33 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JEu-8E-xf8">
-                                        <rect key="frame" x="0.0" y="133" width="288" height="30"/>
+                                        <rect key="frame" x="0.0" y="144.5" width="288" height="30"/>
                                         <state key="normal" title="Reset State"/>
                                         <connections>
                                             <action selector="handleButtonSelect:" destination="fs1-Xp-Zot" eventType="touchUpInside" id="e0p-PN-Hk5"/>
                                         </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gft-QA-ppp">
+                                        <rect key="frame" x="0.0" y="182.5" width="288" height="30"/>
+                                        <state key="normal" title="View Help"/>
                                     </button>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="qSb-3Q-maU" firstAttribute="leading" secondItem="I6G-l9-8wh" secondAttribute="leading" constant="16" id="A7b-br-DgB"/>
-                            <constraint firstItem="qSb-3Q-maU" firstAttribute="top" secondItem="vds-qU-ArF" secondAttribute="bottom" constant="20" id="Ndq-lM-QX1"/>
-                            <constraint firstItem="qSb-3Q-maU" firstAttribute="centerX" secondItem="I6G-l9-8wh" secondAttribute="centerX" id="idy-cx-4Ik"/>
+                            <constraint firstItem="owf-aX-40R" firstAttribute="top" secondItem="vds-qU-ArF" secondAttribute="bottom" constant="20" id="77k-Fe-RTS"/>
+                            <constraint firstItem="owf-aX-40R" firstAttribute="centerX" secondItem="I6G-l9-8wh" secondAttribute="centerX" id="Kze-ru-Adl"/>
+                            <constraint firstItem="owf-aX-40R" firstAttribute="leading" secondItem="I6G-l9-8wh" secondAttribute="leading" constant="16" id="wCw-BY-YJa"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="advertGoBack" destination="djC-Ur-CeC" id="tx9-GH-ZoG"/>
-                        <outlet property="advertProceed" destination="oV7-MV-XC2" id="qtR-Pa-Q9k"/>
-                        <outlet property="browseGoBack" destination="LTX-A5-st4" id="3JQ-nM-S9K"/>
-                        <outlet property="browseProceed" destination="R1i-56-zSJ" id="yeD-Hh-QEY"/>
+                        <outlet property="advertSwitch" destination="N4g-8e-Dzm" id="SiL-Yj-iWc"/>
+                        <outlet property="browseSwitch" destination="BlA-GV-i8V" id="AfK-G2-a87"/>
+                        <outlet property="goBack" destination="LTX-A5-st4" id="pzG-ix-OD3"/>
+                        <outlet property="proceed" destination="R1i-56-zSJ" id="b0B-KB-Qy4"/>
                         <outlet property="reset" destination="JEu-8E-xf8" id="hVi-t7-gn9"/>
+                        <outlet property="statusLabel" destination="9y8-dC-scK" id="Ce7-ma-XQm"/>
                         <segue destination="c3c-JV-bgF" kind="presentation" identifier="SegueToBrowser" modalPresentationStyle="formSheet" id="Nt8-lo-cZR"/>
                         <segue destination="6lC-cu-Lvz" kind="presentation" identifier="SegueToDataSelection" modalPresentationStyle="formSheet" id="VM3-k9-hEn"/>
                     </connections>
