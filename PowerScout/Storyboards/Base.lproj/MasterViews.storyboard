@@ -130,12 +130,6 @@
                                 <segue destination="fs1-Xp-Zot" kind="show" identifier="SegueToTransfer" id="vOs-Dr-M0d"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title="DebugTransfer" id="m3N-6v-emr">
-                            <color key="tintColor" red="1" green="0.4039215686" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="3Ip-v4-Z5c" kind="show" identifier="SegueToDebugTransfer" id="eYn-fL-pKK"/>
-                            </connections>
-                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Matches" id="gDC-Kp-5p4">
                         <barButtonItem key="rightBarButtonItem" title="New Match" id="rt0-FK-LlX">
@@ -541,6 +535,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gft-QA-ppp">
                                         <rect key="frame" x="0.0" y="182.5" width="288" height="30"/>
                                         <state key="normal" title="View Help"/>
+                                        <connections>
+                                            <segue destination="TKo-C8-Or1" kind="showDetail" id="Znu-1O-7mJ"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -552,6 +549,16 @@
                             <constraint firstItem="owf-aX-40R" firstAttribute="leading" secondItem="I6G-l9-8wh" secondAttribute="leading" constant="16" id="wCw-BY-YJa"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="gi2-YN-oZF"/>
+                        <barButtonItem title="Debug" id="AbJ-QD-aW6">
+                            <color key="tintColor" red="1" green="0.4039215686" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="3Ip-v4-Z5c" kind="show" identifier="SegueToDebugTransfer" id="Qca-4t-jkl"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="advertSwitch" destination="N4g-8e-Dzm" id="SiL-Yj-iWc"/>
                         <outlet property="browseSwitch" destination="BlA-GV-i8V" id="AfK-G2-a87"/>
@@ -741,6 +748,159 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YKt-sx-IK0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1690" y="89"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="C3L-bA-VvG">
+            <objects>
+                <navigationController id="TKo-C8-Or1" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Jvv-zf-iIN">
+                        <rect key="frame" x="0.0" y="20" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="yGq-Rm-aDi" kind="relationship" relationship="rootViewController" id="GIE-50-X0N"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ccj-fr-h81" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2488" y="88"/>
+        </scene>
+        <!--Data Transfer Help-->
+        <scene sceneID="e4B-8L-yoV">
+            <objects>
+                <viewController id="yGq-Rm-aDi" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Nxq-3u-m07"/>
+                        <viewControllerLayoutGuide type="bottom" id="wBR-pk-WLr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LZX-z7-49Y">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ju8-Vv-YK5">
+                                <rect key="frame" x="20" y="72" width="728" height="116.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vHG-hK-Taw">
+                                        <rect key="frame" x="0.0" y="0.0" width="728" height="54"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" text="Advertise" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VBJ-un-Vhb">
+                                                <rect key="frame" x="0.0" y="0.0" width="728" height="14.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="REi-eW-u0l">
+                                                <rect key="frame" x="0.0" y="22.5" width="728" height="11.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Step 1: Select Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QR8-MR-EXu">
+                                                        <rect key="frame" x="0.0" y="0.0" width="728" height="3.5"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Da1-oY-P05">
+                                                        <rect key="frame" x="0.0" y="11.5" width="728" height="0.0"/>
+                                                        <string key="text">By default, matches that have not been transferred will be selected for transfer. To select more matches, simply tap any matches from the Available Table. To remove matches, simply tap any matches from the Selected Table</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nv2-3s-58l">
+                                                <rect key="frame" x="0.0" y="42" width="728" height="12"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Step 2: Start Advertiser" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xkc-7P-Le3">
+                                                        <rect key="frame" x="0.0" y="0.0" width="728" height="4"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VLg-sI-PGL">
+                                                        <rect key="frame" x="0.0" y="12" width="728" height="0.0"/>
+                                                        <string key="text">Start the Advertiser and wait for Browsers to see your device and connect! The device Browsing will connect and data will be transferred automatically!</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="QR8-MR-EXu" firstAttribute="height" secondItem="Xkc-7P-Le3" secondAttribute="height" id="MAB-IX-GSI"/>
+                                            <constraint firstItem="REi-eW-u0l" firstAttribute="height" secondItem="nv2-3s-58l" secondAttribute="height" priority="750" id="PW2-Is-mPa"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fuf-fy-We2">
+                                        <rect key="frame" x="0.0" y="62" width="728" height="54.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" text="Browse" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NC2-Ic-kga">
+                                                <rect key="frame" x="0.0" y="0.0" width="728" height="14.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1qK-kO-mZ2">
+                                                <rect key="frame" x="0.0" y="22.5" width="728" height="12.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Step 1: Start Browser" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akH-lD-eEh">
+                                                        <rect key="frame" x="0.0" y="0.0" width="728" height="4.5"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start the Browser and wait for Advertisers to appear in the Neaby Devices Table." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2I-jz-ZV6">
+                                                        <rect key="frame" x="0.0" y="12.5" width="728" height="0.0"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4Uk-R2-fLG">
+                                                <rect key="frame" x="0.0" y="43" width="728" height="11.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Step 2: Select Advertiser" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NL6-AV-T1h">
+                                                        <rect key="frame" x="0.0" y="0.0" width="728" height="3.5"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRJ-K0-ug3">
+                                                        <rect key="frame" x="0.0" y="11.5" width="728" height="0.0"/>
+                                                        <string key="text">Once you see an Advertiser you would like to connect to, select it from the Nearby Devices Table and the data will be received automatically!</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="1qK-kO-mZ2" firstAttribute="height" secondItem="4Uk-R2-fLG" secondAttribute="height" priority="750" id="uTx-PY-tuI"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="QR8-MR-EXu" firstAttribute="height" secondItem="NL6-AV-T1h" secondAttribute="height" id="7rp-DC-y7P"/>
+                                    <constraint firstItem="VBJ-un-Vhb" firstAttribute="height" secondItem="NC2-Ic-kga" secondAttribute="height" id="SMP-w5-Lco"/>
+                                    <constraint firstItem="QR8-MR-EXu" firstAttribute="height" secondItem="akH-lD-eEh" secondAttribute="height" id="j1c-N0-tII"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ju8-Vv-YK5" firstAttribute="centerX" secondItem="LZX-z7-49Y" secondAttribute="centerX" id="3KH-Zu-Hrw"/>
+                            <constraint firstItem="ju8-Vv-YK5" firstAttribute="leading" secondItem="LZX-z7-49Y" secondAttribute="leading" constant="20" id="5T4-52-73K"/>
+                            <constraint firstItem="wBR-pk-WLr" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ju8-Vv-YK5" secondAttribute="bottom" constant="200" id="QAP-LY-ssC"/>
+                            <constraint firstItem="ju8-Vv-YK5" firstAttribute="top" secondItem="Nxq-3u-m07" secondAttribute="bottom" constant="8" id="TMs-j0-SnP"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Data Transfer Help" id="ys6-pf-Dle"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZiC-7e-JlZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3244.53125" y="87.890625"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

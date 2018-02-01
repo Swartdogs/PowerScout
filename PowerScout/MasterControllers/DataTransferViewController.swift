@@ -160,10 +160,12 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier!.elementsEqual("SegueToBrowser") {
-            if let nav = segue.destination as? UINavigationController {
-                if let vc = nav.topViewController as? NearbyDevicesTableViewController {
-                    self.delegate = vc
+        if let identifier = segue.identifier {
+            if identifier.elementsEqual("SegueToBrowser") {
+                if let nav = segue.destination as? UINavigationController {
+                    if let vc = nav.topViewController as? NearbyDevicesTableViewController {
+                        self.delegate = vc
+                    }
                 }
             }
         }
