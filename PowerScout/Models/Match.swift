@@ -33,7 +33,12 @@ protocol Match : CsvDataProvider, MatchCoding {
     var matchNumber:Int        { get set }
     var alliance:AllianceType  { get set }
     var isCompleted:Int        { get set }
-    var isExported:Bool        { get set }
+    
+    // Data Transfer
+    
+    var lastExportedByFile:Date? { get set }
+    var lastExportedByXfer:Date? { get set }
+    var shouldExport:Bool { get set }
     var selectedForDataTransfer:Bool { get set }
     
     // Final Info
@@ -67,7 +72,12 @@ class MatchImpl : Any, Match {
     var matchNumber:Int        = 0
     var alliance:AllianceType  = .unknown
     var isCompleted:Int        = 0
-    var isExported:Bool        = false
+    
+    // Data Export
+    
+    var lastExportedByFile:Date? = nil
+    var lastExportedByXfer:Date? = nil
+    var shouldExport:Bool = true
     var selectedForDataTransfer: Bool = true
     
     // Final Info
@@ -105,11 +115,18 @@ class MatchImpl : Any, Match {
         var data:[String:AnyObject]    = [String:AnyObject]()
         var team:[String:AnyObject]    = [String:AnyObject]()
         var final:[String:AnyObject]   = [String:AnyObject]()
+        var xfer:[String:AnyObject] = [String:AnyObject]()
         
         // Team Info
         team["teamNumber"]  = teamNumber           as AnyObject?
         team["matchNumber"] = matchNumber          as AnyObject?
         team["alliance"]    = alliance.toString()  as AnyObject?
+        
+        // Data Transfer
+        xfer["exportByFile"] = lastExportedByFile as AnyObject?
+        xfer["exportByXfer"] = lastExportedByXfer as AnyObject?
+        xfer["shouldExport"] = shouldExport as AnyObject?
+        xfer["selectedForDT"] = selectedForDataTransfer as AnyObject?
         
         // Final Info
         final["score"]      = finalScore           as AnyObject?
@@ -126,6 +143,7 @@ class MatchImpl : Any, Match {
         // All Data
         data["team"]        = team  as AnyObject?
         data["final"]       = final as AnyObject?
+        data["xfer"]        = xfer as AnyObject?
         
         return data
     }
@@ -146,7 +164,8 @@ class MatchImpl : Any, Match {
     
     required init(withPList pList:[String:AnyObject]) {
         guard let team  = pList["team"]  as? [String:AnyObject],
-            let final = pList["final"] as? [String:AnyObject] else {
+            let final = pList["final"] as? [String:AnyObject],
+            let xfer =  pList["xfer"] as? [String:AnyObject] else {
                 return
         }
         
@@ -155,6 +174,12 @@ class MatchImpl : Any, Match {
         matchNumber        = team["matchNumber"] as! Int
         alliance           = AllianceType(rawValue: team["alliance"] as! Int)!
         isCompleted        = team["isCompleted"] as! Int
+        
+        // Data Transfer
+        lastExportedByFile      = xfer["exportByFile"] as! Date?
+        lastExportedByXfer      = xfer["exportByXfer"] as! Date?
+        shouldExport            = xfer["shouldExport"] as! Bool
+        selectedForDataTransfer = xfer["selectedForDT"] as! Bool
         
         // Final Info
         finalScore         = final["score"]      as! Int
