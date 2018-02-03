@@ -19,8 +19,8 @@ class DataSelectionViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        for m in MatchStore.mockStore.allMatches {
-            if(m.selectedForDataTransfer) {
+        for m in MatchStore.sharedStore.allMatches {
+            if(m.shouldExport || m.selectedForDataTransfer) {
                 selectedMatches.append(m)
             } else {
                 availableMatches.append(m)

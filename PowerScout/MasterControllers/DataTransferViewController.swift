@@ -116,6 +116,10 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         if let id = sender.identifier {
             if id.elementsEqual("UnwindSegueDoneSelectingData") {
                 print("Data Selection Complete")
+                if let vc = sender.source as? DataSelectionViewController {
+                    let selectedMatches = vc.selectedMatches
+                    print("Selected Matches count: \(selectedMatches.count)")
+                }
                 ServiceStore.shared.proceedWithAdvertising()
             } else if id.elementsEqual("UnwindSegueCancelSelectingData") {
                 print("Data Selection Canceled")
@@ -150,6 +154,9 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
     }
     
     func sendData() {
+        if let matchData = MatchStore.sharedStore.dataTransferMatchesAll(true) {
+            ServiceStore.shared.sendData(matchData)
+        }
         ServiceStore.shared.sendMessage("ping")
         ServiceStore.shared.sendMessage("EOD")
     }
@@ -192,6 +199,16 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
                     self?.present(alert, animated: true, completion: nil)
                 }
             }
+        }
+        
+        let json = try? JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers)
+        if let jsonData = json as? [Dictionary<String, AnyObject>] {
+            var matches = [Match]();
+            for matchData in jsonData {
+                matches.append(MatchImpl(withPList: matchData))
+            }
+            
+            print("Matches Count: \(matches.count)")
         }
     }
     
@@ -301,7 +318,9 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
             }
             
             break
-        case (.advertProceed, .advertSendingData, .notReady) : fallthrough
+        case (.advertProceed, .advertSendingData, .notReady) :
+            MatchStore.sharedStore.dataTransferComplete()
+            fallthrough
         case (.browseProceed, .browseReceivingData, .notReady) :
             print("Show Complete UI and hide after 2 sec delay")
             DispatchQueue.main.async {

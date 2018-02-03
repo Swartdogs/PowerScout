@@ -10,8 +10,11 @@ import UIKit
 
 class MatchStore: Any {
     
-    static let sharedStore:MatchStore = MatchStore()
-    static let mockStore:MatchStore = MatchStore(withMock: true)
+    // MARK: Properties
+    
+    static var useMock = false
+    
+    static let sharedStore:MatchStore = MatchStore(withMock: useMock)
     
     var allMatches:[Match] = []
     var matchesToScout:[MatchQueueData] = []
@@ -23,6 +26,8 @@ class MatchStore: Any {
     
     var actionsUndo:Stack<ActionEdit> = Stack<ActionEdit>(limit: 1)
     var actionsRedo:Stack<ActionEdit> = Stack<ActionEdit>(limit: 1)
+    
+    // MARK: Initialization
     
     init() {
         allMatches = []
@@ -54,45 +59,76 @@ class MatchStore: Any {
     }
     
     init(withMock mock:Bool) {
-        allMatches = [
-            MatchImpl(queueData: MatchQueueData(match: 1, team: 1100, alliance: .red)),
-            MatchImpl(queueData: MatchQueueData(match: 1, team: 1101, alliance: .red)),
-            MatchImpl(queueData: MatchQueueData(match: 1, team: 1102, alliance: .red)),
-            MatchImpl(queueData: MatchQueueData(match: 1, team: 1200, alliance: .blue)),
-            MatchImpl(queueData: MatchQueueData(match: 1, team: 1201, alliance: .blue)),
-            MatchImpl(queueData: MatchQueueData(match: 1, team: 1202, alliance: .blue)),
-            MatchImpl(queueData: MatchQueueData(match: 2, team: 1300, alliance: .red)),
-            MatchImpl(queueData: MatchQueueData(match: 2, team: 1301, alliance: .red)),
-            MatchImpl(queueData: MatchQueueData(match: 2, team: 1302, alliance: .red)),
-            MatchImpl(queueData: MatchQueueData(match: 2, team: 1400, alliance: .blue)),
-            MatchImpl(queueData: MatchQueueData(match: 2, team: 1401, alliance: .blue)),
-            MatchImpl(queueData: MatchQueueData(match: 2, team: 1402, alliance: .blue)),
-            MatchImpl(queueData: MatchQueueData(match: 3, team: 1500, alliance: .red)),
-            MatchImpl(queueData: MatchQueueData(match: 3, team: 1501, alliance: .red)),
-            MatchImpl(queueData: MatchQueueData(match: 3, team: 1502, alliance: .red)),
-            MatchImpl(queueData: MatchQueueData(match: 3, team: 1600, alliance: .blue)),
-            MatchImpl(queueData: MatchQueueData(match: 3, team: 1601, alliance: .blue)),
-            MatchImpl(queueData: MatchQueueData(match: 3, team: 1602, alliance: .blue)),
-            MatchImpl(queueData: MatchQueueData(match: 4, team: 1700, alliance: .red)),
-            MatchImpl(queueData: MatchQueueData(match: 4, team: 1701, alliance: .red)),
-            MatchImpl(queueData: MatchQueueData(match: 4, team: 1702, alliance: .red)),
-            MatchImpl(queueData: MatchQueueData(match: 4, team: 1800, alliance: .blue)),
-            MatchImpl(queueData: MatchQueueData(match: 4, team: 1801, alliance: .blue)),
-            MatchImpl(queueData: MatchQueueData(match: 4, team: 1802, alliance: .blue)),
-            MatchImpl(queueData: MatchQueueData(match: 5, team: 1900, alliance: .red)),
-            MatchImpl(queueData: MatchQueueData(match: 5, team: 1901, alliance: .red)),
-            MatchImpl(queueData: MatchQueueData(match: 5, team: 1902, alliance: .red)),
-            MatchImpl(queueData: MatchQueueData(match: 5, team: 2000, alliance: .blue)),
-            MatchImpl(queueData: MatchQueueData(match: 5, team: 2001, alliance: .blue)),
-            MatchImpl(queueData: MatchQueueData(match: 5, team: 2002, alliance: .blue))
-        ]
-        
-        matchesToScout = []
-        
-        print("Mocking Match Data")
-        
-        self.fieldLayout = .blueRed
+        if mock {
+            allMatches = [
+                MatchImpl(queueData: MatchQueueData(match: 1, team: 1100, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 1, team: 1101, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 1, team: 1102, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 1, team: 1200, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 1, team: 1201, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 1, team: 1202, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 2, team: 1300, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 2, team: 1301, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 2, team: 1302, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 2, team: 1400, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 2, team: 1401, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 2, team: 1402, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 3, team: 1500, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 3, team: 1501, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 3, team: 1502, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 3, team: 1600, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 3, team: 1601, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 3, team: 1602, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 4, team: 1700, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 4, team: 1701, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 4, team: 1702, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 4, team: 1800, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 4, team: 1801, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 4, team: 1802, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 5, team: 1900, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 5, team: 1901, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 5, team: 1902, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 5, team: 2000, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 5, team: 2001, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 5, team: 2002, alliance: .blue))
+            ]
+            
+            matchesToScout = []
+            
+            print("Mocking Match Data")
+            
+            self.fieldLayout = .blueRed
+        } else {
+            allMatches = []
+            let matchData = NSKeyedUnarchiver.unarchiveObject(withFile: self.matchArchivePath) as? [MatchEncodingHelper] ?? [MatchEncodingHelper]()
+            for helper in matchData {
+                if let m = helper.match {
+                    allMatches.append(m)
+                }
+            }
+            
+            let queueData = NSKeyedUnarchiver.unarchiveObject(withFile: self.match2ScoutArchivePath) as? [NSDictionary]
+            if let qD = queueData {
+                for d in qD {
+                    if let mqd = MatchQueueData(propertyListRepresentation: d) {
+                        matchesToScout.append(mqd)
+                    }
+                }
+            }
+            
+            if allMatches.count == 0 {
+                print("No Match data existed!")
+                allMatches = []
+            } else {
+                print("Match Data successfully Loaded")
+            }
+            
+            let fieldLayout = UserDefaults.standard.integer(forKey: "SteamScout.fieldLayout")
+            self.fieldLayout = FieldLayoutType(rawValue: fieldLayout)!
+        }
     }
+    
+    // MARK: Archive Paths
     
     var matchArchivePath:String {
         let documentFolder = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
@@ -113,6 +149,8 @@ class MatchStore: Any {
         let documentFolder = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0]
         return (documentFolder as NSString).appendingPathComponent("Match data - \(UIDevice.current.name).csv")
     }
+    
+    // MARK: Saving and Exporting
     
     // Return Values:
     // 0 - Success
@@ -201,6 +239,8 @@ class MatchStore: Any {
         return saveChanges(withMatchType: type) == 0
     }
     
+    // MARK: Match Creation
+    
     func createMatch(_ returningType:MatchImpl.Type, onComplete handler:((Match) -> ())?) {
         currentMatch = returningType.init()
         currentMatchIndex = -1
@@ -240,6 +280,8 @@ class MatchStore: Any {
         return false
     }
     
+    // MARK: Match Removal
+    
     func removeMatchQueueAtIndex(_ index:Int) {
         guard 0..<matchesToScout.count ~= index else { return }
         matchesToScout.remove(at: index)
@@ -266,6 +308,8 @@ class MatchStore: Any {
         }
     }
     
+    // MARK: Update Matches
+    
     func updateCurrentMatchForType(_ type:UpdateType, match:Match) {
         currentMatch?.updateForType(type, withMatch: match)
     }
@@ -291,10 +335,22 @@ class MatchStore: Any {
         var matchData = [Dictionary<String, AnyObject>]()
         
         for match in allMatches {
-            matchData.append(match.messageDictionary)
+            if match.selectedForDataTransfer {
+                matchData.append(match.messageDictionary)
+            }
         }
         
-        return try? JSONSerialization.data(withJSONObject: matchData, options: .prettyPrinted)
+        return try? JSONSerialization.data(withJSONObject: matchData)
+    }
+    
+    func dataTransferComplete() {
+        for var match in allMatches {
+            if match.selectedForDataTransfer {
+                match.selectedForDataTransfer = false
+                match.lastExportedByXfer = Date()
+                match.shouldExport = (match.lastExportedByXfer == nil || match.lastExportedByFile == nil)
+            }
+        }
     }
     
     func createMatchQueueFromMatchData(_ data:[MatchQueueData]) {
