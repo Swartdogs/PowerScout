@@ -353,6 +353,20 @@ class MatchStore: Any {
         }
     }
     
+    func dataTransferImport(matches: [Match]) {
+        for match in matches {
+            if let onFile = allMatches.first(where: { return $0.teamNumber == match.teamNumber && $0.matchNumber == match.matchNumber }) {
+                print("Same Match Detected!\nReceived: ")
+                // TODO: Print match diff (need a method for that)
+                print(match.messageDictionary)
+                print("On file:")
+                print(onFile.messageDictionary)
+            }
+            print("Adding Match")
+            allMatches.append(match)
+        }
+    }
+    
     func createMatchQueueFromMatchData(_ data:[MatchQueueData]) {
         guard data.count > 0 else { return }
         

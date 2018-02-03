@@ -157,7 +157,6 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         if let matchData = MatchStore.sharedStore.dataTransferMatchesAll(true) {
             ServiceStore.shared.sendData(matchData)
         }
-        ServiceStore.shared.sendMessage("ping")
         ServiceStore.shared.sendMessage("EOD")
     }
 
@@ -209,6 +208,7 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
             }
             
             print("Matches Count: \(matches.count)")
+            MatchStore.sharedStore.dataTransferImport(matches: matches)
         }
     }
     
