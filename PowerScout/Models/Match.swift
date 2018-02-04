@@ -117,6 +117,11 @@ class MatchImpl : Any, Match {
         var final:[String:AnyObject]   = [String:AnyObject]()
         var xfer:[String:AnyObject] = [String:AnyObject]()
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
         // Team Info
         team["teamNumber"]  = teamNumber           as AnyObject?
         team["matchNumber"] = matchNumber          as AnyObject?
@@ -124,8 +129,12 @@ class MatchImpl : Any, Match {
         team["isCompleted"] = isCompleted          as AnyObject?
         
         // Data Transfer
-        xfer["exportByFile"] = lastExportedByFile as AnyObject?
-        xfer["exportByXfer"] = lastExportedByXfer as AnyObject?
+        if let exFile = lastExportedByFile {
+            xfer["exportByFile"] = dateFormatter.string(from: exFile) as AnyObject?
+        }
+        if let exXfer = lastExportedByXfer {
+            xfer["exportByXfer"] = dateFormatter.string(from: exXfer) as AnyObject?
+        }
         xfer["shouldExport"] = shouldExport as AnyObject?
         xfer["selectedForDT"] = selectedForDataTransfer as AnyObject?
         
@@ -170,6 +179,11 @@ class MatchImpl : Any, Match {
                 return
         }
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        
         // Team Info
         teamNumber         = team["teamNumber"]  as! Int
         matchNumber        = team["matchNumber"] as! Int
@@ -177,8 +191,16 @@ class MatchImpl : Any, Match {
         isCompleted        = team["isCompleted"] as! Int
         
         // Data Transfer
-        lastExportedByFile      = xfer["exportByFile"] as! Date?
-        lastExportedByXfer      = xfer["exportByXfer"] as! Date?
+        if let exFile = xfer["exportByFile"] as? String {
+            lastExportedByFile = dateFormatter.date(from: exFile)
+        } else {
+            lastExportedByFile = nil
+        }
+        if let exXfer = xfer["exportByXfer"] as? String {
+            lastExportedByXfer = dateFormatter.date(from: exXfer)
+        } else {
+            lastExportedByXfer = nil
+        }
         shouldExport            = xfer["shouldExport"] as! Bool
         selectedForDataTransfer = xfer["selectedForDT"] as! Bool
         
