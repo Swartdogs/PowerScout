@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     var window: UIWindow?
     var orientationLock: UIInterfaceOrientationMask = .all
+    var matchStore = MatchStore()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -23,8 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             } else {
                 navigationController.topViewController!.navigationItem.leftBarButtonItem = nil
             }
-            splitViewController.delegate = self
             
+            let masterNC = splitViewController.viewControllers[0] as! UINavigationController
+            if let masterVC = masterNC.topViewController as? MasterViewController {
+                masterVC.matchStore = matchStore
+            }
+            
+            splitViewController.delegate = self
         }
         
         return true

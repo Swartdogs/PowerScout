@@ -9,9 +9,6 @@
 import UIKit
 
 class MatchStore: Any {
-    
-    static let sharedStore:MatchStore = MatchStore()
-    
     var allMatches:[Match] = []
     var matchesToScout:[MatchQueueData] = []
     var currentMatchIndex = -1

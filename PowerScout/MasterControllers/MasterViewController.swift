@@ -12,17 +12,13 @@ import MBProgressHUD
 class MasterViewController: UITableViewController {
     
     @IBOutlet var clearExportButton:UIBarButtonItem!
+    
+    var matchStore:MatchStore!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem
-
-//        if let split = self.splitViewController {
-//            let controllers = split.viewControllers
-//            self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-//        }
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -60,11 +56,11 @@ class MasterViewController: UITableViewController {
 //            controller.navigationItem.title = "Match: \(match.matchNumber) Team: \(match.teamNumber)"
             
         } else if segue.identifier == "SegueToNewMatch" {
-            MatchStore.sharedStore.createMatch(SteamMatch.self, onComplete:nil)
+            matchStore.createMatch(SteamMatch.self, onComplete:nil)
             segue.destination.popoverPresentationController!.delegate = self
         } else if segue.identifier == "segueToMatchQueue" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                MatchStore.sharedStore.createMatchFromQueueIndex(indexPath.row, withType: SteamMatch.self, onComplete: nil)
+                matchStore.createMatchFromQueueIndex(indexPath.row, withType: SteamMatch.self, onComplete: nil)
                 segue.destination.popoverPresentationController!.delegate = self
             }
         }
@@ -133,7 +129,7 @@ class MasterViewController: UITableViewController {
             hud.mode = .indeterminate
             hud.label.text = "Clearing Data..."
             DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: {
-                MatchStore.sharedStore.clearMatchData(type)
+                self.matchStore.clearMatchData(type)
                 DispatchQueue.main.async(execute: {
                     let hud = MBProgressHUD(for: self.navigationController!.view)
                     let imageView = UIImageView(image: UIImage(named: "Checkmark"))
@@ -175,7 +171,7 @@ class MasterViewController: UITableViewController {
     
     func exportNewMatchData() {
         var temp = 0
-        for m in MatchStore.sharedStore.allMatches {
+        for m in matchStore.allMatches {
             if (m.isCompleted & 32) == 32 { temp += 1 }
         }
         if temp <= 0 {
@@ -193,7 +189,7 @@ class MasterViewController: UITableViewController {
                 hud.mode = .indeterminate
                 hud.label.text = "Exporting..."
                 DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: {
-                    _ = MatchStore.sharedStore.exportNewMatchData(withType: SteamMatch.self)
+                    _ = self.matchStore.exportNewMatchData(withType: SteamMatch.self)
                     DispatchQueue.main.async(execute: {
                         let hud = MBProgressHUD(for: self.navigationController!.view)
                         let imageView = UIImageView(image: UIImage(named: "Checkmark"))
@@ -215,7 +211,7 @@ class MasterViewController: UITableViewController {
         hud.mode = .indeterminate
         hud.label.text = "Exporting..."
         DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: {
-            _ = MatchStore.sharedStore.writeCSVFile(withType: SteamMatch.self)
+            _ = self.matchStore.writeCSVFile(withType: SteamMatch.self)
             DispatchQueue.main.async(execute: {
                 let hud = MBProgressHUD(for: self.navigationController!.view)
                 let imageView = UIImageView(image: UIImage(named: "Checkmark"))
@@ -235,30 +231,30 @@ class MasterViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? MatchStore.sharedStore.matchesToScout.count > 0 ? "Matches Queued for Scouting" : nil :
-                              MatchStore.sharedStore.allMatches.count     > 0 ? "Completed Matches"           : nil
+        return section == 0 ? matchStore.matchesToScout.count > 0 ? "Matches Queued for Scouting" : nil :
+                              matchStore.allMatches.count     > 0 ? "Completed Matches"           : nil
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? MatchStore.sharedStore.matchesToScout.count : MatchStore.sharedStore.allMatches.count
+        return section == 0 ? matchStore.matchesToScout.count : matchStore.allMatches.count
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return section == 0 ? MatchStore.sharedStore.matchesToScout.count > 0 ? "\(MatchStore.sharedStore.matchesToScout.count) Match(es)" : nil :
-                              MatchStore.sharedStore.allMatches.count     > 0 ? "\(MatchStore.sharedStore.allMatches.count) Match(es)"     : nil
+        return section == 0 ? matchStore.matchesToScout.count > 0 ? "\(matchStore.matchesToScout.count) Match(es)" : nil :
+                              matchStore.allMatches.count     > 0 ? "\(matchStore.allMatches.count) Match(es)"     : nil
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MatchCell", for: indexPath) as! MatchCell
 
         if indexPath.section == 0 {
-            let match = MatchStore.sharedStore.matchesToScout[indexPath.row]
+            let match = matchStore.matchesToScout[indexPath.row]
             cell.matchNumber.text = "\(match.matchNumber)"
             cell.teamNumber.text = "\(match.teamNumber)"
             
             cell.accessoryType = .none;
         } else {
-            let match = MatchStore.sharedStore.allMatches[indexPath.row]
+            let match = matchStore.allMatches[indexPath.row]
             cell.matchNumber.text = "\(match.matchNumber)"
             cell.teamNumber.text = "\(match.teamNumber)"
             
@@ -275,13 +271,13 @@ class MasterViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if indexPath.section == 0 {
-                MatchStore.sharedStore.removeMatchQueueAtIndex(indexPath.row)
+                matchStore.removeMatchQueueAtIndex(indexPath.row)
             } else {
-                MatchStore.sharedStore.removeMatchAtIndex(indexPath.row)
+                matchStore.removeMatchAtIndex(indexPath.row)
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
             
-            _ = MatchStore.sharedStore.saveChanges(withMatchType: SteamMatch.self)
+            _ = matchStore.saveChanges(withMatchType: SteamMatch.self)
         }
     }
 
