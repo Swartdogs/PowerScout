@@ -348,7 +348,7 @@ class MatchStore: Any {
             if match.selectedForDataTransfer {
                 match.selectedForDataTransfer = false
                 match.lastExportedByXfer = Date()
-                match.shouldExport = (match.lastExportedByXfer == nil || match.lastExportedByFile == nil)
+                match.shouldExport = match.lastExportedByXfer == nil
             }
         }
     }

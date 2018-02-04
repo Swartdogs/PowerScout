@@ -19,8 +19,9 @@ class DataSelectionViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        for m in MatchStore.sharedStore.allMatches {
+        for var m in MatchStore.sharedStore.allMatches {
             if(m.shouldExport || m.selectedForDataTransfer) {
+                m.selectedForDataTransfer = true
                 selectedMatches.append(m)
             } else {
                 availableMatches.append(m)
@@ -92,13 +93,11 @@ extension DataSelectionViewController : UITableViewDataSource {
         
         if tableView == availableTable {
             var match = availableMatches[indexPath.row]
-            match.selectedForDataTransfer = false
             
             cell.matchNumber.text = "\(match.matchNumber)"
             cell.teamNumber.text = "\(match.teamNumber)"
         } else if tableView == selectedTable {
             var match = selectedMatches[indexPath.row]
-            match.selectedForDataTransfer = true
             
             cell.matchNumber.text = "\(match.matchNumber)"
             cell.teamNumber.text = "\(match.teamNumber)"
@@ -112,7 +111,8 @@ extension DataSelectionViewController : UITableViewDataSource {
 extension DataSelectionViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == availableTable {
-            let match = availableMatches.remove(at: indexPath.row)
+            var match = availableMatches.remove(at: indexPath.row)
+            match.selectedForDataTransfer = true
             selectedMatches.append(match)
             
             availableTable.beginUpdates()
@@ -124,7 +124,8 @@ extension DataSelectionViewController : UITableViewDelegate {
             selectedTable.insertRows(at: [newIndexPath], with: .left)
             selectedTable.endUpdates()
         } else if tableView == selectedTable {
-            let match = selectedMatches.remove(at: indexPath.row)
+            var match = selectedMatches.remove(at: indexPath.row)
+            match.selectedForDataTransfer = false
             availableMatches.append(match)
             
             selectedTable.beginUpdates()
