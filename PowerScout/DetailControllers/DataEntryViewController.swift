@@ -83,32 +83,34 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     
     //UIPickerView stuff (DON'T TOUCH OR SUFFER HELL) I speak from experiance
     @IBAction func climbCondSelect(_ sender: UIButton) {
-        if climbingConditionPick.isHidden{
+        if climbingConditionPick.isHidden {
             climbingConditionPick.isHidden = false
         }
     }
     @IBAction func positionSelect(_ sender: UIButton) {
-        if startPositionPick.isHidden{
+        if startPositionPick.isHidden {
             startPositionPick.isHidden = false
         }
     }
+    
     func numberOfComponents(in pickerview: UIPickerView) -> Int{
        return 1
     }
     
     func pickerView(_ pickerview: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-        if pickerview == startPositionPick{
+        if pickerview == startPositionPick {
             return startPositions.count
         } else {
             return climbConditions.count
         }
-  }
+    }
     
-    func pickerView(_ pickerview: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerview == startPositionPick{
-            return startPositions[row]
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let attrs = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 22)]
+        if pickerView == startPositionPick {
+            return NSAttributedString(string: startPositions[row], attributes: attrs)
         } else {
-            return climbConditions[row]
+            return NSAttributedString(string: climbConditions[row], attributes: attrs)
         }
     }
     
@@ -169,7 +171,6 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
              anyClimb = true
         }
     }
-   
  
     @IBAction func autoScaleValueChanged(_ sender: UIStepper) {
         autoScaleBlock = Int(sender.value)
@@ -178,8 +179,21 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     
     @IBAction func autoSwitchValueChanged(_ sender: UIStepper) {
         autoSwitchVar = Int(sender.value)
-        autoAmmountSwitch.text = autoSwitchVar.description
+        autoAmmountSwitch.text=Int(sender.value).description
     }
+    @IBAction func teleopScaleValueChanged(_ sender: UIStepper) {
+        teleScaleVar = Int(sender.value)
+        teleAmmountScale.text=Int(sender.value).description
+    }
+    @IBAction func teleopSwitchValueChanged(_ sender: UIStepper) {
+        teleSwitchVar = Int(sender.value)
+        teleAmmountSwitch.text=Int(sender.value).description
+    }
+    @IBAction func teleopBlockExchangedValueChanged(_ sender: UIStepper) {
+        exchangedBlocksVar = Int(sender.value)
+        ammountExchangedBlocks.text=Int(sender.value).description
+    }
+    
 }
 
     
