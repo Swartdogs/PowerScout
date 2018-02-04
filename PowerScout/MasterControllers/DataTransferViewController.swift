@@ -32,10 +32,11 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
     
     @IBOutlet var statusLabel: UILabel!
     
-    
     weak var delegate:DataTransferViewControllerDelegate?
     var selectedDevice: NearbyDevice?
     var transferMode: DataTransferMode = .doNothing
+    
+    // MARK: Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +64,8 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: IBAction
     
     @IBAction func handleSwitchChange(_ sender: UISwitch) {
         switch sender {
@@ -137,6 +140,8 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         }
     }
     
+    // MARK: Public Functions
+    
     func updateUI(includeButtons buttons: Bool = true, includeLabels labels: Bool = true, includeSwitches switches: Bool = true) {
         if buttons {
             proceed.isEnabled = transferMode != .doNothing
@@ -144,12 +149,97 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         }
         
         if labels {
-            statusLabel.text = String(describing: ServiceStore.shared.machineState)
+            updateStatusLabel()
         }
         
         if switches {
             advertSwitch.isOn = transferMode == .advertise
             browseSwitch.isOn = transferMode == .browse
+        }
+    }
+    
+    func updateStatusLabel() {
+        proceed.isEnabled = true
+        goBack.isEnabled = true
+        switch ServiceStore.shared.machineState {
+        case .notReady:
+            statusLabel.text = "Ready to Start"
+            goBack.setTitle("Go Back", for: .normal)
+            goBack.isEnabled = false
+            if transferMode == .advertise {
+                proceed.setTitle("Select Data", for: .normal)
+            } else if transferMode == .browse {
+                proceed.setTitle("Start Browser", for: .normal)
+            } else {
+                proceed.setTitle("Proceed", for: .normal)
+                proceed.isEnabled = false
+            }
+            break
+        case .advertSelectingData:
+            statusLabel.text = "Selecting Data"
+            proceed.setTitle("Advertise", for: .normal)
+            proceed.isEnabled = false
+            goBack.setTitle("Go Back", for: .normal)
+            break
+        case .advertReady:
+            statusLabel.text = "Ready to Advertise"
+            proceed.setTitle("Advertise", for: .normal)
+            goBack.setTitle("Select Data", for: .normal)
+            break
+        case .advertRunning:
+            statusLabel.text = "Advertising"
+            proceed.setTitle("Proceed", for: .normal)
+            proceed.isEnabled = false
+            goBack.setTitle("Stop", for: .normal)
+            break
+        case .advertInvitationPending:
+            statusLabel.text = "Invitation Pending"
+            proceed.setTitle("Proceed", for: .normal)
+            proceed.isEnabled = false
+            goBack.setTitle("Go Back", for: .normal)
+            goBack.isEnabled = false
+            break
+        case .advertConnecting:
+            statusLabel.text = "Connecting to Browser"
+            proceed.setTitle("Proceed", for: .normal)
+            proceed.isEnabled = false
+            goBack.setTitle("Go Back", for: .normal)
+            goBack.isEnabled = false
+            break
+        case .advertSendingData:
+            statusLabel.text = "Sending Data"
+            proceed.setTitle("Proceed", for: .normal)
+            proceed.isEnabled = false
+            goBack.setTitle("Go Back", for: .normal)
+            goBack.isEnabled = false
+            break
+        case .browseRunning:
+            statusLabel.text = "Browsing"
+            proceed.setTitle("Proceed", for: .normal)
+            proceed.isEnabled = false
+            goBack.setTitle("Stop", for: .normal)
+            break
+        case .browseInvitationPending:
+            statusLabel.text = "Invitation Pending"
+            proceed.setTitle("Proceed", for: .normal)
+            proceed.isEnabled = false
+            goBack.setTitle("Go Back", for: .normal)
+            goBack.isEnabled = false
+            break
+        case .browseConnecting:
+            statusLabel.text = "Connecting to Advertiser"
+            proceed.setTitle("Proceed", for: .normal)
+            proceed.isEnabled = false
+            goBack.setTitle("Go Back", for: .normal)
+            goBack.isEnabled = false
+            break
+        case .browseReceivingData:
+            statusLabel.text = "Receiving Data"
+            proceed.setTitle("Proceed", for: .normal)
+            proceed.isEnabled = false
+            goBack.setTitle("Go Back", for: .normal)
+            goBack.isEnabled = false
+            break
         }
     }
     

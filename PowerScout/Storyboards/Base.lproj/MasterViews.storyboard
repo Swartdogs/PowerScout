@@ -778,19 +778,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ju8-Vv-YK5">
-                                <rect key="frame" x="20" y="72" width="728" height="116.5"/>
+                                <rect key="frame" x="20" y="72" width="728" height="113.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vHG-hK-Taw">
-                                        <rect key="frame" x="0.0" y="0.0" width="728" height="54"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="728" height="53"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" text="Advertise" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VBJ-un-Vhb">
-                                                <rect key="frame" x="0.0" y="0.0" width="728" height="14.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="728" height="13.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="REi-eW-u0l">
-                                                <rect key="frame" x="0.0" y="22.5" width="728" height="11.5"/>
+                                                <rect key="frame" x="0.0" y="21.5" width="728" height="11.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Step 1: Select Data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QR8-MR-EXu">
                                                         <rect key="frame" x="0.0" y="0.0" width="728" height="3.5"/>
@@ -808,7 +808,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="nv2-3s-58l">
-                                                <rect key="frame" x="0.0" y="42" width="728" height="12"/>
+                                                <rect key="frame" x="0.0" y="41" width="728" height="12"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Step 2: Start Advertiser" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xkc-7P-Le3">
                                                         <rect key="frame" x="0.0" y="0.0" width="728" height="4"/>
@@ -832,25 +832,25 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="fuf-fy-We2">
-                                        <rect key="frame" x="0.0" y="62" width="728" height="54.5"/>
+                                        <rect key="frame" x="0.0" y="61" width="728" height="52.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" text="Browse" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NC2-Ic-kga">
-                                                <rect key="frame" x="0.0" y="0.0" width="728" height="14.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="728" height="14"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1qK-kO-mZ2">
-                                                <rect key="frame" x="0.0" y="22.5" width="728" height="12.5"/>
+                                                <rect key="frame" x="0.0" y="22" width="728" height="11"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Step 1: Start Browser" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="akH-lD-eEh">
-                                                        <rect key="frame" x="0.0" y="0.0" width="728" height="4.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="728" height="3"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start the Browser and wait for Advertisers to appear in the Neaby Devices Table." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2I-jz-ZV6">
-                                                        <rect key="frame" x="0.0" y="12.5" width="728" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="11" width="728" height="0.0"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -858,7 +858,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4Uk-R2-fLG">
-                                                <rect key="frame" x="0.0" y="43" width="728" height="11.5"/>
+                                                <rect key="frame" x="0.0" y="41" width="728" height="11.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Step 2: Select Advertiser" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NL6-AV-T1h">
                                                         <rect key="frame" x="0.0" y="0.0" width="728" height="3.5"/>
