@@ -13,19 +13,18 @@ class PowerMatch : MatchImpl {
     // Auto Info
     var autoStartPos:PowerStartPositionType = .none
     var autoCrossedLine:Bool = false
-    var autoScaleBlocks:Int = 0
-    var autoSwitchBlocks:Int = 0
+    var autoScaleCubes:Int = 0
+    var autoSwitchCubes:Int = 0
     
     // Teleop Info
-    var teleScaleBlocks:Int = 0
-    var teleSwitchBlocks:Int = 0
-    var teleExchangeBlocks:Int = 0
+    var teleScaleCubes:Int = 0
+    var teleSwitchCubes:Int = 0
+    var teleExchangeCubes:Int = 0
     var teleLow:Bool = false
     var teleNormal:Bool =  false
     var teleHigh:Bool = false
     
     // End Game Info
-    var endClimb:Bool = false
     var endClimbCondition:PowerEndClimbPositionType = .none
     
     required init() {
@@ -44,19 +43,18 @@ class PowerMatch : MatchImpl {
         // Auto Info
         autoStartPos = PowerStartPositionType(rawValue: json["auto"]["startPos"].intValue)!
         autoCrossedLine = json["auto"]["crossed"].boolValue
-        autoScaleBlocks = json["auto"]["scale"].intValue
-        autoSwitchBlocks = json["auto"]["switch"].intValue
+        autoScaleCubes = json["auto"]["scale"].intValue
+        autoSwitchCubes = json["auto"]["switch"].intValue
         
         // Tele Info
-        teleScaleBlocks = json["tele"]["scale"].intValue
-        teleSwitchBlocks = json["tele"]["switch"].intValue
-        teleExchangeBlocks = json["tele"]["exchange"].intValue
+        teleScaleCubes = json["tele"]["scale"].intValue
+        teleSwitchCubes = json["tele"]["switch"].intValue
+        teleExchangeCubes = json["tele"]["exchange"].intValue
         teleLow = json["tele"]["low"].boolValue
         teleNormal = json["tele"]["normal"].boolValue
         teleHigh = json["tele"]["high"].boolValue
         
         // End Game Info
-        endClimb = json["endg"]["climb"].boolValue
         endClimbCondition = PowerEndClimbPositionType(rawValue: json["endg"]["climbCond"].intValue)!
     }
     
@@ -69,19 +67,18 @@ class PowerMatch : MatchImpl {
         // Auto Info
         auto["startPos"] = autoStartPos.rawValue as AnyObject?
         auto["crossed"] = autoCrossedLine as AnyObject?
-        auto["scale"] = autoScaleBlocks as AnyObject?
-        auto["switch"] = autoSwitchBlocks as AnyObject?
+        auto["scale"] = autoScaleCubes as AnyObject?
+        auto["switch"] = autoSwitchCubes as AnyObject?
         
         // Tele Info
-        tele["scale"] = teleScaleBlocks as AnyObject?
-        tele["switch"] = teleSwitchBlocks as AnyObject?
-        tele["exchange"] = teleExchangeBlocks as AnyObject?
+        tele["scale"] = teleScaleCubes as AnyObject?
+        tele["switch"] = teleSwitchCubes as AnyObject?
+        tele["exchange"] = teleExchangeCubes as AnyObject?
         tele["low"] = teleLow as AnyObject?
         tele["normal"] = teleNormal as AnyObject?
         tele["high"] = teleHigh as AnyObject?
         
         // End Game Info
-        endg["climb"] = endClimb as AnyObject?
         endg["climbCond"] = endClimbCondition.rawValue as AnyObject?
         
         data["auto"] = auto as AnyObject?
@@ -97,13 +94,13 @@ class PowerMatch : MatchImpl {
         matchHeader += "Match Number, Team Number, Alliance, "
         
         // Auto Info
-        matchHeader += "Auto Start Position, Auto Line Crossed, Auto Scale Blocks, Auto Switch Blocks, "
+        matchHeader += "Auto Start Position, Auto Line Crossed, Auto Scale Cubes, Auto Switch Cubes, "
         
         // Tele Info
-        matchHeader += "Tele Scale Blocks, Tele Switch Blocks, Tele Exchange Blocks, Tele Low, Tele Normal, Tele High, "
+        matchHeader += "Tele Scale Cubes, Tele Switch Cubes, Tele Exchange Cubes, Tele Low, Tele Normal, Tele High, "
         
         // End Game Info
-        matchHeader += "End Game Climb, End Game Climb Condition, "
+        matchHeader += "End Game Climb Condition, "
         
         // Final Info
         matchHeader += "Final Score, Final Ranking Points, Penalty Points Received, Final Result, Fouls, Tech Fouls, Yellow Cards, Red Cards, Robot, Config, Comments \r\n"
@@ -135,7 +132,6 @@ class PowerMatch : MatchImpl {
         matchData += "\(match["tele", "high"].boolValue), "
         
         // End Game Info
-        matchData += "\(match["endg", "climb"].boolValue), "
         matchData += "\(match["endg", "climbCond"].intValue), "
         
         // Final Info
