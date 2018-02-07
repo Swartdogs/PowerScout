@@ -697,7 +697,7 @@
                                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="ssU-XW-a6d">
                                                                 <rect key="frame" x="0.0" y="0.0" width="94" height="29"/>
                                                                 <connections>
-                                                                    <action selector="autoScaleValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="j45-5o-a5b"/>
+                                                                    <action selector="stepperValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="exc-XA-1Yn"/>
                                                                 </connections>
                                                             </stepper>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wM1-kd-PYi">
@@ -730,7 +730,7 @@
                                                         </segments>
                                                         <color key="tintColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                                         <connections>
-                                                            <action selector="autoLineCrossed:" destination="RmR-df-9YL" eventType="valueChanged" id="r5q-TE-mlV"/>
+                                                            <action selector="segmentedControlSelect:" destination="RmR-df-9YL" eventType="valueChanged" id="10d-Eh-t6i"/>
                                                         </connections>
                                                     </segmentedControl>
                                                 </subviews>
@@ -750,7 +750,7 @@
                                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="u7P-SE-NNx">
                                                                 <rect key="frame" x="0.0" y="0.0" width="94" height="29"/>
                                                                 <connections>
-                                                                    <action selector="autoSwitchValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="BqW-tv-QYN"/>
+                                                                    <action selector="stepperValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="Bxp-aP-hU9"/>
                                                                 </connections>
                                                             </stepper>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YfX-Vf-4JF">
@@ -793,7 +793,7 @@
                                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="tjV-W9-3GG">
                                                                 <rect key="frame" x="0.0" y="0.0" width="94" height="29"/>
                                                                 <connections>
-                                                                    <action selector="teleopScaleValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="hmq-or-dRC"/>
+                                                                    <action selector="stepperValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="hgP-p3-5Dz"/>
                                                                 </connections>
                                                             </stepper>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6g9-zA-wjj">
@@ -826,7 +826,7 @@
                                                                 </segments>
                                                                 <color key="tintColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                                                 <connections>
-                                                                    <action selector="scaleLow:" destination="RmR-df-9YL" eventType="valueChanged" id="hc7-ik-oCh"/>
+                                                                    <action selector="segmentedControlSelect:" destination="RmR-df-9YL" eventType="valueChanged" id="ZvW-O7-1do"/>
                                                                 </connections>
                                                             </segmentedControl>
                                                         </subviews>
@@ -848,7 +848,7 @@
                                                                 </segments>
                                                                 <color key="tintColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                                                 <connections>
-                                                                    <action selector="scaleMedium:" destination="RmR-df-9YL" eventType="valueChanged" id="cAq-fr-0i0"/>
+                                                                    <action selector="segmentedControlSelect:" destination="RmR-df-9YL" eventType="valueChanged" id="sc3-k5-YYo"/>
                                                                 </connections>
                                                             </segmentedControl>
                                                         </subviews>
@@ -870,7 +870,7 @@
                                                                 </segments>
                                                                 <color key="tintColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                                                 <connections>
-                                                                    <action selector="scaleHigh:" destination="RmR-df-9YL" eventType="valueChanged" id="zHe-mM-64H"/>
+                                                                    <action selector="segmentedControlSelect:" destination="RmR-df-9YL" eventType="valueChanged" id="arL-2b-Yhr"/>
                                                                 </connections>
                                                             </segmentedControl>
                                                         </subviews>
@@ -895,7 +895,7 @@
                                                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="5H9-cL-hfP">
                                                                         <rect key="frame" x="0.0" y="0.0" width="94" height="29"/>
                                                                         <connections>
-                                                                            <action selector="teleopSwitchValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="Ttj-na-NZf"/>
+                                                                            <action selector="stepperValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="Ey5-tL-B7d"/>
                                                                         </connections>
                                                                     </stepper>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tmo-Cm-bTe">
@@ -923,7 +923,7 @@
                                                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="5Ec-b2-pcU">
                                                                         <rect key="frame" x="0.0" y="0.0" width="94" height="29"/>
                                                                         <connections>
-                                                                            <action selector="teleopBlockExchangedValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="Dw4-zK-YLa"/>
+                                                                            <action selector="stepperValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="SU2-PH-9IP"/>
                                                                         </connections>
                                                                     </stepper>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z15-Rr-0P9">
@@ -968,9 +968,6 @@
                                                                     <segment title="Yes"/>
                                                                 </segments>
                                                                 <color key="tintColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
-                                                                <connections>
-                                                                    <action selector="climbYNSelected:" destination="RmR-df-9YL" eventType="valueChanged" id="PeZ-4f-yCD"/>
-                                                                </connections>
                                                             </segmentedControl>
                                                         </subviews>
                                                     </stackView>
