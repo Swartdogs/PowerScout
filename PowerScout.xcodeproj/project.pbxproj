@@ -26,8 +26,6 @@
 		C40BB97E2013E7C60011DB45 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB9712013E7C60011DB45 /* Match.swift */; };
 		C40BB97F2013E7C60011DB45 /* MatchEncodingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB9722013E7C60011DB45 /* MatchEncodingHelper.swift */; };
 		C40BB9802013E7C60011DB45 /* MatchStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB9732013E7C60011DB45 /* MatchStore.swift */; };
-		C40BB9842013E7C60011DB45 /* SteamMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB9772013E7C60011DB45 /* SteamMatch.swift */; };
-		C40BB9852013E7C60011DB45 /* StrongMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB9782013E7C60011DB45 /* StrongMatch.swift */; };
 		C47ABEAD2014441B007DAA6B /* DataEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47ABEAC2014441B007DAA6B /* DataEntryViewController.swift */; };
 		C481786620132531001EAF24 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481786520132531001EAF24 /* AppDelegate.swift */; };
 		C481786D20132531001EAF24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C481786B20132531001EAF24 /* Main.storyboard */; };
@@ -38,6 +36,8 @@
 		C4BF77A8202927C3006C34CC /* PowerMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77A7202927C3006C34CC /* PowerMatch.swift */; };
 		C4BF77AA20292817006C34CC /* PowerStartPositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77A920292817006C34CC /* PowerStartPositionType.swift */; };
 		C4BF77AC2029284F006C34CC /* PowerEndClimbPositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */; };
+		C4BF77AE202AD20B006C34CC /* FinalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77AD202AD20B006C34CC /* FinalViewController.swift */; };
+		C4BF77B0202AD210006C34CC /* TeamInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77AF202AD210006C34CC /* TeamInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,8 +77,6 @@
 		C40BB9712013E7C60011DB45 /* Match.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		C40BB9722013E7C60011DB45 /* MatchEncodingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEncodingHelper.swift; sourceTree = "<group>"; };
 		C40BB9732013E7C60011DB45 /* MatchStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchStore.swift; sourceTree = "<group>"; };
-		C40BB9772013E7C60011DB45 /* SteamMatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SteamMatch.swift; sourceTree = "<group>"; };
-		C40BB9782013E7C60011DB45 /* StrongMatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StrongMatch.swift; sourceTree = "<group>"; };
 		C47ABEAC2014441B007DAA6B /* DataEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntryViewController.swift; sourceTree = "<group>"; };
 		C481786220132531001EAF24 /* PowerScout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PowerScout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C481786520132531001EAF24 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +93,8 @@
 		C4BF77A7202927C3006C34CC /* PowerMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerMatch.swift; sourceTree = "<group>"; };
 		C4BF77A920292817006C34CC /* PowerStartPositionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerStartPositionType.swift; sourceTree = "<group>"; };
 		C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerEndClimbPositionType.swift; sourceTree = "<group>"; };
+		C4BF77AD202AD20B006C34CC /* FinalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalViewController.swift; sourceTree = "<group>"; };
+		C4BF77AF202AD210006C34CC /* TeamInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamInfoViewController.swift; sourceTree = "<group>"; };
 		E2D24E694F4F9F710E5EE5C5 /* Pods_PowerScout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PowerScout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA393782602B7CFAE85CDBEE /* Pods-PowerScout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PowerScout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PowerScout/Pods-PowerScout.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,8 +185,6 @@
 				C40BB9712013E7C60011DB45 /* Match.swift */,
 				C40BB9722013E7C60011DB45 /* MatchEncodingHelper.swift */,
 				C40BB9732013E7C60011DB45 /* MatchStore.swift */,
-				C40BB9772013E7C60011DB45 /* SteamMatch.swift */,
-				C40BB9782013E7C60011DB45 /* StrongMatch.swift */,
 				C4BF77A7202927C3006C34CC /* PowerMatch.swift */,
 			);
 			path = Models;
@@ -206,6 +204,8 @@
 		C47ABEAB2014441B007DAA6B /* DetailControllers */ = {
 			isa = PBXGroup;
 			children = (
+				C4BF77AF202AD210006C34CC /* TeamInfoViewController.swift */,
+				C4BF77AD202AD20B006C34CC /* FinalViewController.swift */,
 				C47ABEAC2014441B007DAA6B /* DataEntryViewController.swift */,
 			);
 			path = DetailControllers;
@@ -469,7 +469,7 @@
 				C47ABEAD2014441B007DAA6B /* DataEntryViewController.swift in Sources */,
 				C40BB9532013E7050011DB45 /* CustomContainerArrayView.swift in Sources */,
 				C40BB9572013E7050011DB45 /* SelectionButton.swift in Sources */,
-				C40BB9852013E7C60011DB45 /* StrongMatch.swift in Sources */,
+				C4BF77B0202AD210006C34CC /* TeamInfoViewController.swift in Sources */,
 				C40BB9802013E7C60011DB45 /* MatchStore.swift in Sources */,
 				C40BB97A2013E7C60011DB45 /* SteamStartPositionType.swift in Sources */,
 				C40BB97B2013E7C60011DB45 /* Definitions.swift in Sources */,
@@ -482,8 +482,8 @@
 				C40BB9552013E7050011DB45 /* MatchCell.swift in Sources */,
 				C40BB97E2013E7C60011DB45 /* Match.swift in Sources */,
 				C40BB9452013E6FE0011DB45 /* PenaltyViewController.swift in Sources */,
+				C4BF77AE202AD20B006C34CC /* FinalViewController.swift in Sources */,
 				C481786620132531001EAF24 /* AppDelegate.swift in Sources */,
-				C40BB9842013E7C60011DB45 /* SteamMatch.swift in Sources */,
 				C40BB97F2013E7C60011DB45 /* MatchEncodingHelper.swift in Sources */,
 				C4BF77A8202927C3006C34CC /* PowerMatch.swift in Sources */,
 			);

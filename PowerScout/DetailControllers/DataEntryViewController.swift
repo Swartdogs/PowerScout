@@ -74,6 +74,10 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         match = PowerMatch()
     }
     
+    @IBAction func unwindToDataEntry(_ sender:UIStoryboardSegue) {
+        
+    }
+    
     // MARK: UIPickerView Functions
     // UIPickerView stuff (DON'T TOUCH OR SUFFER HELL) I speak from experiance
     @IBAction func climbCondSelect(_ sender: UIButton) {
@@ -167,28 +171,3 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         }
     }
 }
-
-    
-
-    
-  
-
-
-
-
-
-
-
-
-    
-
-
-   
-
-    
-    
-
-
-
-
-
