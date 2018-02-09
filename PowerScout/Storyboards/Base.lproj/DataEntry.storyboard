@@ -41,7 +41,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="YellowCardPressed:" destination="k3D-7e-Zxi" eventType="touchUpInside" id="YYc-XL-iF1"/>
+                                                    <action selector="handleButtonPress:" destination="k3D-7e-Zxi" eventType="touchUpInside" id="zEe-JW-13h"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WM2-kN-Qpi" customClass="SelectionButton" customModule="PowerScout" customModuleProvider="target">
@@ -55,7 +55,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="RedCardPressed:" destination="k3D-7e-Zxi" eventType="touchUpInside" id="UcE-Q5-mgW"/>
+                                                    <action selector="handleButtonPress:" destination="k3D-7e-Zxi" eventType="touchUpInside" id="t3f-G3-I6S"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -76,7 +76,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="FoulPressed:" destination="k3D-7e-Zxi" eventType="touchUpInside" id="dW7-QO-xNY"/>
+                                                    <action selector="handleButtonPress:" destination="k3D-7e-Zxi" eventType="touchUpInside" id="uVe-ch-2Vw"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSb-Dm-bhQ" customClass="SelectionButton" customModule="PowerScout" customModuleProvider="target">
@@ -90,7 +90,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="TechnicalFoulPressed:" destination="k3D-7e-Zxi" eventType="touchUpInside" id="mpB-Ib-aNw"/>
+                                                    <action selector="handleButtonPress:" destination="k3D-7e-Zxi" eventType="touchUpInside" id="dAa-bS-tkY"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -109,7 +109,11 @@
                                 </constraints>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Vct-CX-U08"/>
-                                    <barButtonItem systemItem="save" id="JeV-VS-L49"/>
+                                    <barButtonItem systemItem="save" id="JeV-VS-L49">
+                                        <connections>
+                                            <action selector="handleSave:" destination="k3D-7e-Zxi" id="TIr-1d-qYn"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -137,19 +141,24 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xod-Ic-wc0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2979" y="-789"/>
+            <point key="canvasLocation" x="3188" y="-13"/>
         </scene>
         <!--Data Entry Navigation Controller-->
         <scene sceneID="ytf-eH-7Fk">
             <objects>
-                <navigationController storyboardIdentifier="DataEntryNavController" id="JsC-bF-W9h" userLabel="Data Entry Navigation Controller" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="DataEntryNavController" toolbarHidden="NO" id="JsC-bF-W9h" userLabel="Data Entry Navigation Controller" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="768" height="1024"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="P6d-Hc-fJB">
                         <rect key="frame" x="0.0" y="20" width="768" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="zXI-9s-5kn">
+                        <rect key="frame" x="0.0" y="980" width="768" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="RmR-df-9YL" kind="relationship" relationship="rootViewController" id="tD0-XC-6Ax"/>
                     </connections>
@@ -412,7 +421,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ecL-vf-xE1" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="SNW-K5-ZFo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2600" y="313"/>
+            <point key="canvasLocation" x="2600" y="326"/>
         </scene>
         <!--Team Info-->
         <scene sceneID="7la-S9-QHK">
@@ -601,7 +610,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQm-3p-6ul" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2063" y="313"/>
+            <point key="canvasLocation" x="2063" y="326"/>
         </scene>
         <!--Data Entry-->
         <scene sceneID="G6f-4o-nU1">
@@ -612,10 +621,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="vrd-16-0Lb">
-                                <rect key="frame" x="16" y="16" width="736" height="928"/>
+                                <rect key="frame" x="16" y="16" width="736" height="884"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="XOJ-GX-x51" userLabel="Pre Game">
-                                        <rect key="frame" x="0.0" y="0.0" width="736" height="258"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="736" height="214"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pre-Game Information" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tNz-Ph-0m5">
                                                 <rect key="frame" x="0.0" y="0.0" width="736" height="39.5"/>
@@ -624,7 +633,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="RCx-vr-F8o">
-                                                <rect key="frame" x="0.0" y="47.5" width="736" height="210.5"/>
+                                                <rect key="frame" x="0.0" y="47.5" width="736" height="166.5"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GvG-u2-Deq">
                                                         <rect key="frame" x="0.0" y="0.0" width="260" height="68"/>
@@ -666,7 +675,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="firstBaseline" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Z2y-MW-TCq">
-                                                        <rect key="frame" x="268" y="0.0" width="468" height="210.5"/>
+                                                        <rect key="frame" x="268" y="0.0" width="468" height="166.5"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Starting Position:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aek-7A-5eq">
                                                                 <rect key="frame" x="0.0" y="0.0" width="133.5" height="20.5"/>
@@ -675,7 +684,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="1Ea-jb-zxK">
-                                                                <rect key="frame" x="141.5" y="-7" width="326.5" height="217.5"/>
+                                                                <rect key="frame" x="141.5" y="-7" width="326.5" height="173.5"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDa-xg-cDW">
                                                                         <rect key="frame" x="0.0" y="0.0" width="326.5" height="34"/>
@@ -689,7 +698,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <pickerView contentMode="scaleToFill" verticalHuggingPriority="240" verticalCompressionResistancePriority="740" translatesAutoresizingMaskIntoConstraints="NO" id="Olf-JV-OjY">
-                                                                        <rect key="frame" x="0.0" y="34" width="326.5" height="183.5"/>
+                                                                        <rect key="frame" x="0.0" y="34" width="326.5" height="139.5"/>
                                                                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <accessibility key="accessibilityConfiguration" label="Pick Starting Position"/>
                                                                     </pickerView>
@@ -702,7 +711,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dpf-5y-ITy" userLabel="Autonomous">
-                                        <rect key="frame" x="0.0" y="266" width="736" height="152"/>
+                                        <rect key="frame" x="0.0" y="222" width="736" height="152"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Autonomous" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1a-Gi-fNi">
                                                 <rect key="frame" x="0.0" y="0.0" width="736" height="42"/>
@@ -798,7 +807,7 @@
                                         </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="VI8-Xm-3B9" userLabel="Teleop">
-                                        <rect key="frame" x="0.0" y="426" width="736" height="149.5"/>
+                                        <rect key="frame" x="0.0" y="382" width="736" height="149.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Teleop" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QY4-Ci-bTL">
                                                 <rect key="frame" x="0.0" y="0.0" width="736" height="39.5"/>
@@ -969,7 +978,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lJL-aH-i8o" userLabel="End Game">
-                                        <rect key="frame" x="0.0" y="583.5" width="736" height="293.5"/>
+                                        <rect key="frame" x="0.0" y="539.5" width="736" height="293.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Game" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSG-TQ-5vK">
                                                 <rect key="frame" x="0.0" y="0.0" width="736" height="43"/>
@@ -1035,7 +1044,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8ck-Kb-Yn3" userLabel="Extra">
-                                        <rect key="frame" x="0.0" y="885" width="736" height="43"/>
+                                        <rect key="frame" x="0.0" y="841" width="736" height="43"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Extra" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pw-vn-dFn">
                                                 <rect key="frame" x="0.0" y="0.0" width="736" height="43"/>
@@ -1060,6 +1069,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Dm3-wY-iEl"/>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Data Entry" id="KhZ-uG-4lO">
                         <barButtonItem key="rightBarButtonItem" title="Results" id="z9a-UV-jZ5">
                             <connections>
@@ -1067,6 +1077,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="ammountExchangedBlocks" destination="z15-Rr-0P9" id="r6N-jx-aP8"/>
                         <outlet property="autoAmmountScale" destination="wM1-kd-PYi" id="PEc-Tp-hvJ"/>
