@@ -33,19 +33,7 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     @IBOutlet weak var climbButton: UIButton!
     @IBOutlet weak var climbYN: UISegmentedControl!
     
-    var autoScaleBlock = 0
-    var autoScaleVar = 0
-    var autoSwitchVar = 0
-    var teleScaleVar = 0
-    var teleSwitchVar = 0
-    var exchangedBlocksVar = 0
-    var autoLineX = false
-    var scaleLowX = false
-    var scaleMediumX = false
-    var scaleHighX = false
-    var anyClimb = false
-    var startPosition = " "
-    var climbingCondition = " "
+    var match:PowerMatch = PowerMatch()
     
     let startPositions = ["Exchange", "Center", "Non-Exchange"]
     let climbConditions = ["No attempt or failure to climb", "No climb but helped another", "Climb by themselves", "Climb with help", "Climb helping another team"]
@@ -78,10 +66,28 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         exchangedBlocks.maximumValue = 20
         exchangedBlocks.stepValue = 1
         super.viewDidLoad()
-        // Do any additional setup after loading the view
     }
     
-    //UIPickerView stuff (DON'T TOUCH OR SUFFER HELL) I speak from experiance
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        match = MatchStore.sharedStore.currentMatch as? PowerMatch ?? match
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let id = segue.identifier {
+            if id.elementsEqual("unwindCancelMatch") {
+                MatchStore.sharedStore.cancelCurrentMatchEdit()
+            }
+        }
+    }
+    
+    @IBAction func unwindToDataEntry(_ sender:UIStoryboardSegue) {
+        
+    }
+    
+    // MARK: UIPickerView Functions
+    // UIPickerView stuff (DON'T TOUCH OR SUFFER HELL) I speak from experiance
     @IBAction func climbCondSelect(_ sender: UIButton) {
         if climbingConditionPick.isHidden {
             climbingConditionPick.isHidden = false
@@ -118,105 +124,58 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         if pickerview == startPositionPick{
             positionButton.setTitle(startPositions[row], for: .normal)
             startPositionPick.isHidden = true
-            startPosition = startPositions[row]
+            match.autoStartPos = PowerStartPositionType(rawValue: row+1)!
         }
         if pickerview == climbingConditionPick{
             climbButton.setTitle(climbConditions[row], for: .normal)
             climbingConditionPick.isHidden = true
-            climbingCondition = climbConditions[row]
+            match.endClimbCondition = PowerEndClimbPositionType(rawValue: row)!
         }
     }
     
-    @IBAction func scaleLow(_ sender: UISegmentedControl) {
-        if scaleLow.selectedSegmentIndex == 0{
-            scaleLowX = false
+    @IBAction func segmentedControlSelect(_ sender: UISegmentedControl) {
+        switch sender {
+        case autoLine:
+            match.autoCrossedLine = sender.selectedSegmentIndex == 1
+            break
+        case scaleLow:
+            match.teleLow = sender.selectedSegmentIndex == 1
+            break
+        case scaleMedium:
+            match.teleNormal = sender.selectedSegmentIndex == 1
+            break
+        case scaleHigh:
+            match.teleHigh = sender.selectedSegmentIndex == 1
+            break
+        default:
+            break
         }
-        if scaleLow.selectedSegmentIndex == 1{
-            scaleLowX = true
-        }
-        
-    }
-    @IBAction func autoLineCrossed(_ sender: UISegmentedControl) {
-        if autoLine.selectedSegmentIndex == 0{
-            autoLineX = false
-        }
-        if autoLine.selectedSegmentIndex == 1{
-            autoLineX = true
-        }
-        
-    }
-    @IBAction func scaleMedium(_ sender: UISegmentedControl) {
-        if scaleMedium.selectedSegmentIndex == 0{
-            scaleMediumX = false
-        }
-        if scaleMedium.selectedSegmentIndex == 1{
-            scaleMediumX = true
-        }
-    }
-    @IBAction func scaleHigh(_ sender: UISegmentedControl) {
-        if scaleHigh.selectedSegmentIndex == 0{
-            scaleHighX = false
-        }
-        if scaleHigh.selectedSegmentIndex == 1{
-            scaleHighX = true
-        }
-        
-    }
-   
-    @IBAction func climbYNSelected(_ sender: UISegmentedControl) {
-        if climbYN.selectedSegmentIndex == 0{
-             anyClimb = false
-        }
-        if climbYN.selectedSegmentIndex == 1{
-             anyClimb = true
-        }
-    }
- 
-    @IBAction func autoScaleValueChanged(_ sender: UIStepper) {
-        autoScaleBlock = Int(sender.value)
-        autoAmmountScale.text=Int(sender.value).description
     }
     
-    @IBAction func autoSwitchValueChanged(_ sender: UIStepper) {
-        autoSwitchVar = Int(sender.value)
-        autoAmmountSwitch.text=Int(sender.value).description
+    @IBAction func stepperValueChanged(_ sender: UIStepper) {
+        switch sender {
+        case autoScale:
+            match.autoScaleCubes = Int(sender.value)
+            autoAmmountScale.text = match.autoScaleCubes.description
+            break
+        case autoSwitch:
+            match.autoSwitchCubes = Int(sender.value)
+            autoAmmountSwitch.text = match.autoSwitchCubes.description
+            break
+        case teleScale:
+            match.teleScaleCubes = Int(sender.value)
+            teleAmmountScale.text = match.teleScaleCubes.description
+            break
+        case teleSwitch:
+            match.teleSwitchCubes = Int(sender.value)
+            teleAmmountSwitch.text = match.teleSwitchCubes.description
+            break
+        case exchangedBlocks:
+            match.teleExchangeCubes = Int(sender.value)
+            ammountExchangedBlocks.text = match.teleExchangeCubes.description
+            break
+        default:
+            break
+        }
     }
-    @IBAction func teleopScaleValueChanged(_ sender: UIStepper) {
-        teleScaleVar = Int(sender.value)
-        teleAmmountScale.text=Int(sender.value).description
-    }
-    @IBAction func teleopSwitchValueChanged(_ sender: UIStepper) {
-        teleSwitchVar = Int(sender.value)
-        teleAmmountSwitch.text=Int(sender.value).description
-    }
-    @IBAction func teleopBlockExchangedValueChanged(_ sender: UIStepper) {
-        exchangedBlocksVar = Int(sender.value)
-        ammountExchangedBlocks.text=Int(sender.value).description
-    }
-    
 }
-
-    
-
-    
-  
-
-
-
-
-
-
-
-
-    
-
-
-   
-
-    
-    
-
-
-
-
-

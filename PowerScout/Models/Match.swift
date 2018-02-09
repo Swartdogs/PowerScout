@@ -48,7 +48,7 @@ protocol Match : CsvDataProvider, MatchCoding {
     var finalComments:String   { get set }
     
     // Calculated Variables
-    var messageDictionary:Dictionary<String, AnyObject> { get }
+    var messageDictionary:[String:AnyObject] { get }
     
     init(queueData:MatchQueueData)
     
@@ -57,7 +57,7 @@ protocol Match : CsvDataProvider, MatchCoding {
     func aggregateMatchData()
 }
 
-class MatchImpl : Any, Match {
+class MatchImpl : Match {
     
     // Team Info
     
@@ -97,7 +97,7 @@ class MatchImpl : Any, Match {
         return matchData;
     }
     
-    var messageDictionary:Dictionary<String, AnyObject> {
+    var messageDictionary: [String:AnyObject] {
         var data:[String:AnyObject]    = [String:AnyObject]()
         var team:[String:AnyObject]    = [String:AnyObject]()
         var final:[String:AnyObject]   = [String:AnyObject]()
@@ -105,23 +105,25 @@ class MatchImpl : Any, Match {
         // Team Info
         team["teamNumber"]  = teamNumber           as AnyObject?
         team["matchNumber"] = matchNumber          as AnyObject?
-        team["alliance"]    = alliance.toString()  as AnyObject?
+        team["alliance"]    = alliance.rawValue    as AnyObject?
+        team["isCompleted"] = isCompleted          as AnyObject?
         
         // Final Info
         final["score"]      = finalScore           as AnyObject?
         final["rPoints"]    = finalRankingPoints   as AnyObject?
-        final["result"]     = finalResult.toString() as AnyObject?
+        final["result"]     = finalResult.rawValue as AnyObject?
         final["pScore"]     = finalPenaltyScore    as AnyObject?
         final["fouls"]      = finalFouls           as AnyObject?
         final["tFouls"]     = finalTechFouls       as AnyObject?
         final["yCards"]     = finalYellowCards     as AnyObject?
         final["rCards"]     = finalRedCards        as AnyObject?
-        final["robot"]      = finalRobot.toString()  as AnyObject?
+        final["robot"]      = finalRobot.rawValue  as AnyObject?
         final["comments"]   = finalComments        as AnyObject?
         
         // All Data
         data["team"]        = team  as AnyObject?
         data["final"]       = final as AnyObject?
+        data["matchType"]   = NSStringFromClass(type(of: self)) as AnyObject?
         
         return data
     }
