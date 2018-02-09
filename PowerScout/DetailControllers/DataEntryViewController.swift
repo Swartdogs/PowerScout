@@ -74,6 +74,14 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         match = MatchStore.sharedStore.currentMatch as? PowerMatch ?? match
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let id = segue.identifier {
+            if id.elementsEqual("unwindCancelMatch") {
+                MatchStore.sharedStore.cancelCurrentMatchEdit()
+            }
+        }
+    }
+    
     @IBAction func unwindToDataEntry(_ sender:UIStoryboardSegue) {
         
     }

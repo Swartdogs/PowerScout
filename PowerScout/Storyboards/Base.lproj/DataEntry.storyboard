@@ -1071,6 +1071,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Data Entry" id="KhZ-uG-4lO">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="1eQ-bb-1UJ">
+                            <connections>
+                                <segue destination="CCN-mt-Ykg" kind="unwind" identifier="unwindCancelMatch" unwindAction="unwindToMatchView:" id="c5Q-V7-okO"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Results" id="z9a-UV-jZ5">
                             <connections>
                                 <segue destination="Pry-m9-euE" kind="presentation" modalPresentationStyle="formSheet" id="l5I-gO-gUU"/>
@@ -1103,6 +1108,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GNe-bJ-CtU" sceneMemberID="firstResponder"/>
+                <exit id="CCN-mt-Ykg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2713" y="-243"/>
         </scene>
