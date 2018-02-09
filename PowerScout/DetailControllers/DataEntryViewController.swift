@@ -33,7 +33,7 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     @IBOutlet weak var climbButton: UIButton!
     @IBOutlet weak var climbYN: UISegmentedControl!
     
-    var match:PowerMatch!
+    var match:PowerMatch = PowerMatch()
     
     let startPositions = ["Exchange", "Center", "Non-Exchange"]
     let climbConditions = ["No attempt or failure to climb", "No climb but helped another", "Climb by themselves", "Climb with help", "Climb helping another team"]
@@ -71,7 +71,7 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        match = PowerMatch()
+        match = MatchStore.sharedStore.currentMatch as? PowerMatch ?? match
     }
     
     @IBAction func unwindToDataEntry(_ sender:UIStoryboardSegue) {

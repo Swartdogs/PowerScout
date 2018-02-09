@@ -30,7 +30,7 @@ class FinalViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        match = MatchStore.sharedStore.currentMatch as! PowerMatch
+        match = MatchStore.sharedStore.currentMatch as? PowerMatch ?? match
         
         readyToMoveOn()
         
@@ -123,8 +123,8 @@ class FinalViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "unwindToMatchView" {
-//            MatchStore.sharedStore.updateCurrentMatchForType(.finalStats, match: match)
-//            MatchStore.sharedStore.finishCurrentMatch()
+            MatchStore.sharedStore.updateCurrentMatchForType(.finalStats, match: match)
+            MatchStore.sharedStore.finishCurrentMatch()
         }
     }
 }
