@@ -34,8 +34,21 @@ class MatchEncodingHelper : NSObject, NSCoding {
             return
         }
         
+        // Capture Match Type
+        guard let matchTypeName = pList["matchType"] as? String else {
+            match = nil
+            super.init()
+            return
+        }
+        
+        guard let matchType = NSClassFromString(matchTypeName) as? Match.Type else {
+            match = nil
+            super.init()
+            return
+        }
+        
         // convert dictionary to match here
-        match = MatchImpl(withPList: pList)
+        match = matchType.init(withPList: pList)
         super.init()
     }
     

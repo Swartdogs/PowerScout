@@ -39,28 +39,32 @@ class MasterViewController: UITableViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showMatchSummary" || segue.identifier == "segueToRecentMatchResults" {
-            // TODO: Add Results View Controllers, then add this code back
-//            var match = MatchStore.sharedStore.allMatches.last ?? MatchImpl()
-//            if segue.identifier == "showMatchSummary", let indexPath = self.tableView.indexPathForSelectedRow {
-//                match = MatchStore.sharedStore.allMatches[indexPath.row]
-//            }
-//            let storyboard = UIStoryboard(name: "Results", bundle: nil)
-//            let sr = storyboard.instantiateViewController(withIdentifier: "ResultsScoringViewController") as! ResultsScoringViewController
-//            let mr = storyboard.instantiateViewController(withIdentifier: "ResultsMatchInfoViewController") as! ResultsMatchInfoViewController
-//            sr.match = match as! SteamMatch
-//            mr.match = match as! SteamMatch
-//            let controller = (segue.destination as! UINavigationController).topViewController as! CustomContainerArrayView
-//            controller.views = [sr, mr]
-//            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
-//            controller.navigationItem.leftItemsSupplementBackButton = true
-//            controller.navigationItem.title = "Match: \(match.matchNumber) Team: \(match.teamNumber)"
+            var match = self.matchStore.allMatches.last ?? MatchImpl()
+            if segue.identifier == "showMatchSummary", let indexPath = self.tableView.indexPathForSelectedRow {
+                match = self.matchStore.allMatches[indexPath.row]
+            }
+            let storyboard = UIStoryboard(name: "Results", bundle: nil)
+            let sr = storyboard.instantiateViewController(withIdentifier: "ResultsScoringViewController") as! ResultsScoringViewController
+            let mr = storyboard.instantiateViewController(withIdentifier: "ResultsMatchInfoViewController") as! ResultsMatchInfoViewController
+            sr.match = match as! PowerMatch
+            mr.match = match as! PowerMatch
+            let controller = (segue.destination as! UINavigationController).topViewController as! CustomContainerArrayView
+            controller.views = [sr, mr]
+            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
+            controller.navigationItem.title = "Match: \(match.matchNumber) Team: \(match.teamNumber)"
             
         } else if segue.identifier == "SegueToNewMatch" {
-            matchStore.createMatch(SteamMatch.self, onComplete:nil)
+            self.matchStore.createMatch(PowerMatch.self, onComplete:nil)
+            if let destNC = segue.destination as? UINavigationController {
+                if let destVC = destNC.topViewController as? TeamInfoViewController {
+                    destVC.matchStore = matchStore
+                }
+            }
             segue.destination.popoverPresentationController!.delegate = self
         } else if segue.identifier == "segueToMatchQueue" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                matchStore.createMatchFromQueueIndex(indexPath.row, withType: SteamMatch.self, onComplete: nil)
+                self.matchStore.createMatchFromQueueIndex(indexPath.row, withType: PowerMatch.self, onComplete: nil)
                 segue.destination.popoverPresentationController!.delegate = self
             }
         }
@@ -84,7 +88,7 @@ class MasterViewController: UITableViewController {
         self.tableView.reloadData()
         self.performSegue(withIdentifier: "segueToRecentMatchResults", sender: self)
     }
-    
+
     @IBAction func handleExportOrClear(_ sender:UIBarButtonItem) {
         if self.isEditing {
             handleClear(sender)
@@ -189,7 +193,7 @@ class MasterViewController: UITableViewController {
                 hud.mode = .indeterminate
                 hud.label.text = "Exporting..."
                 DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: {
-                    _ = self.matchStore.exportNewMatchData(withType: SteamMatch.self)
+                    _ = self.matchStore.exportNewMatchData(withType: PowerMatch.self)
                     DispatchQueue.main.async(execute: {
                         let hud = MBProgressHUD(for: self.navigationController!.view)
                         let imageView = UIImageView(image: UIImage(named: "Checkmark"))
@@ -211,7 +215,7 @@ class MasterViewController: UITableViewController {
         hud.mode = .indeterminate
         hud.label.text = "Exporting..."
         DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: {
-            _ = self.matchStore.writeCSVFile(withType: SteamMatch.self)
+            _ = self.matchStore.writeCSVFile(withType: PowerMatch.self)
             DispatchQueue.main.async(execute: {
                 let hud = MBProgressHUD(for: self.navigationController!.view)
                 let imageView = UIImageView(image: UIImage(named: "Checkmark"))
@@ -277,7 +281,7 @@ class MasterViewController: UITableViewController {
             }
             tableView.deleteRows(at: [indexPath], with: .fade)
             
-            _ = matchStore.saveChanges(withMatchType: SteamMatch.self)
+            _ = matchStore.saveChanges(withMatchType: PowerMatch.self)
         }
     }
 
