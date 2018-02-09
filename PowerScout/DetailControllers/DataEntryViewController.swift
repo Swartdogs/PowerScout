@@ -32,10 +32,13 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     @IBOutlet weak var positionButton: UIButton!
     @IBOutlet weak var climbButton: UIButton!
     @IBOutlet weak var climbYN: UISegmentedControl!
+    @IBOutlet weak var TipYN: UISegmentedControl!
+    @IBOutlet weak var StalledYN: UISegmentedControl!
+    @IBOutlet weak var TechFYN: UISegmentedControl!
     
     var match:PowerMatch = PowerMatch()
     
-    let startPositions = ["Exchange", "Center", "Non-Exchange"]
+    let startPositions = ["Exchange", "Center", "NES"]
     let climbConditions = ["No attempt or failure to climb", "No climb but helped another", "Climb by themselves", "Climb with help", "Climb helping another team"]
     
     override func viewDidLoad() {
