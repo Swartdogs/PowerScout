@@ -13,4 +13,10 @@ enum PowerStartPositionType:Int {
     case exchange
     case center
     case nonExchange
+    
+    func toString() -> String {
+        return (self == .exchange)    ? "Exchange"        :
+               (self == .center)      ? "Center"          :
+               (self == .nonExchange) ? "Not at Exchange" : "None";
+    }
 }
