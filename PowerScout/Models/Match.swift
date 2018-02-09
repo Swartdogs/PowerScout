@@ -55,7 +55,7 @@ protocol Match : CsvDataProvider, MatchCoding {
     var finalComments:String   { get set }
     
     // Calculated Variables
-    var messageDictionary:Dictionary<String, AnyObject> { get }
+    var messageDictionary:[String:AnyObject] { get }
     
     init(queueData:MatchQueueData)
     
@@ -64,7 +64,7 @@ protocol Match : CsvDataProvider, MatchCoding {
     func aggregateMatchData()
 }
 
-class MatchImpl : Any, Match {
+class MatchImpl : Match {
     
     // Team Info
     
@@ -111,7 +111,7 @@ class MatchImpl : Any, Match {
         return matchData;
     }
     
-    var messageDictionary:Dictionary<String, AnyObject> {
+    var messageDictionary: [String:AnyObject] {
         var data:[String:AnyObject]    = [String:AnyObject]()
         var team:[String:AnyObject]    = [String:AnyObject]()
         var final:[String:AnyObject]   = [String:AnyObject]()

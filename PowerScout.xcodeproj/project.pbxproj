@@ -44,6 +44,9 @@
 		C481787D20132531001EAF24 /* PowerScoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481787C20132531001EAF24 /* PowerScoutTests.swift */; };
 		C481788820132531001EAF24 /* PowerScoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481788720132531001EAF24 /* PowerScoutUITests.swift */; };
 		C4FC801A201EF3DE0073D087 /* DebugDataTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC8019201EF3DE0073D087 /* DebugDataTransferViewController.swift */; };
+		C4BF77A8202927C3006C34CC /* PowerMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77A7202927C3006C34CC /* PowerMatch.swift */; };
+		C4BF77AA20292817006C34CC /* PowerStartPositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77A920292817006C34CC /* PowerStartPositionType.swift */; };
+		C4BF77AC2029284F006C34CC /* PowerEndClimbPositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +110,9 @@
 		C481788720132531001EAF24 /* PowerScoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerScoutUITests.swift; sourceTree = "<group>"; };
 		C481788920132531001EAF24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4FC8019201EF3DE0073D087 /* DebugDataTransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugDataTransferViewController.swift; sourceTree = "<group>"; };
+		C4BF77A7202927C3006C34CC /* PowerMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerMatch.swift; sourceTree = "<group>"; };
+		C4BF77A920292817006C34CC /* PowerStartPositionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerStartPositionType.swift; sourceTree = "<group>"; };
+		C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerEndClimbPositionType.swift; sourceTree = "<group>"; };
 		E2D24E694F4F9F710E5EE5C5 /* Pods_PowerScout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PowerScout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA393782602B7CFAE85CDBEE /* Pods-PowerScout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PowerScout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PowerScout/Pods-PowerScout.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -203,6 +209,7 @@
 				C40BB9732013E7C60011DB45 /* MatchStore.swift */,
 				C40BB9772013E7C60011DB45 /* SteamMatch.swift */,
 				C40BB9782013E7C60011DB45 /* StrongMatch.swift */,
+				C4BF77A7202927C3006C34CC /* PowerMatch.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -212,6 +219,8 @@
 			children = (
 				C40BB96C2013E7C60011DB45 /* SteamGearPlacementType.swift */,
 				C40BB96D2013E7C60011DB45 /* SteamStartPositionType.swift */,
+				C4BF77A920292817006C34CC /* PowerStartPositionType.swift */,
+				C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */,
 			);
 			path = Definitions;
 			sourceTree = "<group>";
@@ -503,6 +512,8 @@
 				C40F316420230D44004EF250 /* NearbyDevicesTableViewController.swift in Sources */,
 				C40BB97B2013E7C60011DB45 /* Definitions.swift in Sources */,
 				C40BB9522013E7050011DB45 /* AppUtility.swift in Sources */,
+				C4BF77AC2029284F006C34CC /* PowerEndClimbPositionType.swift in Sources */,
+				C4BF77AA20292817006C34CC /* PowerStartPositionType.swift in Sources */,
 				C40BB9792013E7C60011DB45 /* SteamGearPlacementType.swift in Sources */,
 				C4FC801A201EF3DE0073D087 /* DebugDataTransferViewController.swift in Sources */,
 				C4757C142016D36B00C90984 /* Service.swift in Sources */,
@@ -518,6 +529,7 @@
 				C481786620132531001EAF24 /* AppDelegate.swift in Sources */,
 				C40BB9842013E7C60011DB45 /* SteamMatch.swift in Sources */,
 				C40BB97F2013E7C60011DB45 /* MatchEncodingHelper.swift in Sources */,
+				C4BF77A8202927C3006C34CC /* PowerMatch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
