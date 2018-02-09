@@ -545,7 +545,6 @@
                         <barButtonItem key="rightBarButtonItem" title="Next" id="Uep-aB-V5Q">
                             <connections>
                                 <action selector="nextButtonTap:" destination="Tmn-aT-kIH" id="Ukt-3E-VyD"/>
-                                <segue destination="JsC-bF-W9h" kind="presentation" identifier="segueToDataEntry" modalPresentationStyle="overFullScreen" id="58A-2s-eHL"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -556,6 +555,7 @@
                         <outletCollection property="allianceButtons" destination="ra6-hw-PPc" collectionClass="NSMutableArray" id="kIc-gH-A1a"/>
                         <outletCollection property="allianceButtons" destination="RJG-To-iqU" collectionClass="NSMutableArray" id="084-x9-YXC"/>
                         <segue destination="u1C-G9-FIS" kind="unwind" identifier="segueToEndMatchNoShow" unwindAction="unwindToMatchView:" id="v8z-9W-1j9"/>
+                        <segue destination="JsC-bF-W9h" kind="presentation" identifier="segueToDataEntry" modalPresentationStyle="overFullScreen" id="k9q-fG-SMm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bbE-6J-vhd" userLabel="First Responder" sceneMemberID="firstResponder"/>

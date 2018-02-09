@@ -122,7 +122,7 @@ class TeamInfoViewController: UIViewController {
             
             self.present(noShowAC, animated: true, completion: nil)
         } else {
-            self.performSegue(withIdentifier: "segueToFieldSetup", sender: nil)
+            self.performSegue(withIdentifier: "segueToDataEntry", sender: nil)
         }
     }
     
