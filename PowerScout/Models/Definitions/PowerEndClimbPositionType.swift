@@ -14,4 +14,11 @@ enum PowerEndClimbPositionType: Int {
     case soloClimb
     case assistedClimb
     case soloClimbAssistOther
+    
+    func toString() -> String {
+        return (self == .assistOther)          ? "Assisted Other"  :
+               (self == .soloClimb)            ? "Solo Climb"      :
+               (self == .assistedClimb)        ? "Climb with Assistance" :
+               (self == .soloClimbAssistOther) ? "Climb and Assisted Other" : "None";
+    }
 }

@@ -10,7 +10,6 @@
 		34DFE39C2013F7F800187C1D /* PowerUpStoryboardTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34DFE39B2013F7F800187C1D /* PowerUpStoryboardTest.storyboard */; };
 		355ECB3A8B9820261BEFEC00 /* Pods_PowerScout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2D24E694F4F9F710E5EE5C5 /* Pods_PowerScout.framework */; };
 		C40BB9432013E6FE0011DB45 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB93C2013E6FE0011DB45 /* MasterViewController.swift */; };
-		C40BB9452013E6FE0011DB45 /* PenaltyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB93E2013E6FE0011DB45 /* PenaltyViewController.swift */; };
 		C40BB9522013E7050011DB45 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB94A2013E7050011DB45 /* AppUtility.swift */; };
 		C40BB9532013E7050011DB45 /* CustomContainerArrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB94B2013E7050011DB45 /* CustomContainerArrayView.swift */; };
 		C40BB9552013E7050011DB45 /* MatchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB94D2013E7050011DB45 /* MatchCell.swift */; };
@@ -44,9 +43,14 @@
 		C481787D20132531001EAF24 /* PowerScoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481787C20132531001EAF24 /* PowerScoutTests.swift */; };
 		C481788820132531001EAF24 /* PowerScoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481788720132531001EAF24 /* PowerScoutUITests.swift */; };
 		C4FC801A201EF3DE0073D087 /* DebugDataTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC8019201EF3DE0073D087 /* DebugDataTransferViewController.swift */; };
+		C49884FB202D274F00B02555 /* PenaltyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49884FA202D274F00B02555 /* PenaltyViewController.swift */; };
+		C4988508202D9E1700B02555 /* ResultsMatchInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4988505202D9E1700B02555 /* ResultsMatchInfoViewController.swift */; };
+		C4988509202D9E1700B02555 /* ResultsScoringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4988506202D9E1700B02555 /* ResultsScoringViewController.swift */; };
 		C4BF77A8202927C3006C34CC /* PowerMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77A7202927C3006C34CC /* PowerMatch.swift */; };
 		C4BF77AA20292817006C34CC /* PowerStartPositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77A920292817006C34CC /* PowerStartPositionType.swift */; };
 		C4BF77AC2029284F006C34CC /* PowerEndClimbPositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */; };
+		C4BF77AE202AD20B006C34CC /* FinalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77AD202AD20B006C34CC /* FinalViewController.swift */; };
+		C4BF77B0202AD210006C34CC /* TeamInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77AF202AD210006C34CC /* TeamInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +74,6 @@
 		34DFE39B2013F7F800187C1D /* PowerUpStoryboardTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PowerUpStoryboardTest.storyboard; sourceTree = "<group>"; };
 		5AD8E0A398A2276A39532494 /* Pods-PowerScout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PowerScout.release.xcconfig"; path = "Pods/Target Support Files/Pods-PowerScout/Pods-PowerScout.release.xcconfig"; sourceTree = "<group>"; };
 		C40BB93C2013E6FE0011DB45 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		C40BB93E2013E6FE0011DB45 /* PenaltyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PenaltyViewController.swift; sourceTree = "<group>"; };
 		C40BB94A2013E7050011DB45 /* AppUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
 		C40BB94B2013E7050011DB45 /* CustomContainerArrayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomContainerArrayView.swift; sourceTree = "<group>"; };
 		C40BB94D2013E7050011DB45 /* MatchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCell.swift; sourceTree = "<group>"; };
@@ -110,9 +113,14 @@
 		C481788720132531001EAF24 /* PowerScoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerScoutUITests.swift; sourceTree = "<group>"; };
 		C481788920132531001EAF24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4FC8019201EF3DE0073D087 /* DebugDataTransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugDataTransferViewController.swift; sourceTree = "<group>"; };
+		C49884FA202D274F00B02555 /* PenaltyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PenaltyViewController.swift; sourceTree = "<group>"; };
+		C4988505202D9E1700B02555 /* ResultsMatchInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsMatchInfoViewController.swift; sourceTree = "<group>"; };
+		C4988506202D9E1700B02555 /* ResultsScoringViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsScoringViewController.swift; sourceTree = "<group>"; };
 		C4BF77A7202927C3006C34CC /* PowerMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerMatch.swift; sourceTree = "<group>"; };
 		C4BF77A920292817006C34CC /* PowerStartPositionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerStartPositionType.swift; sourceTree = "<group>"; };
 		C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerEndClimbPositionType.swift; sourceTree = "<group>"; };
+		C4BF77AD202AD20B006C34CC /* FinalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalViewController.swift; sourceTree = "<group>"; };
+		C4BF77AF202AD210006C34CC /* TeamInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamInfoViewController.swift; sourceTree = "<group>"; };
 		E2D24E694F4F9F710E5EE5C5 /* Pods_PowerScout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PowerScout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA393782602B7CFAE85CDBEE /* Pods-PowerScout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PowerScout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PowerScout/Pods-PowerScout.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -207,8 +215,6 @@
 				C40BB9712013E7C60011DB45 /* Match.swift */,
 				C40BB9722013E7C60011DB45 /* MatchEncodingHelper.swift */,
 				C40BB9732013E7C60011DB45 /* MatchStore.swift */,
-				C40BB9772013E7C60011DB45 /* SteamMatch.swift */,
-				C40BB9782013E7C60011DB45 /* StrongMatch.swift */,
 				C4BF77A7202927C3006C34CC /* PowerMatch.swift */,
 			);
 			path = Models;
@@ -240,6 +246,10 @@
 		C47ABEAB2014441B007DAA6B /* DetailControllers */ = {
 			isa = PBXGroup;
 			children = (
+				C4988504202D9E1700B02555 /* Results */,
+				C49884FA202D274F00B02555 /* PenaltyViewController.swift */,
+				C4BF77AF202AD210006C34CC /* TeamInfoViewController.swift */,
+				C4BF77AD202AD20B006C34CC /* FinalViewController.swift */,
 				C47ABEAC2014441B007DAA6B /* DataEntryViewController.swift */,
 			);
 			path = DetailControllers;
@@ -299,6 +309,15 @@
 				C481788920132531001EAF24 /* Info.plist */,
 			);
 			path = PowerScoutUITests;
+			sourceTree = "<group>";
+		};
+		C4988504202D9E1700B02555 /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				C4988505202D9E1700B02555 /* ResultsMatchInfoViewController.swift */,
+				C4988506202D9E1700B02555 /* ResultsScoringViewController.swift */,
+			);
+			path = Results;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -507,6 +526,9 @@
 				C40BB9572013E7050011DB45 /* SelectionButton.swift in Sources */,
 				C40BB9852013E7C60011DB45 /* StrongMatch.swift in Sources */,
 				C4757C162016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift in Sources */,
+				C4988508202D9E1700B02555 /* ResultsMatchInfoViewController.swift in Sources */,
+				C40BB9572013E7050011DB45 /* SelectionButton.swift in Sources */,
+				C4BF77B0202AD210006C34CC /* TeamInfoViewController.swift in Sources */,
 				C40BB9802013E7C60011DB45 /* MatchStore.swift in Sources */,
 				C40BB97A2013E7C60011DB45 /* SteamStartPositionType.swift in Sources */,
 				C40F316420230D44004EF250 /* NearbyDevicesTableViewController.swift in Sources */,
@@ -526,9 +548,11 @@
 				C4757C192016D40100C90984 /* ServiceStoreDelegate.swift in Sources */,
 				C40F316320230D44004EF250 /* DataSelectionViewController.swift in Sources */,
 				C40BB9452013E6FE0011DB45 /* PenaltyViewController.swift in Sources */,
+				C4BF77AE202AD20B006C34CC /* FinalViewController.swift in Sources */,
 				C481786620132531001EAF24 /* AppDelegate.swift in Sources */,
-				C40BB9842013E7C60011DB45 /* SteamMatch.swift in Sources */,
 				C40BB97F2013E7C60011DB45 /* MatchEncodingHelper.swift in Sources */,
+				C49884FB202D274F00B02555 /* PenaltyViewController.swift in Sources */,
+				C4988509202D9E1700B02555 /* ResultsScoringViewController.swift in Sources */,
 				C4BF77A8202927C3006C34CC /* PowerMatch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
