@@ -33,6 +33,8 @@
 		C481787D20132531001EAF24 /* PowerScoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481787C20132531001EAF24 /* PowerScoutTests.swift */; };
 		C481788820132531001EAF24 /* PowerScoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481788720132531001EAF24 /* PowerScoutUITests.swift */; };
 		C49884FB202D274F00B02555 /* PenaltyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49884FA202D274F00B02555 /* PenaltyViewController.swift */; };
+		C4988508202D9E1700B02555 /* ResultsMatchInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4988505202D9E1700B02555 /* ResultsMatchInfoViewController.swift */; };
+		C4988509202D9E1700B02555 /* ResultsScoringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4988506202D9E1700B02555 /* ResultsScoringViewController.swift */; };
 		C4BF77A8202927C3006C34CC /* PowerMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77A7202927C3006C34CC /* PowerMatch.swift */; };
 		C4BF77AA20292817006C34CC /* PowerStartPositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77A920292817006C34CC /* PowerStartPositionType.swift */; };
 		C4BF77AC2029284F006C34CC /* PowerEndClimbPositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */; };
@@ -90,6 +92,8 @@
 		C481788720132531001EAF24 /* PowerScoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerScoutUITests.swift; sourceTree = "<group>"; };
 		C481788920132531001EAF24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C49884FA202D274F00B02555 /* PenaltyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PenaltyViewController.swift; sourceTree = "<group>"; };
+		C4988505202D9E1700B02555 /* ResultsMatchInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsMatchInfoViewController.swift; sourceTree = "<group>"; };
+		C4988506202D9E1700B02555 /* ResultsScoringViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsScoringViewController.swift; sourceTree = "<group>"; };
 		C4BF77A7202927C3006C34CC /* PowerMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerMatch.swift; sourceTree = "<group>"; };
 		C4BF77A920292817006C34CC /* PowerStartPositionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerStartPositionType.swift; sourceTree = "<group>"; };
 		C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerEndClimbPositionType.swift; sourceTree = "<group>"; };
@@ -203,6 +207,7 @@
 		C47ABEAB2014441B007DAA6B /* DetailControllers */ = {
 			isa = PBXGroup;
 			children = (
+				C4988504202D9E1700B02555 /* Results */,
 				C49884FA202D274F00B02555 /* PenaltyViewController.swift */,
 				C4BF77AF202AD210006C34CC /* TeamInfoViewController.swift */,
 				C4BF77AD202AD20B006C34CC /* FinalViewController.swift */,
@@ -264,6 +269,15 @@
 				C481788920132531001EAF24 /* Info.plist */,
 			);
 			path = PowerScoutUITests;
+			sourceTree = "<group>";
+		};
+		C4988504202D9E1700B02555 /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				C4988505202D9E1700B02555 /* ResultsMatchInfoViewController.swift */,
+				C4988506202D9E1700B02555 /* ResultsScoringViewController.swift */,
+			);
+			path = Results;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -468,6 +482,7 @@
 				C40BB9432013E6FE0011DB45 /* MasterViewController.swift in Sources */,
 				C47ABEAD2014441B007DAA6B /* DataEntryViewController.swift in Sources */,
 				C40BB9532013E7050011DB45 /* CustomContainerArrayView.swift in Sources */,
+				C4988508202D9E1700B02555 /* ResultsMatchInfoViewController.swift in Sources */,
 				C40BB9572013E7050011DB45 /* SelectionButton.swift in Sources */,
 				C4BF77B0202AD210006C34CC /* TeamInfoViewController.swift in Sources */,
 				C40BB9802013E7C60011DB45 /* MatchStore.swift in Sources */,
@@ -485,6 +500,7 @@
 				C481786620132531001EAF24 /* AppDelegate.swift in Sources */,
 				C40BB97F2013E7C60011DB45 /* MatchEncodingHelper.swift in Sources */,
 				C49884FB202D274F00B02555 /* PenaltyViewController.swift in Sources */,
+				C4988509202D9E1700B02555 /* ResultsScoringViewController.swift in Sources */,
 				C4BF77A8202927C3006C34CC /* PowerMatch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

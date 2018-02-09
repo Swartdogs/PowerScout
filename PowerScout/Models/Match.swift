@@ -123,6 +123,7 @@ class MatchImpl : Match {
         // All Data
         data["team"]        = team  as AnyObject?
         data["final"]       = final as AnyObject?
+        data["matchType"]   = NSStringFromClass(type(of: self)) as AnyObject?
         
         return data
     }
