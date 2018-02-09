@@ -50,6 +50,8 @@ class MatchStore: Any {
         
         let fieldLayout = UserDefaults.standard.integer(forKey: "SteamScout.fieldLayout")
         self.fieldLayout = FieldLayoutType(rawValue: fieldLayout)!
+        
+        currentMatch = nil
     }
     
     var matchArchivePath:String {
