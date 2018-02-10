@@ -34,6 +34,13 @@ protocol Match : CsvDataProvider, MatchCoding {
     var alliance:AllianceType  { get set }
     var isCompleted:Int        { get set }
     
+    // Data Transfer
+    
+    var lastExportedByFile:Date? { get set }
+    var lastExportedByXfer:Date? { get set }
+    var shouldExport:Bool { get set }
+    var selectedForDataTransfer:Bool { get set }
+    
     // Final Info
     
     var finalScore:Int         { get set }
@@ -65,6 +72,13 @@ class MatchImpl : Match {
     var matchNumber:Int        = 0
     var alliance:AllianceType  = .unknown
     var isCompleted:Int        = 0
+    
+    // Data Export
+    
+    var lastExportedByFile:Date? = nil
+    var lastExportedByXfer:Date? = nil
+    var shouldExport:Bool = true
+    var selectedForDataTransfer: Bool = false
     
     // Final Info
     
@@ -101,12 +115,28 @@ class MatchImpl : Match {
         var data:[String:AnyObject]    = [String:AnyObject]()
         var team:[String:AnyObject]    = [String:AnyObject]()
         var final:[String:AnyObject]   = [String:AnyObject]()
+        var xfer:[String:AnyObject] = [String:AnyObject]()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         
         // Team Info
         team["teamNumber"]  = teamNumber           as AnyObject?
         team["matchNumber"] = matchNumber          as AnyObject?
         team["alliance"]    = alliance.rawValue    as AnyObject?
         team["isCompleted"] = isCompleted          as AnyObject?
+        
+        // Data Transfer
+        if let exFile = lastExportedByFile {
+            xfer["exportByFile"] = dateFormatter.string(from: exFile) as AnyObject?
+        }
+        if let exXfer = lastExportedByXfer {
+            xfer["exportByXfer"] = dateFormatter.string(from: exXfer) as AnyObject?
+        }
+        xfer["shouldExport"] = shouldExport as AnyObject?
+        xfer["selectedForDT"] = selectedForDataTransfer as AnyObject?
         
         // Final Info
         final["score"]      = finalScore           as AnyObject?
@@ -123,6 +153,7 @@ class MatchImpl : Match {
         // All Data
         data["team"]        = team  as AnyObject?
         data["final"]       = final as AnyObject?
+        data["xfer"]        = xfer as AnyObject?
         data["matchType"]   = NSStringFromClass(type(of: self)) as AnyObject?
         
         return data
@@ -144,15 +175,35 @@ class MatchImpl : Match {
     
     required init(withPList pList:[String:AnyObject]) {
         guard let team  = pList["team"]  as? [String:AnyObject],
-            let final = pList["final"] as? [String:AnyObject] else {
+            let final = pList["final"] as? [String:AnyObject],
+            let xfer =  pList["xfer"] as? [String:AnyObject] else {
                 return
         }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         
         // Team Info
         teamNumber         = team["teamNumber"]  as! Int
         matchNumber        = team["matchNumber"] as! Int
         alliance           = AllianceType(rawValue: team["alliance"] as! Int)!
         isCompleted        = team["isCompleted"] as! Int
+        
+        // Data Transfer
+        if let exFile = xfer["exportByFile"] as? String {
+            lastExportedByFile = dateFormatter.date(from: exFile)
+        } else {
+            lastExportedByFile = nil
+        }
+        if let exXfer = xfer["exportByXfer"] as? String {
+            lastExportedByXfer = dateFormatter.date(from: exXfer)
+        } else {
+            lastExportedByXfer = nil
+        }
+        shouldExport            = xfer["shouldExport"] as! Bool
+        selectedForDataTransfer = xfer["selectedForDT"] as! Bool
         
         // Final Info
         finalScore         = final["score"]      as! Int
