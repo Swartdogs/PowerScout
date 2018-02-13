@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MatchStore: Any {
+class MatchStore {
     
     // MARK: Properties
     
@@ -56,7 +56,8 @@ class MatchStore: Any {
         currentMatch = nil
     }
     
-    init(withMock mock:Bool) {
+    convenience init(withMock mock:Bool) {
+        self.init()
         if mock {
             allMatches = [
                 MatchImpl(queueData: MatchQueueData(match: 1, team: 1100, alliance: .red)),
@@ -96,33 +97,6 @@ class MatchStore: Any {
             print("Mocking Match Data")
             
             self.fieldLayout = .blueRed
-        } else {
-            allMatches = []
-            let matchData = NSKeyedUnarchiver.unarchiveObject(withFile: self.matchArchivePath) as? [MatchEncodingHelper] ?? [MatchEncodingHelper]()
-            for helper in matchData {
-                if let m = helper.match {
-                    allMatches.append(m)
-                }
-            }
-            
-            let queueData = NSKeyedUnarchiver.unarchiveObject(withFile: self.match2ScoutArchivePath) as? [NSDictionary]
-            if let qD = queueData {
-                for d in qD {
-                    if let mqd = MatchQueueData(propertyListRepresentation: d) {
-                        matchesToScout.append(mqd)
-                    }
-                }
-            }
-            
-            if allMatches.count == 0 {
-                print("No Match data existed!")
-                allMatches = []
-            } else {
-                print("Match Data successfully Loaded")
-            }
-            
-            let fieldLayout = UserDefaults.standard.integer(forKey: "SteamScout.fieldLayout")
-            self.fieldLayout = FieldLayoutType(rawValue: fieldLayout)!
         }
     }
     

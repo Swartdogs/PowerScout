@@ -11,8 +11,6 @@ import MultipeerConnectivity
 import SwiftState
 
 class ServiceStore: NSObject {
-    static let shared:ServiceStore = ServiceStore()
-    
     let browser = MCNearbyServiceBrowser(peer: MatchTransfer.localPeerID,
                                          serviceType: MatchTransfer.serviceType)
     let advertiser = MCNearbyServiceAdvertiser(peer: MatchTransfer.localPeerID,
@@ -56,7 +54,7 @@ class ServiceStore: NSObject {
         ].contains(stateMachine.state)
     }
     
-    fileprivate override init() {
+    override init() {
         super.init()
         _stateMachine = _createServiceStateMachine()
         browser.delegate = self

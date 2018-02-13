@@ -67,6 +67,10 @@ class MasterViewController: UITableViewController {
                 self.matchStore.createMatchFromQueueIndex(indexPath.row, withType: PowerMatch.self, onComplete: nil)
                 segue.destination.popoverPresentationController!.delegate = self
             }
+        } else if segue.identifier == "SegueToTransfer" {
+            if let vc = segue.destination as? DataTransferViewController {
+                vc.matchStore = matchStore
+            }
         }
     }
     
