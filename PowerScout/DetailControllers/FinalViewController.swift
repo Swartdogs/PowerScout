@@ -19,6 +19,7 @@ class FinalViewController: UIViewController {
     @IBOutlet weak var scrollView:UIScrollView!
     
     fileprivate var match:PowerMatch = PowerMatch()
+    var matchStore:MatchStore!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,7 @@ class FinalViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        match = MatchStore.sharedStore.currentMatch as? PowerMatch ?? match
+        match = matchStore.currentMatch as? PowerMatch ?? match
         
         readyToMoveOn()
         
@@ -49,7 +50,7 @@ class FinalViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        MatchStore.sharedStore.updateCurrentMatchForType(.finalStats, match: match)
+        matchStore.updateCurrentMatchForType(.finalStats, match: match)
     }
 
     override func didReceiveMemoryWarning() {
@@ -123,8 +124,8 @@ class FinalViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "unwindToMatchView" {
-            MatchStore.sharedStore.updateCurrentMatchForType(.finalStats, match: match)
-            MatchStore.sharedStore.finishCurrentMatch()
+            matchStore.updateCurrentMatchForType(.finalStats, match: match)
+            matchStore.finishCurrentMatch()
         }
     }
 }
