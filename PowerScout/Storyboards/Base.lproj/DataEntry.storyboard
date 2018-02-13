@@ -1022,7 +1022,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Results" id="z9a-UV-jZ5">
                             <connections>
-                                <segue destination="Pry-m9-euE" kind="presentation" modalPresentationStyle="formSheet" id="l5I-gO-gUU"/>
+                                <segue destination="Pry-m9-euE" kind="presentation" identifier="segueToFinalInfo" modalPresentationStyle="formSheet" id="l5I-gO-gUU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

@@ -30,15 +30,15 @@ class DebugDataTransferViewController: DataTransferViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ServiceStore.shared.delegate = self
-        setServiceStateLabel(for: ServiceStore.shared.machineState)
-        setSessionStateLabel(for: ServiceStore.shared.sessionState)
+        serviceStore.delegate = self
+        setServiceStateLabel(for: serviceStore.machineState)
+        setSessionStateLabel(for: serviceStore.sessionState)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        ServiceStore.shared.delegate = nil
+        serviceStore.delegate = nil
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,25 +49,25 @@ class DebugDataTransferViewController: DataTransferViewController {
     @IBAction override func handleButtonSelect(_ sender: UIButton) {
         switch sender {
         case sendAdvertProceed:
-            ServiceStore.shared.proceedWithAdvertising()
+            serviceStore.proceedWithAdvertising()
             break
         case sendAdvertGoBack:
-            ServiceStore.shared.goBackWithAdvertising()
+            serviceStore.goBackWithAdvertising()
             break
         case sendAdvertErrorOut:
-            ServiceStore.shared.errorOutWithAdvertising()
+            serviceStore.errorOutWithAdvertising()
             break
         case sendBrowseProceed:
-            ServiceStore.shared.proceedWithBrowsing()
+            serviceStore.proceedWithBrowsing()
             break
         case sendBrowseGoBack:
-            ServiceStore.shared.goBackWithBrowsing()
+            serviceStore.goBackWithBrowsing()
             break
         case sendBrowseErrorOut:
-            ServiceStore.shared.errorOutWithBrowsing()
+            serviceStore.errorOutWithBrowsing()
             break
         case sendReset:
-            ServiceStore.shared.resetStateMachine()
+            serviceStore.resetStateMachine()
             break
         default:
             break
@@ -75,14 +75,14 @@ class DebugDataTransferViewController: DataTransferViewController {
     }
     
     override func sendData() {
-        ServiceStore.shared.sendMessage("ping")
-        ServiceStore.shared.sendMessage("EOD")
+        serviceStore.sendMessage("ping")
+        serviceStore.sendMessage("EOD")
     }
     
     @IBAction func pingConnectedDevices(_ sender: UIButton) {
         let message = "ping"
-        ServiceStore.shared.sendMessage(message)
-        ServiceStore.shared.sendMessage("EOD")
+        serviceStore.sendMessage(message)
+        serviceStore.sendMessage("EOD")
     }
     
     @IBAction override func unwindToDataTransferView(_ sender:UIStoryboardSegue) {
@@ -92,19 +92,19 @@ class DebugDataTransferViewController: DataTransferViewController {
         if let id = sender.identifier {
             if id.elementsEqual("UnwindSegueDoneSelectingData") {
                 print("Data Selection Complete")
-                ServiceStore.shared.proceedWithAdvertising()
+                serviceStore.proceedWithAdvertising()
             } else if id.elementsEqual("UnwindSegueCancelSelectingData") {
                 print("Data Selection Canceled")
-                ServiceStore.shared.goBackWithAdvertising()
+                serviceStore.goBackWithAdvertising()
             } else if id.elementsEqual("UnwindSegueDoneFromBrowser") {
                 print("Browser Selection Done")
                 if let sd = selectedDevice {
-                    ServiceStore.shared.proceedWithBrowsing(andSelectDevice: sd)
+                    serviceStore.proceedWithBrowsing(andSelectDevice: sd)
                 }
             } else if id.elementsEqual("UnwindSegueCancelFromBrowser") {
                 print("resetting delegate")
                 self.delegate = nil
-                ServiceStore.shared.goBackWithBrowsing()
+                serviceStore.goBackWithBrowsing()
             }
         }
     }
@@ -115,16 +115,16 @@ class DebugDataTransferViewController: DataTransferViewController {
         }
         
         if labels {
-            setSessionStateLabel(for: ServiceStore.shared.sessionState)
-            setServiceStateLabel(for: ServiceStore.shared.machineState)
+            setSessionStateLabel(for: serviceStore.sessionState)
+            setServiceStateLabel(for: serviceStore.machineState)
         }
     }
     
     func updateButtonStates() {
-        let advertising = ServiceStore.shared.advertising
-        let browsing = ServiceStore.shared.browsing
+        let advertising = serviceStore.advertising
+        let browsing = serviceStore.browsing
         
-        sendPing.isEnabled = ServiceStore.shared.machineState == .advertSendingData
+        sendPing.isEnabled = serviceStore.machineState == .advertSendingData
         
         sendAdvertProceed.isEnabled = advertising || !browsing
         sendAdvertGoBack.isEnabled = advertising || !browsing

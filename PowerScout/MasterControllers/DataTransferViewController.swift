@@ -33,6 +33,8 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
     @IBOutlet var statusLabel: UILabel!
     
     weak var delegate:DataTransferViewControllerDelegate?
+    var matchStore:MatchStore!
+    var serviceStore:ServiceStore!
     var selectedDevice: NearbyDevice?
     var transferMode: DataTransferMode = .doNothing
     
@@ -42,12 +44,17 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            serviceStore = appDelegate.serviceStore
+        } else {
+            serviceStore = ServiceStore()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        ServiceStore.shared.resetStateMachine()
-        ServiceStore.shared.delegate = self
+        serviceStore.resetStateMachine()
+        serviceStore.delegate = self
         
         transferMode = .doNothing
         updateUI()
@@ -56,8 +63,8 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        ServiceStore.shared.delegate = nil
-        ServiceStore.shared.resetStateMachine()
+        serviceStore.delegate = nil
+        serviceStore.resetStateMachine()
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,14 +78,14 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         switch sender {
         case advertSwitch:
             if transferMode == .browse {
-                ServiceStore.shared.resetStateMachine()
+                serviceStore.resetStateMachine()
             }
             transferMode = advertSwitch.isOn ? .advertise : .doNothing
             updateUI()
             break
         case browseSwitch:
             if transferMode == .advertise {
-                ServiceStore.shared.resetStateMachine()
+                serviceStore.resetStateMachine()
             }
             transferMode = browseSwitch.isOn ? .browse : .doNothing
             updateUI()
@@ -92,20 +99,20 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         switch sender {
         case proceed:
             if transferMode == .advertise {
-                ServiceStore.shared.proceedWithAdvertising()
+                serviceStore.proceedWithAdvertising()
             } else if transferMode == .browse {
-                ServiceStore.shared.proceedWithBrowsing()
+                serviceStore.proceedWithBrowsing()
             }
             break
         case goBack:
             if transferMode == .advertise {
-                ServiceStore.shared.goBackWithAdvertising()
+                serviceStore.goBackWithAdvertising()
             } else if transferMode == .browse {
-                ServiceStore.shared.goBackWithBrowsing()
+                serviceStore.goBackWithBrowsing()
             }
             break
         case reset:
-            ServiceStore.shared.resetStateMachine()
+            serviceStore.resetStateMachine()
             break
         default:
             break
@@ -123,19 +130,19 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
                     let selectedMatches = vc.selectedMatches
                     print("Selected Matches count: \(selectedMatches.count)")
                 }
-                ServiceStore.shared.proceedWithAdvertising()
+                serviceStore.proceedWithAdvertising()
             } else if id.elementsEqual("UnwindSegueCancelSelectingData") {
                 print("Data Selection Canceled")
-                ServiceStore.shared.goBackWithAdvertising()
+                serviceStore.goBackWithAdvertising()
             } else if id.elementsEqual("UnwindSegueDoneFromBrowser") {
                 print("Browser Selection Done")
                 if let sd = selectedDevice {
-                    ServiceStore.shared.proceedWithBrowsing(andSelectDevice: sd)
+                    serviceStore.proceedWithBrowsing(andSelectDevice: sd)
                 }
             } else if id.elementsEqual("UnwindSegueCancelFromBrowser") {
                 print("resetting delegate")
                 self.delegate = nil
-                ServiceStore.shared.goBackWithBrowsing()
+                serviceStore.goBackWithBrowsing()
             }
         }
     }
@@ -161,7 +168,7 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
     func updateStatusLabel() {
         proceed.isEnabled = true
         goBack.isEnabled = true
-        switch ServiceStore.shared.machineState {
+        switch serviceStore.machineState {
         case .notReady:
             statusLabel.text = "Ready to Start"
             goBack.setTitle("Go Back", for: .normal)
@@ -244,10 +251,10 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
     }
     
     func sendData() {
-        if let matchData = MatchStore.sharedStore.dataTransferMatchesAll(true) {
-            ServiceStore.shared.sendData(matchData)
+        if let matchData = matchStore.dataTransferMatchesAll(true) {
+            serviceStore.sendData(matchData)
         }
-        ServiceStore.shared.sendMessage("EOD")
+        serviceStore.sendMessage("EOD")
     }
 
     // MARK: - Navigation
@@ -262,6 +269,15 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
                     if let vc = nav.topViewController as? NearbyDevicesTableViewController {
                         self.delegate = vc
                     }
+                }
+            } else if identifier.elementsEqual("SegueToDebugTransfer") {
+                if let vc = segue.destination as? DebugDataTransferViewController {
+                    vc.matchStore = matchStore
+                    vc.serviceStore = serviceStore
+                }
+            } else if identifier.elementsEqual("SegueToDataSelection") {
+                if let vc = segue.destination as? DataSelectionViewController {
+                    vc.matchStore = matchStore
                 }
             }
         }
@@ -298,7 +314,7 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
             }
             
             print("Matches Count: \(matches.count)")
-            MatchStore.sharedStore.dataTransferImport(matches: matches)
+            matchStore.dataTransferImport(matches: matches)
         }
     }
     
@@ -409,7 +425,7 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
             
             break
         case (.advertProceed, .advertSendingData, .notReady) :
-            MatchStore.sharedStore.dataTransferComplete()
+            matchStore.dataTransferComplete()
             fallthrough
         case (.browseProceed, .browseReceivingData, .notReady) :
             print("Show Complete UI and hide after 2 sec delay")

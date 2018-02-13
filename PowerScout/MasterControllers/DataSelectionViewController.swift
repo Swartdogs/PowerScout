@@ -13,13 +13,14 @@ class DataSelectionViewController: UIViewController {
     @IBOutlet weak var availableTable:UITableView!
     @IBOutlet weak var selectedTable:UITableView!
     
+    var matchStore:MatchStore!
     var availableMatches:[Match] = []
     var selectedMatches:[Match] = []
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        for var m in MatchStore.sharedStore.allMatches {
+        for var m in matchStore.allMatches {
             if(m.shouldExport || m.selectedForDataTransfer) {
                 m.selectedForDataTransfer = true
                 selectedMatches.append(m)
