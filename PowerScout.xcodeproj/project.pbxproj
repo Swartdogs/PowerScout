@@ -42,6 +42,7 @@
 		C49884FB202D274F00B02555 /* PenaltyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49884FA202D274F00B02555 /* PenaltyViewController.swift */; };
 		C4988508202D9E1700B02555 /* ResultsMatchInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4988505202D9E1700B02555 /* ResultsMatchInfoViewController.swift */; };
 		C4988509202D9E1700B02555 /* ResultsScoringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4988506202D9E1700B02555 /* ResultsScoringViewController.swift */; };
+		C4ABB5892032E762008CFBC1 /* SelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB94F2013E7050011DB45 /* SelectionButton.swift */; };
 		C4BF77A8202927C3006C34CC /* PowerMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77A7202927C3006C34CC /* PowerMatch.swift */; };
 		C4BF77AA20292817006C34CC /* PowerStartPositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77A920292817006C34CC /* PowerStartPositionType.swift */; };
 		C4BF77AC2029284F006C34CC /* PowerEndClimbPositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */; };
@@ -513,6 +514,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4ABB5892032E762008CFBC1 /* SelectionButton.swift in Sources */,
 				C40BB9432013E6FE0011DB45 /* MasterViewController.swift in Sources */,
 				C47ABEAD2014441B007DAA6B /* DataEntryViewController.swift in Sources */,
 				C40BB9532013E7050011DB45 /* CustomContainerArrayView.swift in Sources */,

@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     var window: UIWindow?
     var orientationLock: UIInterfaceOrientationMask = .all
-    var matchStore = MatchStore(withMock: true)
+    var matchStore = MatchStore(withMock: false)
     var serviceStore = ServiceStore()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
