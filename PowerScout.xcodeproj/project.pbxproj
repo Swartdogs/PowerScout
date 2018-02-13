@@ -13,7 +13,6 @@
 		C40BB9522013E7050011DB45 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB94A2013E7050011DB45 /* AppUtility.swift */; };
 		C40BB9532013E7050011DB45 /* CustomContainerArrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB94B2013E7050011DB45 /* CustomContainerArrayView.swift */; };
 		C40BB9552013E7050011DB45 /* MatchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB94D2013E7050011DB45 /* MatchCell.swift */; };
-		C40BB9572013E7050011DB45 /* SelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB94F2013E7050011DB45 /* SelectionButton.swift */; };
 		C40BB9582013E7050011DB45 /* themeDefinitions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB9502013E7050011DB45 /* themeDefinitions.swift */; };
 		C40BB9592013E7050011DB45 /* UINavigationController+Rotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB9512013E7050011DB45 /* UINavigationController+Rotation.swift */; };
 		C40BB9652013E75C0011DB45 /* Results.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40BB95B2013E75B0011DB45 /* Results.storyboard */; };
@@ -25,6 +24,14 @@
 		C40BB97E2013E7C60011DB45 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB9712013E7C60011DB45 /* Match.swift */; };
 		C40BB97F2013E7C60011DB45 /* MatchEncodingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB9722013E7C60011DB45 /* MatchEncodingHelper.swift */; };
 		C40BB9802013E7C60011DB45 /* MatchStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB9732013E7C60011DB45 /* MatchStore.swift */; };
+		C40F316320230D44004EF250 /* DataSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40F316120230D44004EF250 /* DataSelectionViewController.swift */; };
+		C40F316420230D44004EF250 /* NearbyDevicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40F316220230D44004EF250 /* NearbyDevicesTableViewController.swift */; };
+		C4757C142016D36B00C90984 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C102016D36B00C90984 /* Service.swift */; };
+		C4757C152016D36B00C90984 /* ServiceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C112016D36B00C90984 /* ServiceState.swift */; };
+		C4757C162016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C122016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift */; };
+		C4757C172016D36B00C90984 /* ServiceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C132016D36B00C90984 /* ServiceStore.swift */; };
+		C4757C192016D40100C90984 /* ServiceStoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C182016D40100C90984 /* ServiceStoreDelegate.swift */; };
+		C4757C1D201718E500C90984 /* DataTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C1C201718E500C90984 /* DataTransferViewController.swift */; };
 		C47ABEAD2014441B007DAA6B /* DataEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47ABEAC2014441B007DAA6B /* DataEntryViewController.swift */; };
 		C481786620132531001EAF24 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481786520132531001EAF24 /* AppDelegate.swift */; };
 		C481786D20132531001EAF24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C481786B20132531001EAF24 /* Main.storyboard */; };
@@ -40,6 +47,7 @@
 		C4BF77AC2029284F006C34CC /* PowerEndClimbPositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */; };
 		C4BF77AE202AD20B006C34CC /* FinalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77AD202AD20B006C34CC /* FinalViewController.swift */; };
 		C4BF77B0202AD210006C34CC /* TeamInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77AF202AD210006C34CC /* TeamInfoViewController.swift */; };
+		C4FC801A201EF3DE0073D087 /* DebugDataTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC8019201EF3DE0073D087 /* DebugDataTransferViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +86,14 @@
 		C40BB9712013E7C60011DB45 /* Match.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		C40BB9722013E7C60011DB45 /* MatchEncodingHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchEncodingHelper.swift; sourceTree = "<group>"; };
 		C40BB9732013E7C60011DB45 /* MatchStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchStore.swift; sourceTree = "<group>"; };
+		C40F316120230D44004EF250 /* DataSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSelectionViewController.swift; sourceTree = "<group>"; };
+		C40F316220230D44004EF250 /* NearbyDevicesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearbyDevicesTableViewController.swift; sourceTree = "<group>"; };
+		C4757C102016D36B00C90984 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		C4757C112016D36B00C90984 /* ServiceState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceState.swift; sourceTree = "<group>"; };
+		C4757C122016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ServiceStore+ProtocolHandlers.swift"; sourceTree = "<group>"; };
+		C4757C132016D36B00C90984 /* ServiceStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceStore.swift; sourceTree = "<group>"; };
+		C4757C182016D40100C90984 /* ServiceStoreDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceStoreDelegate.swift; sourceTree = "<group>"; };
+		C4757C1C201718E500C90984 /* DataTransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferViewController.swift; sourceTree = "<group>"; };
 		C47ABEAC2014441B007DAA6B /* DataEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntryViewController.swift; sourceTree = "<group>"; };
 		C481786220132531001EAF24 /* PowerScout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PowerScout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C481786520132531001EAF24 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +115,7 @@
 		C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerEndClimbPositionType.swift; sourceTree = "<group>"; };
 		C4BF77AD202AD20B006C34CC /* FinalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalViewController.swift; sourceTree = "<group>"; };
 		C4BF77AF202AD210006C34CC /* TeamInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamInfoViewController.swift; sourceTree = "<group>"; };
+		C4FC8019201EF3DE0073D087 /* DebugDataTransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugDataTransferViewController.swift; sourceTree = "<group>"; };
 		E2D24E694F4F9F710E5EE5C5 /* Pods_PowerScout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PowerScout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA393782602B7CFAE85CDBEE /* Pods-PowerScout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PowerScout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PowerScout/Pods-PowerScout.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -149,7 +166,11 @@
 		C40BB93A2013E6FE0011DB45 /* MasterControllers */ = {
 			isa = PBXGroup;
 			children = (
+				C40F316120230D44004EF250 /* DataSelectionViewController.swift */,
+				C40F316220230D44004EF250 /* NearbyDevicesTableViewController.swift */,
 				C40BB93C2013E6FE0011DB45 /* MasterViewController.swift */,
+				C4757C1C201718E500C90984 /* DataTransferViewController.swift */,
+				C4FC8019201EF3DE0073D087 /* DebugDataTransferViewController.swift */,
 			);
 			path = MasterControllers;
 			sourceTree = "<group>";
@@ -204,6 +225,18 @@
 			path = Definitions;
 			sourceTree = "<group>";
 		};
+		C4757C0F2016D36B00C90984 /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				C4757C182016D40100C90984 /* ServiceStoreDelegate.swift */,
+				C4757C102016D36B00C90984 /* Service.swift */,
+				C4757C112016D36B00C90984 /* ServiceState.swift */,
+				C4757C122016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift */,
+				C4757C132016D36B00C90984 /* ServiceStore.swift */,
+			);
+			path = Bluetooth;
+			sourceTree = "<group>";
+		};
 		C47ABEAB2014441B007DAA6B /* DetailControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +274,7 @@
 		C481786420132531001EAF24 /* PowerScout */ = {
 			isa = PBXGroup;
 			children = (
+				C4757C0F2016D36B00C90984 /* Bluetooth */,
 				C47ABEAB2014441B007DAA6B /* DetailControllers */,
 				C40BB96A2013E7C60011DB45 /* Models */,
 				C40BB95A2013E70D0011DB45 /* Storyboards */,
@@ -482,20 +516,28 @@
 				C40BB9432013E6FE0011DB45 /* MasterViewController.swift in Sources */,
 				C47ABEAD2014441B007DAA6B /* DataEntryViewController.swift in Sources */,
 				C40BB9532013E7050011DB45 /* CustomContainerArrayView.swift in Sources */,
+				C4757C172016D36B00C90984 /* ServiceStore.swift in Sources */,
+				C4757C162016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift in Sources */,
 				C4988508202D9E1700B02555 /* ResultsMatchInfoViewController.swift in Sources */,
-				C40BB9572013E7050011DB45 /* SelectionButton.swift in Sources */,
 				C4BF77B0202AD210006C34CC /* TeamInfoViewController.swift in Sources */,
 				C40BB9802013E7C60011DB45 /* MatchStore.swift in Sources */,
 				C40BB97A2013E7C60011DB45 /* SteamStartPositionType.swift in Sources */,
+				C40F316420230D44004EF250 /* NearbyDevicesTableViewController.swift in Sources */,
 				C40BB97B2013E7C60011DB45 /* Definitions.swift in Sources */,
 				C40BB9522013E7050011DB45 /* AppUtility.swift in Sources */,
 				C4BF77AC2029284F006C34CC /* PowerEndClimbPositionType.swift in Sources */,
 				C4BF77AA20292817006C34CC /* PowerStartPositionType.swift in Sources */,
 				C40BB9792013E7C60011DB45 /* SteamGearPlacementType.swift in Sources */,
+				C4FC801A201EF3DE0073D087 /* DebugDataTransferViewController.swift in Sources */,
+				C4757C142016D36B00C90984 /* Service.swift in Sources */,
+				C4757C152016D36B00C90984 /* ServiceState.swift in Sources */,
 				C40BB9582013E7050011DB45 /* themeDefinitions.swift in Sources */,
 				C40BB9592013E7050011DB45 /* UINavigationController+Rotation.swift in Sources */,
+				C4757C1D201718E500C90984 /* DataTransferViewController.swift in Sources */,
 				C40BB9552013E7050011DB45 /* MatchCell.swift in Sources */,
 				C40BB97E2013E7C60011DB45 /* Match.swift in Sources */,
+				C4757C192016D40100C90984 /* ServiceStoreDelegate.swift in Sources */,
+				C40F316320230D44004EF250 /* DataSelectionViewController.swift in Sources */,
 				C4BF77AE202AD20B006C34CC /* FinalViewController.swift in Sources */,
 				C481786620132531001EAF24 /* AppDelegate.swift in Sources */,
 				C40BB97F2013E7C60011DB45 /* MatchEncodingHelper.swift in Sources */,
@@ -693,6 +735,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PowerScout/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -709,6 +752,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PowerScout/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
