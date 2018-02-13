@@ -7,16 +7,22 @@
 //
 
 import Foundation
+import CoreBluetooth
 import MultipeerConnectivity
 
-enum NearbyDevicesType {
+enum MatchTransferType {
     case multipeerConnectivity
     case coreBluetooth
 }
 
 struct NearbyDevice {
     var displayName: String
-    var type: NearbyDevicesType
+    var type: MatchTransferType
+}
+
+struct MatchTransferUUIDs {
+    static let dataService = CBUUID(string: "816DB342-21B7-4B0B-9D29-863A0981AC4F")
+    static let dataCharacteristic = CBUUID(string: "9C781E1C-D5F6-453A-A0BB-0BF37E0DA7EA")
 }
 
 enum MatchTransferVersion: String, RawRepresentable {

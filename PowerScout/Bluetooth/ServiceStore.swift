@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBluetooth
 import MultipeerConnectivity
 import SwiftState
 
@@ -19,7 +20,8 @@ class ServiceStore: NSObject {
                                                 MatchTransferDiscoveryInfo.MatchTypeKey: "PowerScout",
                                                 MatchTransferDiscoveryInfo.VersionKey: MatchTransferDiscoveryInfo.SendVersion],
                                                serviceType: MatchTransfer.serviceType)
-    
+    var peripheralManager:CBPeripheralManager!
+    var transferType:MatchTransferType = .coreBluetooth
     var _stateMachine:StateMachine<ServiceState, ServiceEvent>? = nil
     
     var stateMachine:StateMachine<ServiceState, ServiceEvent> {
@@ -55,14 +57,25 @@ class ServiceStore: NSObject {
     }
     
     override init() {
+        print("Setting up ServiceStore")
         super.init()
         _stateMachine = _createServiceStateMachine()
         browser.delegate = self
         advertiser.delegate = self
+        peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
         MatchTransfer.session.delegate = self
-        print("Setting up ServiceStore")
+        
+        setupCBTransfer()
     }
     
+    func setupCBTransfer() {
+        let characteristic = CBMutableCharacteristic(type: MatchTransferUUIDs.dataCharacteristic, properties: CBCharacteristicProperties.read, value: nil, permissions: CBAttributePermissions.readable)
+        let service = CBMutableService(type: MatchTransferUUIDs.dataService, primary: true)
+        service.characteristics = [characteristic]
+        peripheralManager.add(service)
+    }
+    
+    // MARK: Convenience event triggers
     func proceedWithAdvertising() {
         _triggerEvent(.advertProceed)
     }
@@ -134,8 +147,15 @@ class ServiceStore: NSObject {
     }
     
     private func _handleStartAdvertising() {
-        MatchTransfer.session.delegate = self
-        advertiser.startAdvertisingPeer()
+        if transferType == .multipeerConnectivity {
+            MatchTransfer.session.delegate = self
+            advertiser.startAdvertisingPeer()
+        } else if transferType == .coreBluetooth {
+            peripheralManager.startAdvertising([
+                CBAdvertisementDataLocalNameKey: UIDevice.current.name,
+                CBAdvertisementDataServiceUUIDsKey: [MatchTransferUUIDs.dataService]
+                ])
+        }
         print("Started Advertiser")
     }
     
