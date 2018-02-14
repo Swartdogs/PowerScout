@@ -141,9 +141,11 @@ extension ServiceStore: MCSessionDelegate {
 
 extension ServiceStore: CBPeripheralManagerDelegate {
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
-        print("Peripheral State is \(peripheral.state.rawValue)")
+        print("PeripheralManager State is \(peripheral.state.rawValue)")
         if peripheral.state == .unsupported {
             transferType = .multipeerConnectivity
+        } else if peripheral.state == .poweredOn {
+            setupCBAdvertisementServices()
         }
     }
     
@@ -159,10 +161,6 @@ extension ServiceStore: CBPeripheralManagerDelegate {
         print("PeripheralManager did receive read request \(request.debugDescription)")
     }
     
-    func peripheralManager(_ peripheral: CBPeripheralManager, willRestoreState dict: [String : Any]) {
-        print("PeripheralManager will restore state: \(dict.debugDescription)")
-    }
-    
     func peripheralManager(_ peripheral: CBPeripheralManager, didAdd service: CBService, error: Error?) {
         print("PeripheralManager did add service: \(service.debugDescription) with error \(error.debugDescription)")
     }
@@ -171,24 +169,36 @@ extension ServiceStore: CBPeripheralManagerDelegate {
         print("PeripheralManager did receive write requests: \(requests.debugDescription)")
     }
     
-    @available(iOS 11.0, *)
-    func peripheralManager(_ peripheral: CBPeripheralManager, didOpen channel: CBL2CAPChannel?, error: Error?) {
-        print("PeripheralManager did open \(channel.debugDescription) with error \(error.debugDescription)")
-    }
-    
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
         print("PeripheralManager central \(central.debugDescription) did subscribe to characteristic \(characteristic.debugDescription)")
     }
-    
-    func peripheralManager(_ peripheral: CBPeripheralManager, didPublishL2CAPChannel PSM: CBL2CAPPSM, error: Error?) {
-        print("PeripheralManager did publish L2CAPChannel \(PSM.description) with error \(error.debugDescription)")
-    }
-    
-    func peripheralManager(_ peripheral: CBPeripheralManager, didUnpublishL2CAPChannel PSM: CBL2CAPPSM, error: Error?) {
-        print("PeripheralManager did unpublish L2CAPChannel \(PSM.description) with error \(error.debugDescription)")
-    }
-    
+
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didUnsubscribeFrom characteristic: CBCharacteristic) {
         print("PeripheralManager central \(central.debugDescription) did unsubscribe from characteristic \(characteristic.debugDescription)")
+    }
+}
+
+extension ServiceStore: CBCentralManagerDelegate {
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        print("CentralManager State is \(central.state.rawValue)")
+        if central.state == .unsupported {
+            transferType = .multipeerConnectivity
+        }
+    }
+    
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        print("CentralManager did connect to peripheral \(peripheral.debugDescription)")
+    }
+    
+    func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
+        print("CentralManager did fail to connect to peripheral \(peripheral.debugDescription) with error \(error.debugDescription)")
+    }
+    
+    func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
+        print("CentralManager did disconnect with peripheral \(peripheral.debugDescription) with error \(error.debugDescription)")
+    }
+    
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+        print("CentralManager did discover peripheral \(peripheral.debugDescription) with addata \(advertisementData.debugDescription) and rssi \(RSSI)")
     }
 }

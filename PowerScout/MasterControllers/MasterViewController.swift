@@ -14,11 +14,17 @@ class MasterViewController: UITableViewController {
     @IBOutlet var clearExportButton:UIBarButtonItem!
     
     var matchStore:MatchStore!
+    var serviceStore:ServiceStore!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            serviceStore = appDelegate.serviceStore
+        } else {
+            serviceStore = ServiceStore()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +76,11 @@ class MasterViewController: UITableViewController {
         } else if segue.identifier == "SegueToTransfer" {
             if let vc = segue.destination as? DataTransferViewController {
                 vc.matchStore = matchStore
+                vc.serviceStore = serviceStore
+                serviceStore.resetStateMachine()
+                serviceStore.delegate = vc
+                
+                vc.transferMode = .doNothing
             }
         }
     }

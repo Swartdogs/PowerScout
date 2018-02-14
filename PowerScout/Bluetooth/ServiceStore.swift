@@ -21,6 +21,7 @@ class ServiceStore: NSObject {
                                                 MatchTransferDiscoveryInfo.VersionKey: MatchTransferDiscoveryInfo.SendVersion],
                                                serviceType: MatchTransfer.serviceType)
     var peripheralManager:CBPeripheralManager!
+    var centralManager:CBCentralManager!
     var transferType:MatchTransferType = .coreBluetooth
     var _stateMachine:StateMachine<ServiceState, ServiceEvent>? = nil
     
@@ -63,12 +64,11 @@ class ServiceStore: NSObject {
         browser.delegate = self
         advertiser.delegate = self
         peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
+        centralManager = CBCentralManager(delegate: self, queue: nil, options: nil)
         MatchTransfer.session.delegate = self
-        
-        setupCBTransfer()
     }
     
-    func setupCBTransfer() {
+    func setupCBAdvertisementServices() {
         let characteristic = CBMutableCharacteristic(type: MatchTransferUUIDs.dataCharacteristic, properties: CBCharacteristicProperties.read, value: nil, permissions: CBAttributePermissions.readable)
         let service = CBMutableService(type: MatchTransferUUIDs.dataService, primary: true)
         service.characteristics = [characteristic]
@@ -160,22 +160,34 @@ class ServiceStore: NSObject {
     }
     
     private func _handleStopAdvertising() {
-        MatchTransfer.session.disconnect()
-        advertiser.stopAdvertisingPeer()
-        MatchTransfer.session.delegate = nil
+        if transferType == .multipeerConnectivity {
+            MatchTransfer.session.disconnect()
+            advertiser.stopAdvertisingPeer()
+            MatchTransfer.session.delegate = nil
+        } else if transferType == .coreBluetooth {
+            peripheralManager.stopAdvertising()
+        }
         print("Stopped Advertiser")
     }
     
     private func _handleStartBrowser() {
-        MatchTransfer.session.delegate = self
-        browser.startBrowsingForPeers()
+        if transferType == .multipeerConnectivity {
+            MatchTransfer.session.delegate = self
+            browser.startBrowsingForPeers()
+        } else if transferType == .coreBluetooth {
+            centralManager.scanForPeripherals(withServices: [MatchTransferUUIDs.dataService], options: nil)
+        }
         print("Started Browsing")
     }
     
     private func _handleStopBrowser() {
-        MatchTransfer.session.disconnect()
-        browser.stopBrowsingForPeers()
-        MatchTransfer.session.delegate = nil
+        if transferType == .multipeerConnectivity {
+            MatchTransfer.session.disconnect()
+            browser.stopBrowsingForPeers()
+            MatchTransfer.session.delegate = nil
+        } else if transferType == .coreBluetooth {
+            centralManager.stopScan()
+        }
         print("Stopped Browser")
     }
     

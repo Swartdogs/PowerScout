@@ -44,27 +44,21 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            serviceStore = appDelegate.serviceStore
-        } else {
-            serviceStore = ServiceStore()
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        serviceStore.resetStateMachine()
         serviceStore.delegate = self
-        
-        transferMode = .doNothing
         updateUI()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        serviceStore.delegate = nil
-        serviceStore.resetStateMachine()
+        if (self.isMovingFromParentViewController || self.isBeingDismissed) {
+            serviceStore.delegate = nil
+            serviceStore.resetStateMachine()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -274,6 +268,10 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
                 if let vc = segue.destination as? DebugDataTransferViewController {
                     vc.matchStore = matchStore
                     vc.serviceStore = serviceStore
+                    serviceStore.resetStateMachine()
+                    serviceStore.delegate = vc
+                    
+                    vc.transferMode = .doNothing
                 }
             } else if identifier.elementsEqual("SegueToDataSelection") {
                 if let vc = segue.destination as? DataSelectionViewController {

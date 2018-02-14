@@ -34,6 +34,14 @@
                                     <segue destination="87I-u4-ZMx" kind="show" identifier="SegueToDebugTransfer" id="stt-uR-rNb"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IJ7-aD-1Dw">
+                                <rect key="frame" x="20" y="197" width="240" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Launch Regular Data Transfer View"/>
+                                <connections>
+                                    <segue destination="wIY-K7-Inn" kind="show" identifier="SegueToTransfer" id="S3R-hR-0Tg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -59,6 +67,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LwK-OJ-cfR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1365" y="-25"/>
+        </scene>
+        <!--DataTransferView-->
+        <scene sceneID="6w6-pF-ifG">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MasterViews" referencedIdentifier="DataTransferView" id="wIY-K7-Inn" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ahN-Vw-SXk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1343" y="193"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YNK-J1-NiI">

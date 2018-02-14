@@ -545,7 +545,7 @@
         <!--Transfer-->
         <scene sceneID="WUb-jE-K79">
             <objects>
-                <viewController title="Transfer" id="fs1-Xp-Zot" customClass="DataTransferViewController" customModule="PowerScout" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DataTransferView" title="Transfer" id="fs1-Xp-Zot" customClass="DataTransferViewController" customModule="PowerScout" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vds-qU-ArF"/>
                         <viewControllerLayoutGuide type="bottom" id="oXZ-tl-2Fq"/>
@@ -1005,8 +1005,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="cYe-sG-gmv"/>
-        <segue reference="QSe-ic-oVb"/>
+        <segue reference="VM3-k9-hEn"/>
+        <segue reference="Nt8-lo-cZR"/>
         <segue reference="U1d-ME-dn0"/>
         <segue reference="WbF-9A-5UB"/>
     </inferredMetricsTieBreakers>
