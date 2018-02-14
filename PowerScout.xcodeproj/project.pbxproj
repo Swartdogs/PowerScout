@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		34DFE39C2013F7F800187C1D /* PowerUpStoryboardTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34DFE39B2013F7F800187C1D /* PowerUpStoryboardTest.storyboard */; };
 		355ECB3A8B9820261BEFEC00 /* Pods_PowerScout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2D24E694F4F9F710E5EE5C5 /* Pods_PowerScout.framework */; };
 		C40BB9432013E6FE0011DB45 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB93C2013E6FE0011DB45 /* MasterViewController.swift */; };
 		C40BB9522013E7050011DB45 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB94A2013E7050011DB45 /* AppUtility.swift */; };
@@ -105,7 +104,6 @@
 
 /* Begin PBXFileReference section */
 		045B2E181F52E11C2E9FAB96 /* Pods-PowerScoutDebugging.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PowerScoutDebugging.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PowerScoutDebugging/Pods-PowerScoutDebugging.debug.xcconfig"; sourceTree = "<group>"; };
-		34DFE39B2013F7F800187C1D /* PowerUpStoryboardTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PowerUpStoryboardTest.storyboard; sourceTree = "<group>"; };
 		5AD8E0A398A2276A39532494 /* Pods-PowerScout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PowerScout.release.xcconfig"; path = "Pods/Target Support Files/Pods-PowerScout/Pods-PowerScout.release.xcconfig"; sourceTree = "<group>"; };
 		68492A513A8D438FB92E7FC3 /* Pods-PowerScoutDebugging.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PowerScoutDebugging.release.xcconfig"; path = "Pods/Target Support Files/Pods-PowerScoutDebugging/Pods-PowerScoutDebugging.release.xcconfig"; sourceTree = "<group>"; };
 		9FE63DE85D261E81D3C17622 /* Pods_PowerScoutDebugging.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PowerScoutDebugging.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -253,7 +251,6 @@
 				C40BB95B2013E75B0011DB45 /* Results.storyboard */,
 				C481786B20132531001EAF24 /* Main.storyboard */,
 				C481787020132531001EAF24 /* LaunchScreen.storyboard */,
-				34DFE39B2013F7F800187C1D /* PowerUpStoryboardTest.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -536,7 +533,6 @@
 			files = (
 				C481787220132531001EAF24 /* LaunchScreen.storyboard in Resources */,
 				C481786F20132531001EAF24 /* Assets.xcassets in Resources */,
-				34DFE39C2013F7F800187C1D /* PowerUpStoryboardTest.storyboard in Resources */,
 				C481786D20132531001EAF24 /* Main.storyboard in Resources */,
 				C40BB9682013E75C0011DB45 /* DataEntry.storyboard in Resources */,
 				C40BB9652013E75C0011DB45 /* Results.storyboard in Resources */,
