@@ -18,6 +18,9 @@ enum MatchTransferType {
 struct NearbyDevice {
     var displayName: String
     var type: MatchTransferType
+    var hash: Int
+    var mcInfo: [String:String]
+    var mcId: MCPeerID?
 }
 
 struct MatchTransferUUIDs {

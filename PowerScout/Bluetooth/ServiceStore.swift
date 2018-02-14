@@ -30,7 +30,7 @@ class ServiceStore: NSObject {
     }
     
     weak var delegate:ServiceStoreDelegate?
-    var foundPeers:[MCPeerID:[String:String]] = [:]
+    var foundNearbyDevices:[NearbyDevice] = []
     var sessionState:MCSessionState = .notConnected
     
     var machineState:ServiceState {
@@ -128,7 +128,7 @@ class ServiceStore: NSObject {
     
     private func _disconnectSession() {
         
-        foundPeers.removeAll()
+        foundNearbyDevices.removeAll()
         
         guard sessionState != .notConnected else {
             print("Can't Disconnect the session if it's already disconnected!")
@@ -175,7 +175,8 @@ class ServiceStore: NSObject {
             MatchTransfer.session.delegate = self
             browser.startBrowsingForPeers()
         } else if transferType == .coreBluetooth {
-            centralManager.scanForPeripherals(withServices: [MatchTransferUUIDs.dataService], options: nil)
+            centralManager.scanForPeripherals(withServices: [MatchTransferUUIDs.dataService], options: [
+                CBCentralManagerScanOptionAllowDuplicatesKey: true])
         }
         print("Started Browsing")
     }
@@ -282,9 +283,9 @@ class ServiceStore: NSObject {
             case (.browseRunning, .browseInvitationPending) :
                 if let nearbyDevice = userInfo as? NearbyDevice {
                     if nearbyDevice.type == .multipeerConnectivity {
-                        if let peerInfo = self.foundPeers.first(where: { $0.key.displayName == nearbyDevice.displayName }) {
-                            print("Inviting: \(peerInfo.key.displayName)")
-                            self.browser.invitePeer(peerInfo.key, to: MatchTransfer.session, withContext: nil, timeout: 10.0)
+                        if let peer = self.foundNearbyDevices.first(where: {$0.hash == nearbyDevice.hash}) {
+                            print("Inviting: \(peer.displayName)")
+                            self.browser.invitePeer(peer.mcId!, to: MatchTransfer.session, withContext: nil, timeout: 10.0)
                         } else {
                             print("WARN: No found peer matches nearby device \(nearbyDevice.displayName), going back to running")
                             self.goBackWithBrowsing()

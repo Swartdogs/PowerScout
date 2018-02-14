@@ -37,8 +37,11 @@ extension ServiceStore: MCNearbyServiceBrowserDelegate {
                 switch mtVersion {
                 case .v0_1_0:
                     print("Adding peer \(peerID.displayName) (\(String(describing: _info[MatchTransferDiscoveryInfo.DeviceName]))) with type \(String(describing: _info[MatchTransferDiscoveryInfo.MatchTypeKey]))")
-                    foundPeers[peerID] = _info
-                    self.delegate?.serviceStore(self, withBrowser: browser, foundPeer: peerID)
+                    if !foundNearbyDevices.contains(where: { peerID.hash == $0.hash}) {
+                        let newDevice = NearbyDevice(displayName: _info[MatchTransferDiscoveryInfo.DeviceName] ?? "Unknown", type: .multipeerConnectivity, hash: peerID.hash, mcInfo: _info, mcId: peerID)
+                        foundNearbyDevices.append(newDevice)
+                        self.delegate?.serviceStore(self, foundNearbyDevice: newDevice)
+                    }
                 default:
                     print("Found Peer with invalid version: \(version)! Bypassing...")
                 }
@@ -53,16 +56,19 @@ extension ServiceStore: MCNearbyServiceBrowserDelegate {
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        let _info = foundPeers[peerID]
-        
-        if let version = _info?[MatchTransferDiscoveryInfo.VersionKey] {
+        guard let ndIndex = foundNearbyDevices.index(where: {$0.hash == peerID.hash && $0.type == .multipeerConnectivity}) else {
+            print("Lost Peer that was not found or was not a MC device! Bypassing...")
+            return
+        }
+        let _info = foundNearbyDevices[ndIndex].mcInfo
+        if let version = _info[MatchTransferDiscoveryInfo.VersionKey] {
             print("Lost Peer with protocol version: \(version)")
             if let mtVersion = MatchTransferVersion(rawValue: version) {
                 switch mtVersion {
                 case .v0_1_0:
-                    print("Removing peer \(peerID.displayName) (\(String(describing: _info?[MatchTransferDiscoveryInfo.DeviceName]))) with type \(String(describing: _info?[MatchTransferDiscoveryInfo.MatchTypeKey]))")
-                    foundPeers.removeValue(forKey: peerID)
-                    self.delegate?.serviceStore(self, withBrowser: browser, lostPeer: peerID)
+                    print("Removing peer \(peerID.displayName) (\(String(describing: _info[MatchTransferDiscoveryInfo.DeviceName]))) with type (\(String(describing: _info[MatchTransferDiscoveryInfo.MatchTypeKey])))")
+                    let oldDevice = foundNearbyDevices.remove(at: ndIndex)
+                    self.delegate?.serviceStore(self, lostNearbyDevice: oldDevice)
                 default:
                     print("Lost Peer with invalid version: \(version)! Bypassing...")
                 }
@@ -199,6 +205,8 @@ extension ServiceStore: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        print("CentralManager did discover peripheral \(peripheral.debugDescription) with addata \(advertisementData.debugDescription) and rssi \(RSSI)")
+//        print("CentralManager did discover peripheral \(peripheral.debugDescription) with addata \(advertisementData.debugDescription) and rssi \(RSSI)")
+        print("\(RSSI)")
+        
     }
 }

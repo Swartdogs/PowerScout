@@ -316,18 +316,14 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         }
     }
     
-    func serviceStore(_ serviceStore: ServiceStore, withBrowser browser: MCNearbyServiceBrowser, foundPeer peerId: MCPeerID) {
-        print("found peer: \(peerId.displayName)")
-        if delegate != nil {
-            delegate?.dataTransferViewController(self, foundNearbyDevice: NearbyDevice(displayName: peerId.displayName, type: .multipeerConnectivity))
-        }
+    func serviceStore(_ serviceStore: ServiceStore, foundNearbyDevice device: NearbyDevice) {
+        print("found nearby device: \(device.displayName) with type: \(device.type)")
+        delegate?.dataTransferViewController(self, foundNearbyDevice: device)
     }
     
-    func serviceStore(_ serviceStore: ServiceStore, withBrowser browser: MCNearbyServiceBrowser, lostPeer peerId: MCPeerID) {
-        print("lost peer: \(peerId.displayName)")
-        if delegate != nil {
-            delegate?.dataTransferViewController(self, lostNearbyDevice: NearbyDevice(displayName: peerId.displayName, type: .multipeerConnectivity))
-        }
+    func serviceStore(_ serviceStore: ServiceStore, lostNearbyDevice device: NearbyDevice) {
+        print("lost nearby device: \(device.displayName) with type: \(device.type)")
+        delegate?.dataTransferViewController(self, lostNearbyDevice: device)
     }
     
     func serviceStore(_ serviceStore: ServiceStore, transitionedFromState fromState: ServiceState, toState: ServiceState, forEvent event: ServiceEvent, withUserInfo userInfo: Any?) {
