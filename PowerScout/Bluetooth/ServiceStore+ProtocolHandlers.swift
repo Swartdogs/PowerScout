@@ -205,8 +205,21 @@ extension ServiceStore: CBCentralManagerDelegate {
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-//        print("CentralManager did discover peripheral \(peripheral.debugDescription) with addata \(advertisementData.debugDescription) and rssi \(RSSI)")
-        print("\(RSSI)")
-        
+        if filters[peripheral.identifier] == nil {
+            filters[peripheral.identifier] = RollingAverage(withSize: 50)
+        }
+        filters[peripheral.identifier]!.addValue(RSSI.doubleValue)
+        let filter = filters[peripheral.identifier]!
+        let deviceIdx = self.foundNearbyDevices.index(where: {peripheral.identifier.hashValue == $0.hash && $0.type == .coreBluetooth})
+        if filter.average > -30.0 && deviceIdx == nil {
+            print("CentralManager did discover peripheral \(peripheral.debugDescription) with addata \(advertisementData.debugDescription) and rssi \(RSSI)")
+            let newDevice = NearbyDevice(displayName: advertisementData[kCIAttributeDisplayName] as! String, type: .coreBluetooth, hash: peripheral.identifier.hashValue, mcInfo: [:], mcId: nil)
+            self.foundNearbyDevices.append(newDevice)
+            self.delegate?.serviceStore(self, foundNearbyDevice: newDevice)
+        } else if filter.average < -30.0 && deviceIdx != nil {
+            print("CentralManager did undiscover peripheral \(peripheral.debugDescription) with addata \(advertisementData.debugDescription) and rssi \(RSSI)")
+            let oldDevice = self.foundNearbyDevices.remove(at: deviceIdx!)
+            self.delegate?.serviceStore(self, lostNearbyDevice: oldDevice)
+        }
     }
 }

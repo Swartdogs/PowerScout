@@ -59,6 +59,7 @@
 		C45A9BA62033CAD5001C2AC3 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB94A2013E7050011DB45 /* AppUtility.swift */; };
 		C45A9BA72033CB21001C2AC3 /* MatchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB94D2013E7050011DB45 /* MatchCell.swift */; };
 		C45A9BA82033CB7F001C2AC3 /* Results.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40BB95B2013E75B0011DB45 /* Results.storyboard */; };
+		C46386D52035442400424EA3 /* RollingAverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47CD0B32034FA45003C6EF5 /* RollingAverage.swift */; };
 		C4757C142016D36B00C90984 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C102016D36B00C90984 /* Service.swift */; };
 		C4757C152016D36B00C90984 /* ServiceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C112016D36B00C90984 /* ServiceState.swift */; };
 		C4757C162016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C122016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift */; };
@@ -66,6 +67,7 @@
 		C4757C192016D40100C90984 /* ServiceStoreDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C182016D40100C90984 /* ServiceStoreDelegate.swift */; };
 		C4757C1D201718E500C90984 /* DataTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C1C201718E500C90984 /* DataTransferViewController.swift */; };
 		C47ABEAD2014441B007DAA6B /* DataEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47ABEAC2014441B007DAA6B /* DataEntryViewController.swift */; };
+		C47CD0B42034FA45003C6EF5 /* RollingAverage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C47CD0B32034FA45003C6EF5 /* RollingAverage.swift */; };
 		C481786620132531001EAF24 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481786520132531001EAF24 /* AppDelegate.swift */; };
 		C481786D20132531001EAF24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C481786B20132531001EAF24 /* Main.storyboard */; };
 		C481786F20132531001EAF24 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C481786E20132531001EAF24 /* Assets.xcassets */; };
@@ -139,6 +141,7 @@
 		C4757C182016D40100C90984 /* ServiceStoreDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceStoreDelegate.swift; sourceTree = "<group>"; };
 		C4757C1C201718E500C90984 /* DataTransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransferViewController.swift; sourceTree = "<group>"; };
 		C47ABEAC2014441B007DAA6B /* DataEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntryViewController.swift; sourceTree = "<group>"; };
+		C47CD0B32034FA45003C6EF5 /* RollingAverage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollingAverage.swift; sourceTree = "<group>"; };
 		C481786220132531001EAF24 /* PowerScout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PowerScout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C481786520132531001EAF24 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C481786C20132531001EAF24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -300,6 +303,7 @@
 				C4757C112016D36B00C90984 /* ServiceState.swift */,
 				C4757C122016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift */,
 				C4757C132016D36B00C90984 /* ServiceStore.swift */,
+				C47CD0B32034FA45003C6EF5 /* RollingAverage.swift */,
 			);
 			path = Bluetooth;
 			sourceTree = "<group>";
@@ -674,6 +678,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C46386D52035442400424EA3 /* RollingAverage.swift in Sources */,
 				C45A9BA72033CB21001C2AC3 /* MatchCell.swift in Sources */,
 				C45A9BA62033CAD5001C2AC3 /* AppUtility.swift in Sources */,
 				C45A9BA22033CAC3001C2AC3 /* SelectionButton.swift in Sources */,
@@ -724,6 +729,7 @@
 				C40BB9522013E7050011DB45 /* AppUtility.swift in Sources */,
 				C4BF77AC2029284F006C34CC /* PowerEndClimbPositionType.swift in Sources */,
 				C4BF77AA20292817006C34CC /* PowerStartPositionType.swift in Sources */,
+				C47CD0B42034FA45003C6EF5 /* RollingAverage.swift in Sources */,
 				C40BB9792013E7C60011DB45 /* SteamGearPlacementType.swift in Sources */,
 				C4FC801A201EF3DE0073D087 /* DebugDataTransferViewController.swift in Sources */,
 				C4757C142016D36B00C90984 /* Service.swift in Sources */,

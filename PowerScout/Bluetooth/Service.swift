@@ -13,6 +13,11 @@ import MultipeerConnectivity
 enum MatchTransferType {
     case multipeerConnectivity
     case coreBluetooth
+    
+    func toString() -> String {
+        return self == .multipeerConnectivity ? "Classic Bluetooth" :
+            self == .coreBluetooth ? "Bluetooth Low Energy" : "Unknown"
+    }
 }
 
 struct NearbyDevice {

@@ -24,6 +24,7 @@ class ServiceStore: NSObject {
     var centralManager:CBCentralManager!
     var transferType:MatchTransferType = .coreBluetooth
     var _stateMachine:StateMachine<ServiceState, ServiceEvent>? = nil
+    var filters:[UUID:RollingAverage] = [:]
     
     var stateMachine:StateMachine<ServiceState, ServiceEvent> {
         return _stateMachine!
@@ -175,6 +176,7 @@ class ServiceStore: NSObject {
             MatchTransfer.session.delegate = self
             browser.startBrowsingForPeers()
         } else if transferType == .coreBluetooth {
+            filters.removeAll()
             centralManager.scanForPeripherals(withServices: [MatchTransferUUIDs.dataService], options: [
                 CBCentralManagerScanOptionAllowDuplicatesKey: true])
         }

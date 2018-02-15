@@ -44,6 +44,7 @@ class NearbyDevicesTableViewController: UITableViewController {
         // Configure the cell...
         
         cell.textLabel!.text = nearbyDevice.displayName
+        cell.detailTextLabel?.text = nearbyDevice.type.toString()
         cell.selectionStyle = .blue
 
         return cell
