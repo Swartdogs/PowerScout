@@ -18,7 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        matchStore = MatchStore(withMock: true)
+        // Mock data testing (use this line)
+//        matchStore = MatchStore(withMock: true)
+        // No Mock Data Testing (use this line)
+        matchStore = MatchStore(withMock: false)
         serviceStore = ServiceStore(withMatchStore: matchStore)
         
         if let splitViewController = self.window!.rootViewController as? UISplitViewController {

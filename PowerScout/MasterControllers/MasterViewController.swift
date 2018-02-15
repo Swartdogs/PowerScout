@@ -23,7 +23,7 @@ class MasterViewController: UITableViewController {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             serviceStore = appDelegate.serviceStore
         } else {
-            serviceStore = ServiceStore()
+            serviceStore = ServiceStore(withMatchStore: matchStore)
         }
     }
 
