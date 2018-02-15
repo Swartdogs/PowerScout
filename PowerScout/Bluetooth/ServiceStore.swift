@@ -20,8 +20,20 @@ class ServiceStore: NSObject {
                                                 MatchTransferDiscoveryInfo.MatchTypeKey: "PowerScout",
                                                 MatchTransferDiscoveryInfo.VersionKey: MatchTransferDiscoveryInfo.SendVersion],
                                                serviceType: MatchTransfer.serviceType)
+    let matchStore:MatchStore!
     var peripheralManager:CBPeripheralManager!
     var centralManager:CBCentralManager!
+    
+    var dataCharateristic:CBCharacteristic? = nil
+    var connectCharacteristic:CBCharacteristic? = nil
+    var doneCharacteristic:CBCharacteristic? = nil
+    var lengthCharacteristic:CBCharacteristic? = nil
+    var transferCharacteristic:CBCharacteristic? = nil
+    var transferLength:Int = 0
+    var dataTransferred:Int = 0
+    var dataReceived:Int = 0
+    var transferData:Data = Data()
+    
     var transferType:MatchTransferType = .coreBluetooth
     var _stateMachine:StateMachine<ServiceState, ServiceEvent>? = nil
     var filters:[UUID:RollingAverage] = [:]
@@ -58,8 +70,9 @@ class ServiceStore: NSObject {
         ].contains(stateMachine.state)
     }
     
-    override init() {
+    init(withMatchStore matchStore: MatchStore) {
         print("Setting up ServiceStore")
+        self.matchStore = matchStore
         super.init()
         _stateMachine = _createServiceStateMachine()
         browser.delegate = self
@@ -70,9 +83,13 @@ class ServiceStore: NSObject {
     }
     
     func setupCBAdvertisementServices() {
-        let characteristic = CBMutableCharacteristic(type: MatchTransferUUIDs.dataCharacteristic, properties: CBCharacteristicProperties.read, value: nil, permissions: CBAttributePermissions.readable)
+        let dataCharacteristic = CBMutableCharacteristic(type: MatchTransferUUIDs.dataCharacteristic, properties: CBCharacteristicProperties.read, value: nil, permissions: CBAttributePermissions.readable)
+        let connectCharacteristic = CBMutableCharacteristic(type: MatchTransferUUIDs.connectCharacteristic, properties: .write, value: nil, permissions: .writeable)
+        let doneCharacteristic = CBMutableCharacteristic(type: MatchTransferUUIDs.doneCharacteristic, properties: .write, value: nil, permissions: .writeable)
+        let lengthCharacteristic = CBMutableCharacteristic(type: MatchTransferUUIDs.lengthCharacteristic, properties: .read, value: nil, permissions: CBAttributePermissions.readable)
+        let transferCharacteristic = CBMutableCharacteristic(type: MatchTransferUUIDs.transferCharacteristic, properties: .write, value: nil, permissions: .writeable)
         let service = CBMutableService(type: MatchTransferUUIDs.dataService, primary: true)
-        service.characteristics = [characteristic]
+        service.characteristics = [dataCharacteristic, connectCharacteristic, doneCharacteristic, lengthCharacteristic, transferCharacteristic]
         peripheralManager.add(service)
     }
     

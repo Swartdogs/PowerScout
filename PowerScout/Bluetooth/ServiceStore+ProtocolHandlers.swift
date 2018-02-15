@@ -167,6 +167,29 @@ extension ServiceStore: CBPeripheralManagerDelegate {
     
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveRead request: CBATTRequest) {
         print("PeripheralManager did receive read request \(request.debugDescription)")
+        if let data = matchStore.dataTransferMatchesAll(true) {
+            if request.characteristic.uuid == MatchTransferUUIDs.dataCharacteristic {
+                if request.offset > data.count {
+                    peripheral.respond(to: request, withResult: .invalidOffset)
+                } else {
+                    request.value = data.subdata(in: dataTransferred..<min(dataTransferred + 500, data.count))
+                    peripheral.respond(to: request, withResult: .success)
+                }
+            } else if request.characteristic.uuid == MatchTransferUUIDs.lengthCharacteristic {
+                var dataLength = data.count
+                let dataLengthData = Data(buffer: UnsafeBufferPointer(start: &dataLength, count: 1))
+                if request.offset > dataLengthData.count {
+                    peripheral.respond(to: request, withResult: .invalidOffset)
+                } else {
+                    request.value = dataLengthData
+                    peripheral.respond(to: request, withResult: .success)
+                }
+            } else {
+                peripheral.respond(to: request, withResult: .attributeNotFound)
+            }
+        } else {
+            peripheral.respond(to: request, withResult: .insufficientResources)
+        }
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, didAdd service: CBService, error: Error?) {
@@ -175,6 +198,39 @@ extension ServiceStore: CBPeripheralManagerDelegate {
     
     func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
         print("PeripheralManager did receive write requests: \(requests.debugDescription)")
+        var fail = false
+        for request in requests {
+            if request.characteristic.uuid == MatchTransferUUIDs.connectCharacteristic ||
+                request.characteristic.uuid == MatchTransferUUIDs.doneCharacteristic {
+                if request.value == nil {
+                    fail = true
+                    break
+                } else {
+                    dataTransferred = 0
+                    proceedWithAdvertising()
+                    if request.characteristic.uuid == MatchTransferUUIDs.connectCharacteristic {
+                        proceedWithAdvertising()
+                        proceedWithAdvertising()
+                    }
+                }
+            } else if request.characteristic.uuid == MatchTransferUUIDs.transferCharacteristic {
+                if request.value == nil {
+                    fail = true
+                    break
+                } else {
+                    dataTransferred = request.value!.withUnsafeBytes { (ptr: UnsafePointer<Int>) -> Int in
+                        return ptr.pointee
+                    }
+                }
+            }
+        }
+        for request in requests {
+            if fail {
+                peripheral.respond(to: request, withResult: .attributeNotFound)
+            } else {
+                peripheral.respond(to: request, withResult: .success)
+            }
+        }
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
@@ -194,7 +250,7 @@ extension ServiceStore: CBPeripheralDelegate {
             for service in services {
                 if service.uuid == MatchTransferUUIDs.dataService && !foundService {
                     foundService = true
-                    peripheral.discoverCharacteristics([MatchTransferUUIDs.dataCharacteristic], for: service)
+                    peripheral.discoverCharacteristics([MatchTransferUUIDs.dataCharacteristic, MatchTransferUUIDs.connectCharacteristic, MatchTransferUUIDs.doneCharacteristic, MatchTransferUUIDs.lengthCharacteristic, MatchTransferUUIDs.transferCharacteristic], for: service)
                 }
             }
         }
@@ -206,30 +262,95 @@ extension ServiceStore: CBPeripheralDelegate {
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         print("Peripheral \(peripheral.debugDescription) did discover characteristics for service \(service.debugDescription) with error \(error.debugDescription)")
-        var foundCharacteristic = false
+        var connect:CBCharacteristic?
+        var data:CBCharacteristic?
+        var done:CBCharacteristic?
+        var length:CBCharacteristic?
+        var transfer:CBCharacteristic?
         if let characteristics = service.characteristics {
             for characteristic in characteristics {
-                if characteristic.uuid == MatchTransferUUIDs.dataCharacteristic && !foundCharacteristic {
-                    foundCharacteristic = true
-                    self.proceedWithBrowsing()
-                    peripheral.readValue(for: characteristic)
+                if characteristic.uuid == MatchTransferUUIDs.dataCharacteristic {
+                    data = characteristic
+                } else if characteristic.uuid == MatchTransferUUIDs.connectCharacteristic {
+                    connect = characteristic
+                } else if characteristic.uuid == MatchTransferUUIDs.doneCharacteristic {
+                    done = characteristic
+                } else if characteristic.uuid == MatchTransferUUIDs.lengthCharacteristic {
+                    length = characteristic
+                } else if characteristic.uuid == MatchTransferUUIDs.transferCharacteristic {
+                    transfer = characteristic
                 }
             }
         }
-        if !foundCharacteristic {
-            print("ERROR: Could not find right characteristic! Erroring out...")
+        guard let con = connect, let dat = data, let don = done, let len = length, let xfer = transfer else {
+            print("ERROR: Could not find right characteristics! Erroring out...")
             self.errorOutWithBrowsing()
+            return
+        }
+        connectCharacteristic = con
+        dataCharateristic = dat
+        doneCharacteristic = don
+        lengthCharacteristic = len
+        transferCharacteristic = xfer
+        let connected = "connected".data(using: .utf8)
+        peripheral.writeValue(connected!, for: con, type: CBCharacteristicWriteType.withResponse)
+        self.proceedWithBrowsing()
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
+        print("Peripheral \(peripheral.debugDescription) did write value for \(characteristic.debugDescription) with error \(error.debugDescription)")
+        if characteristic.uuid == MatchTransferUUIDs.connectCharacteristic {
+            if let len = lengthCharacteristic {
+                peripheral.readValue(for: len)
+            } else {
+                self.errorOutWithBrowsing()
+            }
+        } else if characteristic.uuid == MatchTransferUUIDs.doneCharacteristic {
+            self.proceedWithBrowsing()
+            centralManager.cancelPeripheralConnection(peripheral)
+        } else if characteristic.uuid == MatchTransferUUIDs.transferCharacteristic {
+            if let dat = dataCharateristic {
+                peripheral.readValue(for: dat)
+            } else {
+                self.errorOutWithBrowsing()
+            }
         }
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         if characteristic.uuid == MatchTransferUUIDs.dataCharacteristic {
             if let data = characteristic.value, let device = self.foundNearbyDevices.first(where: {$0.hash == peripheral.identifier.hashValue}) {
-                self.delegate?.serviceStore(self, didReceiveData: data, fromDevice: device)
-                self.proceedWithBrowsing()
+                dataReceived += data.count
+                transferData.append(data)
+                if dataReceived < transferLength {
+                    if let xfer = transferCharacteristic {
+                        let dataReceivedData = Data(buffer: UnsafeBufferPointer(start: &dataReceived, count: 1))
+                        peripheral.writeValue(dataReceivedData, for: xfer, type: .withResponse)
+                    }
+                } else {
+                    if let don = doneCharacteristic {
+                        let done = "done".data(using: .utf8)
+                        peripheral.writeValue(done!, for: don, type: .withResponse)
+                        self.delegate?.serviceStore(self, didReceiveData: transferData, fromDevice: device)
+                    } else {
+                        self.errorOutWithBrowsing()
+                    }
+                }
             } else {
                 print("ERROR: Data was null! Erroring out...")
                 self.errorOutWithBrowsing()
+            }
+        } else if characteristic.uuid == MatchTransferUUIDs.lengthCharacteristic {
+            if let data = characteristic.value {
+                transferLength = data.withUnsafeBytes { (ptr: UnsafePointer<Int>) -> Int in
+                    return ptr.pointee
+                }
+                dataReceived = 0
+                transferData = Data()
+                if let xfer = transferCharacteristic {
+                    let dataReceivedData = Data(buffer: UnsafeBufferPointer(start: &dataReceived, count: 1))
+                    peripheral.writeValue(dataReceivedData, for: xfer, type: .withResponse)
+                }
             }
         } else {
             print("WARN: updated value to wrong characteristic! Erroring out...")
@@ -249,6 +370,7 @@ extension ServiceStore: CBCentralManagerDelegate {
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("CentralManager did connect to peripheral \(peripheral.debugDescription)")
         self.proceedWithBrowsing()
+        peripheral.delegate = self
         peripheral.discoverServices([MatchTransferUUIDs.dataService])
     }
     

@@ -13,11 +13,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     var window: UIWindow?
     var orientationLock: UIInterfaceOrientationMask = .all
-    var matchStore = MatchStore(withMock: false)
-    var serviceStore = ServiceStore()
+    var matchStore:MatchStore!
+    var serviceStore:ServiceStore!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        matchStore = MatchStore(withMock: true)
+        serviceStore = ServiceStore(withMatchStore: matchStore)
         
         if let splitViewController = self.window!.rootViewController as? UISplitViewController {
             let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
