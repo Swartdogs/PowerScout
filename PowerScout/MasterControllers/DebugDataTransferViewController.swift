@@ -35,12 +35,6 @@ class DebugDataTransferViewController: DataTransferViewController {
         setSessionStateLabel(for: serviceStore.sessionState)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        serviceStore.delegate = nil
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

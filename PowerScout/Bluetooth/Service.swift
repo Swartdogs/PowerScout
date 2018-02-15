@@ -24,8 +24,9 @@ struct NearbyDevice {
     var displayName: String
     var type: MatchTransferType
     var hash: Int
-    var mcInfo: [String:String]
-    var mcId: MCPeerID?
+    var mcInfo: [String:String] = [:]
+    var mcId: MCPeerID? = nil
+    var cbPeripheral: CBPeripheral? = nil
 }
 
 struct MatchTransferUUIDs {

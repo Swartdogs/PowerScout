@@ -51,8 +51,7 @@ class NearbyDevicesTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let nearbyDevice = nearbyDevices[indexPath.row]
-        self.performSegue(withIdentifier: "UnwindSegueDoneFromBrowser", sender: nearbyDevice)
+        self.performSegue(withIdentifier: "UnwindSegueDoneFromBrowser", sender: self)
     }
 
     /*

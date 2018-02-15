@@ -292,9 +292,15 @@ class ServiceStore: NSObject {
                             print("WARN: No found peer matches nearby device \(nearbyDevice.displayName), going back to running")
                             self.goBackWithBrowsing()
                         }
-                    } else {
-                        print("WARN: CoreBluetooth devices are not supported at this time, going back to running")
-                        self.goBackWithBrowsing()
+                    } else if nearbyDevice.type == .coreBluetooth {
+                        if let device = self.foundNearbyDevices.first(where: {$0.hash == nearbyDevice.hash}) {
+                            self.centralManager.stopScan()
+                            print("Connecting to \(device.displayName)")
+                            self.centralManager.connect(device.cbPeripheral!, options: nil)
+                        } else {
+                            print("WARN: No found peer matches nearby device \(nearbyDevice.displayName), going back to running")
+                            self.goBackWithBrowsing()
+                        }
                     }
                 } else {
                     print("WARN: No nearby device was selected, going back to running")

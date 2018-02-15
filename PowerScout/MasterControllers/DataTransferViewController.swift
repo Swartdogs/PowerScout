@@ -291,12 +291,12 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         }
     }
     
-    func serviceStore(_ serviceStore: ServiceStore, withSession session: MCSession, didReceiveData data: Data, fromPeer peerId: MCPeerID) {
+    func serviceStore(_ serviceStore: ServiceStore, didReceiveData data: Data, fromDevice device: NearbyDevice) {
         if let message = String(data: data, encoding: .utf8) {
             print("Message decoded: \(message)")
             if message == "ping" {
                 DispatchQueue.main.async { [weak self] in
-                    let alert = UIAlertController(title: "Ping!", message: "\(peerId.displayName) pinged you!", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Ping!", message: "\(device.displayName) pinged you!", preferredStyle: .alert)
                     let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
                     alert.addAction(ok)
                     self?.present(alert, animated: true, completion: nil)

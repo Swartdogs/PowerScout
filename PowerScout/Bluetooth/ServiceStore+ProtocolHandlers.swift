@@ -38,7 +38,7 @@ extension ServiceStore: MCNearbyServiceBrowserDelegate {
                 case .v0_1_0:
                     print("Adding peer \(peerID.displayName) (\(String(describing: _info[MatchTransferDiscoveryInfo.DeviceName]))) with type \(String(describing: _info[MatchTransferDiscoveryInfo.MatchTypeKey]))")
                     if !foundNearbyDevices.contains(where: { peerID.hash == $0.hash}) {
-                        let newDevice = NearbyDevice(displayName: _info[MatchTransferDiscoveryInfo.DeviceName] ?? "Unknown", type: .multipeerConnectivity, hash: peerID.hash, mcInfo: _info, mcId: peerID)
+                        let newDevice = NearbyDevice(displayName: _info[MatchTransferDiscoveryInfo.DeviceName] ?? "Unknown", type: .multipeerConnectivity, hash: peerID.hash, mcInfo: _info, mcId: peerID, cbPeripheral: nil)
                         foundNearbyDevices.append(newDevice)
                         self.delegate?.serviceStore(self, foundNearbyDevice: newDevice)
                     }
@@ -114,17 +114,19 @@ extension ServiceStore: MCSessionDelegate {
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        print("MCSession \(session.myPeerID.displayName) did receive data from peer \(peerID): \(data)")
-        if let string = String(data: data, encoding: .utf8) {
-            if string.elementsEqual("EOD") {
-                if advertising {
-                    proceedWithAdvertising()
-                } else if browsing {
-                    proceedWithBrowsing()
+        if let device = self.foundNearbyDevices.first(where: {$0.hash == peerID.hash}) {
+            print("MCSession \(session.myPeerID.displayName) did receive data from peer \(peerID): \(data)")
+            if let string = String(data: data, encoding: .utf8) {
+                if string.elementsEqual("EOD") {
+                    if advertising {
+                        proceedWithAdvertising()
+                    } else if browsing {
+                        proceedWithBrowsing()
+                    }
                 }
             }
+            self.delegate?.serviceStore(self, didReceiveData: data, fromDevice: device)
         }
-        self.delegate?.serviceStore(self, withSession: session, didReceiveData: data, fromPeer: peerID)
     }
     
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
@@ -184,6 +186,58 @@ extension ServiceStore: CBPeripheralManagerDelegate {
     }
 }
 
+extension ServiceStore: CBPeripheralDelegate {
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        print("Peripheral \(peripheral.debugDescription) did discover services with error \(error.debugDescription)")
+        var foundService = false
+        if let services = peripheral.services {
+            for service in services {
+                if service.uuid == MatchTransferUUIDs.dataService && !foundService {
+                    foundService = true
+                    peripheral.discoverCharacteristics([MatchTransferUUIDs.dataCharacteristic], for: service)
+                }
+            }
+        }
+        if !foundService {
+            print("ERROR: Could not find right service! Erroring out...")
+            self.errorOutWithBrowsing()
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        print("Peripheral \(peripheral.debugDescription) did discover characteristics for service \(service.debugDescription) with error \(error.debugDescription)")
+        var foundCharacteristic = false
+        if let characteristics = service.characteristics {
+            for characteristic in characteristics {
+                if characteristic.uuid == MatchTransferUUIDs.dataCharacteristic && !foundCharacteristic {
+                    foundCharacteristic = true
+                    self.proceedWithBrowsing()
+                    peripheral.readValue(for: characteristic)
+                }
+            }
+        }
+        if !foundCharacteristic {
+            print("ERROR: Could not find right characteristic! Erroring out...")
+            self.errorOutWithBrowsing()
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        if characteristic.uuid == MatchTransferUUIDs.dataCharacteristic {
+            if let data = characteristic.value, let device = self.foundNearbyDevices.first(where: {$0.hash == peripheral.identifier.hashValue}) {
+                self.delegate?.serviceStore(self, didReceiveData: data, fromDevice: device)
+                self.proceedWithBrowsing()
+            } else {
+                print("ERROR: Data was null! Erroring out...")
+                self.errorOutWithBrowsing()
+            }
+        } else {
+            print("WARN: updated value to wrong characteristic! Erroring out...")
+            self.errorOutWithBrowsing()
+        }
+    }
+}
+
 extension ServiceStore: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         print("CentralManager State is \(central.state.rawValue)")
@@ -194,10 +248,15 @@ extension ServiceStore: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("CentralManager did connect to peripheral \(peripheral.debugDescription)")
+        self.proceedWithBrowsing()
+        peripheral.discoverServices([MatchTransferUUIDs.dataService])
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
         print("CentralManager did fail to connect to peripheral \(peripheral.debugDescription) with error \(error.debugDescription)")
+        if self.browsing {
+            self.errorOutWithBrowsing()
+        }
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
@@ -213,7 +272,7 @@ extension ServiceStore: CBCentralManagerDelegate {
         let deviceIdx = self.foundNearbyDevices.index(where: {peripheral.identifier.hashValue == $0.hash && $0.type == .coreBluetooth})
         if filter.average > -30.0 && deviceIdx == nil {
             print("CentralManager did discover peripheral \(peripheral.debugDescription) with addata \(advertisementData.debugDescription) and rssi \(RSSI)")
-            let newDevice = NearbyDevice(displayName: advertisementData[kCIAttributeDisplayName] as! String, type: .coreBluetooth, hash: peripheral.identifier.hashValue, mcInfo: [:], mcId: nil)
+            let newDevice = NearbyDevice(displayName: advertisementData[CBAdvertisementDataLocalNameKey] as? String ?? peripheral.name ?? "Unknown", type: .coreBluetooth, hash: peripheral.identifier.hashValue, mcInfo: [:], mcId: nil, cbPeripheral: peripheral)
             self.foundNearbyDevices.append(newDevice)
             self.delegate?.serviceStore(self, foundNearbyDevice: newDevice)
         } else if filter.average < -30.0 && deviceIdx != nil {
