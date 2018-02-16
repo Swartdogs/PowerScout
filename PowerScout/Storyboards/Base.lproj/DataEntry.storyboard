@@ -689,16 +689,16 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dVQ-iJ-alU">
-                                                        <rect key="frame" x="265" y="0.0" width="215" height="28"/>
+                                                        <rect key="frame" x="265" y="0.0" width="206" height="28"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balanced:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVq-xZ-AZQ">
-                                                                <rect key="frame" x="0.0" y="0.0" width="103.5" height="28"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="28"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="tbE-uX-FZi">
-                                                                <rect key="frame" x="111.5" y="0.0" width="103.5" height="29"/>
+                                                                <rect key="frame" x="107.5" y="0.0" width="98.5" height="29"/>
                                                                 <segments>
                                                                     <segment title="No"/>
                                                                     <segment title="Yes"/>
@@ -714,16 +714,16 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zpD-pf-uJS">
-                                                        <rect key="frame" x="530" y="0.0" width="206" height="28"/>
+                                                        <rect key="frame" x="521" y="0.0" width="215" height="28"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lwB-R2-AFF">
-                                                                <rect key="frame" x="0.0" y="0.0" width="68.5" height="28"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="71.5" height="28"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="neq-bo-XYO">
-                                                                <rect key="frame" x="76.5" y="0.0" width="129.5" height="29"/>
+                                                                <rect key="frame" x="79.5" y="0.0" width="135.5" height="29"/>
                                                                 <segments>
                                                                     <segment title="No"/>
                                                                     <segment title="Yes"/>
@@ -836,9 +836,6 @@
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstItem="K5t-U5-h5u" firstAttribute="top" secondItem="Jjh-Ag-dAv" secondAttribute="bottom" constant="18" id="vPk-tx-hZV"/>
-                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8ck-Kb-Yn3" userLabel="Extra">
                                         <rect key="frame" x="0.0" y="594" width="736" height="290"/>
