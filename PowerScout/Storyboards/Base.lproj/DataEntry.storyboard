@@ -12,137 +12,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Penalty-->
-        <scene sceneID="yAs-yi-HCX">
-            <objects>
-                <viewController storyboardIdentifier="PenaltyViewController" title="Penalty" id="k3D-7e-Zxi" customClass="PenaltyViewController" customModule="PowerScout" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Q4b-hN-w73"/>
-                        <viewControllerLayoutGuide type="bottom" id="WeZ-61-GLk"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="aMY-C3-lxX">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="240"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="X5g-Wi-ifD">
-                                <rect key="frame" x="0.0" y="64" width="300" height="176"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="4z3-hU-Qn0">
-                                        <rect key="frame" x="8" y="8" width="284" height="80"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g4d-g0-h0D" customClass="SelectionButton" customModule="PowerScout" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="8" width="126" height="64"/>
-                                                <color key="backgroundColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                                <state key="normal" title="Yellow Card"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="10"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="handleButtonPress:" destination="k3D-7e-Zxi" eventType="touchUpInside" id="zEe-JW-13h"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WM2-kN-Qpi" customClass="SelectionButton" customModule="PowerScout" customModuleProvider="target">
-                                                <rect key="frame" x="150" y="8" width="126" height="64"/>
-                                                <color key="backgroundColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                                <state key="normal" title="Red Card"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="10"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="handleButtonPress:" destination="k3D-7e-Zxi" eventType="touchUpInside" id="t3f-G3-I6S"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Y7c-qG-y2v">
-                                        <rect key="frame" x="8" y="88" width="284" height="80"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hb1-68-PlI" customClass="SelectionButton" customModule="PowerScout" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="8" width="126" height="64"/>
-                                                <color key="backgroundColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                                <state key="normal" title="Foul"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="10"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="handleButtonPress:" destination="k3D-7e-Zxi" eventType="touchUpInside" id="uVe-ch-2Vw"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NSb-Dm-bhQ" customClass="SelectionButton" customModule="PowerScout" customModuleProvider="target">
-                                                <rect key="frame" x="150" y="8" width="126" height="64"/>
-                                                <color key="backgroundColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                                <state key="normal" title="Technical Foul"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                        <integer key="value" value="10"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="handleButtonPress:" destination="k3D-7e-Zxi" eventType="touchUpInside" id="dAa-bS-tkY"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="4z3-hU-Qn0" firstAttribute="height" secondItem="Y7c-qG-y2v" secondAttribute="height" id="AZz-6d-ZYK"/>
-                                </constraints>
-                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                            </stackView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="avy-RB-74S">
-                                <rect key="frame" x="0.0" y="20" width="300" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="GTK-ZX-EYM"/>
-                                </constraints>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Vct-CX-U08"/>
-                                    <barButtonItem systemItem="save" id="JeV-VS-L49">
-                                        <connections>
-                                            <action selector="handleSave:" destination="k3D-7e-Zxi" id="TIr-1d-qYn"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                        </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="X5g-Wi-ifD" firstAttribute="leading" secondItem="aMY-C3-lxX" secondAttribute="leading" id="JKN-Kx-VEz"/>
-                            <constraint firstItem="avy-RB-74S" firstAttribute="leading" secondItem="aMY-C3-lxX" secondAttribute="leading" id="ToS-WM-QTD"/>
-                            <constraint firstItem="avy-RB-74S" firstAttribute="top" secondItem="Q4b-hN-w73" secondAttribute="bottom" id="aww-Ob-Zf0"/>
-                            <constraint firstItem="X5g-Wi-ifD" firstAttribute="bottom" secondItem="WeZ-61-GLk" secondAttribute="top" id="ebS-Ch-Ubl"/>
-                            <constraint firstItem="avy-RB-74S" firstAttribute="centerX" secondItem="aMY-C3-lxX" secondAttribute="centerX" id="egy-WJ-FPQ"/>
-                            <constraint firstItem="X5g-Wi-ifD" firstAttribute="top" secondItem="avy-RB-74S" secondAttribute="bottom" id="fsN-v2-bFv"/>
-                            <constraint firstItem="X5g-Wi-ifD" firstAttribute="centerX" secondItem="aMY-C3-lxX" secondAttribute="centerX" id="u77-EB-wcX"/>
-                        </constraints>
-                    </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="300" height="200"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="300" height="240"/>
-                    <connections>
-                        <outlet property="Foul" destination="Hb1-68-PlI" id="RF1-Ls-26r"/>
-                        <outlet property="RedCard" destination="WM2-kN-Qpi" id="MmX-At-7qq"/>
-                        <outlet property="TechnicalFoul" destination="NSb-Dm-bhQ" id="fmK-16-UCa"/>
-                        <outlet property="YellowCard" destination="g4d-g0-h0D" id="PNu-nY-1hV"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Xod-Ic-wc0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3188" y="-13"/>
-        </scene>
         <!--Data Entry Navigation Controller-->
         <scene sceneID="ytf-eH-7Fk">
             <objects>
@@ -739,7 +608,7 @@
                                                                 </connections>
                                                             </stepper>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YfX-Vf-4JF">
-                                                                <rect key="frame" x="102" y="4.5" width="189" height="20.5"/>
+                                                                <rect key="frame" x="102" y="4" width="189" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                                                 <nil key="highlightedColor"/>
@@ -820,16 +689,16 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dVQ-iJ-alU">
-                                                        <rect key="frame" x="265" y="0.0" width="206" height="28"/>
+                                                        <rect key="frame" x="265" y="0.0" width="215" height="28"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balanced:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HVq-xZ-AZQ">
-                                                                <rect key="frame" x="0.0" y="0.0" width="99.5" height="28"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="103.5" height="28"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="tbE-uX-FZi">
-                                                                <rect key="frame" x="107.5" y="0.0" width="98.5" height="29"/>
+                                                                <rect key="frame" x="111.5" y="0.0" width="103.5" height="29"/>
                                                                 <segments>
                                                                     <segment title="No"/>
                                                                     <segment title="Yes"/>
@@ -845,16 +714,16 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zpD-pf-uJS">
-                                                        <rect key="frame" x="521" y="0.0" width="215" height="28"/>
+                                                        <rect key="frame" x="530" y="0.0" width="206" height="28"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="High:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lwB-R2-AFF">
-                                                                <rect key="frame" x="0.0" y="0.0" width="71.5" height="28"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="68.5" height="28"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="neq-bo-XYO">
-                                                                <rect key="frame" x="79.5" y="0.0" width="135.5" height="29"/>
+                                                                <rect key="frame" x="76.5" y="0.0" width="129.5" height="29"/>
                                                                 <segments>
                                                                     <segment title="No"/>
                                                                     <segment title="Yes"/>
@@ -1080,7 +949,7 @@
                                 <segue destination="CCN-mt-Ykg" kind="unwind" identifier="unwindCancelMatch" unwindAction="unwindToMatchView:" id="c5Q-V7-okO"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Results" id="z9a-UV-jZ5">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="z9a-UV-jZ5">
                             <connections>
                                 <segue destination="Pry-m9-euE" kind="presentation" identifier="segueToFinalInfo" modalPresentationStyle="formSheet" id="l5I-gO-gUU"/>
                             </connections>

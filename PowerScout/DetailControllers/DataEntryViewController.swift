@@ -40,7 +40,7 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     var matchStore:MatchStore!
     
     let startPositions = ["Exchange", "Center", "NES"]
-    let climbConditions = ["No attempt or failure to climb", "No climb but helped another", "Climb by themselves", "Climb with help", "Climb helping another team"]
+    let climbConditions = ["No attempt", "Failure to climb", "No climb but helped another", "Climb by themselves", "Climb with help", "Climb helping another team"]
     
     override func viewDidLoad() {
         startPositionPick.isHidden = true
