@@ -8,9 +8,9 @@
 
 import UIKit
 
-class MatchStore: Any {
+class MatchStore {
     
-    static let sharedStore:MatchStore = MatchStore()
+    // MARK: Properties
     
     var allMatches:[Match] = []
     var matchesToScout:[MatchQueueData] = []
@@ -22,6 +22,8 @@ class MatchStore: Any {
     
     var actionsUndo:Stack<ActionEdit> = Stack<ActionEdit>(limit: 1)
     var actionsRedo:Stack<ActionEdit> = Stack<ActionEdit>(limit: 1)
+    
+    // MARK: Initialization
     
     init() {
         allMatches = []
@@ -54,6 +56,52 @@ class MatchStore: Any {
         currentMatch = nil
     }
     
+    convenience init(withMock mock:Bool) {
+        self.init()
+        if mock {
+            allMatches = [
+                MatchImpl(queueData: MatchQueueData(match: 1, team: 1100, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 1, team: 1101, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 1, team: 1102, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 1, team: 1200, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 1, team: 1201, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 1, team: 1202, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 2, team: 1300, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 2, team: 1301, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 2, team: 1302, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 2, team: 1400, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 2, team: 1401, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 2, team: 1402, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 3, team: 1500, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 3, team: 1501, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 3, team: 1502, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 3, team: 1600, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 3, team: 1601, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 3, team: 1602, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 4, team: 1700, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 4, team: 1701, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 4, team: 1702, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 4, team: 1800, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 4, team: 1801, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 4, team: 1802, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 5, team: 1900, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 5, team: 1901, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 5, team: 1902, alliance: .red)),
+                MatchImpl(queueData: MatchQueueData(match: 5, team: 2000, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 5, team: 2001, alliance: .blue)),
+                MatchImpl(queueData: MatchQueueData(match: 5, team: 2002, alliance: .blue))
+            ]
+            
+            matchesToScout = []
+            
+            print("Mocking Match Data")
+            
+            self.fieldLayout = .blueRed
+        }
+    }
+    
+    // MARK: Archive Paths
+    
     var matchArchivePath:String {
         let documentFolder = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         return (documentFolder as NSString).appendingPathComponent("Match.archive")
@@ -73,6 +121,8 @@ class MatchStore: Any {
         let documentFolder = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)[0]
         return (documentFolder as NSString).appendingPathComponent("Match data - \(UIDevice.current.name).csv")
     }
+    
+    // MARK: Saving and Exporting
     
     // Return Values:
     // 0 - Success
@@ -161,6 +211,8 @@ class MatchStore: Any {
         return saveChanges(withMatchType: type) == 0
     }
     
+    // MARK: Match Creation
+    
     func createMatch(_ returningType:MatchImpl.Type, onComplete handler:((Match) -> ())?) {
         currentMatch = returningType.init()
         currentMatchIndex = -1
@@ -200,6 +252,8 @@ class MatchStore: Any {
         return false
     }
     
+    // MARK: Match Removal
+    
     func removeMatchQueueAtIndex(_ index:Int) {
         guard 0..<matchesToScout.count ~= index else { return }
         matchesToScout.remove(at: index)
@@ -226,6 +280,8 @@ class MatchStore: Any {
         }
     }
     
+    // MARK: Update Matches
+    
     func updateCurrentMatchForType(_ type:UpdateType, match:Match) {
         currentMatch?.updateForType(type, withMatch: match)
     }
@@ -251,10 +307,36 @@ class MatchStore: Any {
         var matchData = [Dictionary<String, AnyObject>]()
         
         for match in allMatches {
-            matchData.append(match.messageDictionary)
+            if match.selectedForDataTransfer {
+                matchData.append(match.messageDictionary)
+            }
         }
         
-        return try? JSONSerialization.data(withJSONObject: matchData, options: .prettyPrinted)
+        return try? JSONSerialization.data(withJSONObject: matchData)
+    }
+    
+    func dataTransferComplete() {
+        for var match in allMatches {
+            if match.selectedForDataTransfer {
+                match.selectedForDataTransfer = false
+                match.lastExportedByXfer = Date()
+                match.shouldExport = match.lastExportedByXfer == nil
+            }
+        }
+    }
+    
+    func dataTransferImport(matches: [Match]) {
+        for match in matches {
+            if let onFile = allMatches.first(where: { return $0.teamNumber == match.teamNumber && $0.matchNumber == match.matchNumber }) {
+                print("Same Match Detected!\nReceived: ")
+                // TODO: Print match diff (need a method for that)
+                print(match.messageDictionary)
+                print("On file:")
+                print(onFile.messageDictionary)
+            }
+            print("Adding Match")
+            allMatches.append(match)
+        }
     }
     
     func createMatchQueueFromMatchData(_ data:[MatchQueueData]) {

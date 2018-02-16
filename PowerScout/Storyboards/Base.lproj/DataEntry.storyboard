@@ -739,7 +739,7 @@
                                                                 </connections>
                                                             </stepper>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YfX-Vf-4JF">
-                                                                <rect key="frame" x="102" y="4" width="189" height="20.5"/>
+                                                                <rect key="frame" x="102" y="4.5" width="189" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <color key="textColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                                                 <nil key="highlightedColor"/>
@@ -1082,7 +1082,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Results" id="z9a-UV-jZ5">
                             <connections>
-                                <segue destination="Pry-m9-euE" kind="presentation" modalPresentationStyle="formSheet" id="l5I-gO-gUU"/>
+                                <segue destination="Pry-m9-euE" kind="presentation" identifier="segueToFinalInfo" modalPresentationStyle="formSheet" id="l5I-gO-gUU"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

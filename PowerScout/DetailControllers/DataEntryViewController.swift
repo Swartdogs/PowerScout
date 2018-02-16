@@ -37,6 +37,7 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     @IBOutlet weak var TechFYN: UISegmentedControl!
     
     var match:PowerMatch = PowerMatch()
+    var matchStore:MatchStore!
     
     let startPositions = ["Exchange", "Center", "NES"]
     let climbConditions = ["No attempt or failure to climb", "No climb but helped another", "Climb by themselves", "Climb with help", "Climb helping another team"]
@@ -74,13 +75,19 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        match = MatchStore.sharedStore.currentMatch as? PowerMatch ?? match
+        match = matchStore.currentMatch as? PowerMatch ?? match
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let id = segue.identifier {
             if id.elementsEqual("unwindCancelMatch") {
-                MatchStore.sharedStore.cancelCurrentMatchEdit()
+                matchStore.cancelCurrentMatchEdit()
+            } else if id.elementsEqual("segueToFinalInfo") {
+                if let destNC = segue.destination as? UINavigationController {
+                    if let destVC = destNC.topViewController as? FinalViewController {
+                        destVC.matchStore = matchStore
+                    }
+                }
             }
         }
     }

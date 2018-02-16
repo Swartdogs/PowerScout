@@ -16,6 +16,7 @@ class TeamInfoViewController: UIViewController {
     @IBOutlet weak var noShowButton: UIButton!
     
     var m:Match = PowerMatch()
+    var matchStore:MatchStore!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -32,7 +33,7 @@ class TeamInfoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        m = MatchStore.sharedStore.currentMatch ?? m
+        m = matchStore.currentMatch ?? m
         
         m.isCompleted |= 1;
         teamNumberTextField.text = m.teamNumber > 0 ? "\(m.teamNumber)" : ""
@@ -59,13 +60,18 @@ class TeamInfoViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueCancelStartMatch" {
-            MatchStore.sharedStore.cancelCurrentMatchEdit()
+            matchStore.cancelCurrentMatchEdit()
         } else if segue.identifier == "segueToEndMatchNoShow" {
-            MatchStore.sharedStore.updateCurrentMatchForType(.teamInfo, match: m)
-            MatchStore.sharedStore.finishCurrentMatch()
+            matchStore.updateCurrentMatchForType(.teamInfo, match: m)
+            matchStore.finishCurrentMatch()
         } else if segue.identifier == "segueToDataEntry" {
             AppUtility.lockOrientation(to: .portrait)
-            MatchStore.sharedStore.updateCurrentMatchForType(.teamInfo, match: m)
+            matchStore.updateCurrentMatchForType(.teamInfo, match: m)
+            if let destNC = segue.destination as? UINavigationController {
+                if let destVC = destNC.topViewController as? DataEntryViewController {
+                    destVC.matchStore = matchStore
+                }
+            }
         }
     }
     
