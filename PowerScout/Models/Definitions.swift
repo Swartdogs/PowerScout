@@ -202,7 +202,7 @@ struct RobotState:OptionSet {
         case RobotState.Tipped.union(.Stalled).rawValue:
             return "Stall+Tip"
         default:
-            return "None"
+            return "Normal"
         }
     }
 }
