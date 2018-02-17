@@ -693,7 +693,7 @@
                         <outlet property="teleAmmountSwitch" destination="tmo-Cm-bTe" id="tLT-fE-dUn"/>
                         <outlet property="teleScale" destination="tjV-W9-3GG" id="TLH-at-4El"/>
                         <outlet property="teleSwitch" destination="5H9-cL-hfP" id="e6x-2N-llq"/>
-                        <segue destination="CCN-mt-Ykg" kind="unwind" identifier="unwindToMatchView" unwindAction="unwindToMatchView:" id="jtE-Yb-ZIb"/>
+                        <segue destination="CCN-mt-Ykg" kind="unwind" identifier="unwindToMatchView" unwindAction="unwindToCompletedMatchView:" id="jtE-Yb-ZIb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GNe-bJ-CtU" sceneMemberID="firstResponder"/>
