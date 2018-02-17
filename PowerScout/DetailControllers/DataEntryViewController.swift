@@ -36,6 +36,10 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     var match:PowerMatch = PowerMatch()
     var matchStore:MatchStore!
     
+    var startPositionDone = false
+    var climbPositionDone = false
+    var readyToMove = false
+    
     override func viewDidLoad() {
         startPositionPick.isHidden = true
         startPositionPick.dataSource = self
@@ -69,6 +73,12 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        startPositionDone = false
+        climbPositionDone = false
+        readyToMove = false
+        
+        readyToMoveOn()
+        
         match = matchStore.currentMatch as? PowerMatch ?? match
     }
     
@@ -89,6 +99,23 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         }
     }
     
+    func readyToMoveOn() {
+        readyToMove = startPositionDone && climbPositionDone
+    }
+    
+    @IBAction func handleDoneButton(_ sender:UIBarButtonItem) {
+        if !readyToMove {
+            let alertController = UIAlertController(title: "Unable to Complete Match", message: "You must complete the Start Position and End Climb Condition Fields to complete the match!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            
+            alertController.addAction(okAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        } else {
+            self.performSegue(withIdentifier: "unwindToMatchView", sender: self)
+        }
+    }
+    
     @IBAction func unwindToDataEntry(_ sender:UIStoryboardSegue) {
         
     }
@@ -99,11 +126,15 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         if climbingConditionPick.isHidden {
             climbingConditionPick.isHidden = false
         }
+        
+        readyToMoveOn()
     }
     @IBAction func positionSelect(_ sender: UIButton) {
         if startPositionPick.isHidden {
             startPositionPick.isHidden = false
         }
+        
+        readyToMoveOn()
     }
     
     func numberOfComponents(in pickerview: UIPickerView) -> Int{
@@ -132,12 +163,16 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
             positionButton.setTitle(PowerStartPositionType.all[row].toString(), for: .normal)
             startPositionPick.isHidden = true
             match.autoStartPos = PowerStartPositionType(rawValue: row+1)!
+            startPositionDone = true
         }
         if pickerview == climbingConditionPick{
             climbButton.setTitle(PowerEndClimbPositionType.all[row].toString(), for: .normal)
             climbingConditionPick.isHidden = true
             match.endClimbCondition = PowerEndClimbPositionType(rawValue: row)!
+            climbPositionDone = true
         }
+        
+        readyToMoveOn()
     }
     
     @IBAction func segmentedControlSelect(_ sender: UISegmentedControl) {
@@ -177,6 +212,8 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         default:
             break
         }
+        
+        readyToMoveOn()
     }
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
@@ -204,5 +241,7 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         default:
             break
         }
+        
+        readyToMoveOn()
     }
 }
