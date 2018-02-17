@@ -142,7 +142,7 @@ class MatchStore {
         
         let csvDataSave = writeCSVFile(withType: type)
         
-        return (matchDataSave ? 1 : 0) + (queueDataSave ? 2 : 0) + (csvDataSave ? 4 : 0)
+        return (matchDataSave ? 0 : 1) + (queueDataSave ? 0 : 2) + (csvDataSave ? 0 : 4)
     }
     
     func saveMatchQueueData() -> Bool {

@@ -36,9 +36,6 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     var match:PowerMatch = PowerMatch()
     var matchStore:MatchStore!
     
-    let startPositions = ["Exchange", "Center", "NES"]
-    let climbConditions = ["No attempt", "Failure to climb", "No climb but helped another", "Climb by themselves", "Climb with help", "Climb helping another team"]
-    
     override func viewDidLoad() {
         startPositionPick.isHidden = true
         startPositionPick.dataSource = self
@@ -115,29 +112,29 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     
     func pickerView(_ pickerview: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
         if pickerview == startPositionPick {
-            return startPositions.count
+            return PowerStartPositionType.all.count
         } else {
-            return climbConditions.count
+            return PowerEndClimbPositionType.all.count
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let attrs = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 22)]
         if pickerView == startPositionPick {
-            return NSAttributedString(string: startPositions[row], attributes: attrs)
+            return NSAttributedString(string: PowerStartPositionType.all[row].toString(), attributes: attrs)
         } else {
-            return NSAttributedString(string: climbConditions[row], attributes: attrs)
+            return NSAttributedString(string: PowerEndClimbPositionType.all[row].toString(), attributes: attrs)
         }
     }
     
     func pickerView(_ pickerview: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerview == startPositionPick{
-            positionButton.setTitle(startPositions[row], for: .normal)
+            positionButton.setTitle(PowerStartPositionType.all[row].toString(), for: .normal)
             startPositionPick.isHidden = true
             match.autoStartPos = PowerStartPositionType(rawValue: row+1)!
         }
         if pickerview == climbingConditionPick{
-            climbButton.setTitle(climbConditions[row], for: .normal)
+            climbButton.setTitle(PowerEndClimbPositionType.all[row].toString(), for: .normal)
             climbingConditionPick.isHidden = true
             match.endClimbCondition = PowerEndClimbPositionType(rawValue: row)!
         }
