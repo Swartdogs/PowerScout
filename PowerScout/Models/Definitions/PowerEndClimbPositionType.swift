@@ -18,10 +18,10 @@ enum PowerEndClimbPositionType: Int {
     
     func toString() -> String {
         return (self == .failure)              ? "Failure to Climb" :
-               (self == .assistOther)          ? "No climb, but helped another"   :
+               (self == .assistOther)          ? "No climb - but helped another"   :
                (self == .soloClimb)            ? "Climb by themselves"       :
                (self == .assistedClimb)        ? "Climb with help" :
-               (self == .climbAndAssistOther)  ? "Climb, helping another team" : "None";
+               (self == .climbAndAssistOther)  ? "Climb - helping another team" : "None";
     }
     
     static let all:[PowerEndClimbPositionType] = [
