@@ -10,15 +10,26 @@ import Foundation
 
 enum PowerEndClimbPositionType: Int {
     case none = 0
+    case failure
     case assistOther
     case soloClimb
     case assistedClimb
-    case soloClimbAssistOther
+    case climbAndAssistOther
     
     func toString() -> String {
-        return (self == .assistOther)          ? "Assisted Other"  :
-               (self == .soloClimb)            ? "Solo Climb"      :
-               (self == .assistedClimb)        ? "Climb with Assistance" :
-               (self == .soloClimbAssistOther) ? "Climb and Assisted Other" : "None";
+        return (self == .failure)              ? "Failure to Climb" :
+               (self == .assistOther)          ? "No climb, but helped another"   :
+               (self == .soloClimb)            ? "Climb by themselves"       :
+               (self == .assistedClimb)        ? "Climb with help" :
+               (self == .climbAndAssistOther)  ? "Climb, helping another team" : "None";
     }
+    
+    static let all:[PowerEndClimbPositionType] = [
+        .none,
+        .failure,
+        .assistOther,
+        .soloClimb,
+        .assistedClimb,
+        .climbAndAssistOther
+    ]
 }
