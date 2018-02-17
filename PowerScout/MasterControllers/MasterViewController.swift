@@ -43,17 +43,13 @@ class MasterViewController: UITableViewController {
             if segue.identifier == "showMatchSummary", let indexPath = self.tableView.indexPathForSelectedRow {
                 match = self.matchStore.allMatches[indexPath.row]
             }
-            let storyboard = UIStoryboard(name: "Results", bundle: nil)
-            let sr = storyboard.instantiateViewController(withIdentifier: "ResultsScoringViewController") as! ResultsScoringViewController
-            let mr = storyboard.instantiateViewController(withIdentifier: "ResultsMatchInfoViewController") as! ResultsMatchInfoViewController
-            sr.match = match as! PowerMatch
-            mr.match = match as! PowerMatch
-            let controller = (segue.destination as! UINavigationController).topViewController as! CustomContainerArrayView
-            controller.views = [sr, mr]
-            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
-            controller.navigationItem.leftItemsSupplementBackButton = true
-            controller.navigationItem.title = "Match: \(match.matchNumber) Team: \(match.teamNumber)"
-            
+            if let nav = segue.destination as? UINavigationController,
+                let sr = nav.topViewController as? ResultsScoringViewController {
+                sr.match = match as! PowerMatch
+                sr.navigationItem.title = "Match: \(match.matchNumber) Team: \(match.teamNumber)"
+                sr.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem
+                sr.navigationItem.leftItemsSupplementBackButton = true
+            }
         } else if segue.identifier == "SegueToNewMatch" {
             self.matchStore.createMatch(PowerMatch.self, onComplete:nil)
             if let destNC = segue.destination as? UINavigationController {

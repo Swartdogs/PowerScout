@@ -25,13 +25,10 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     @IBOutlet weak var scaleLow: UISegmentedControl!
     @IBOutlet weak var scaleMedium: UISegmentedControl!
     @IBOutlet weak var scaleHigh: UISegmentedControl!
-    @IBOutlet weak var teamNumberInput: UITextField!
-    @IBOutlet weak var matchNumberInput: UITextField!
     @IBOutlet weak var startPositionPick: UIPickerView!
     @IBOutlet weak var climbingConditionPick: UIPickerView!
     @IBOutlet weak var positionButton: UIButton!
     @IBOutlet weak var climbButton: UIButton!
-    @IBOutlet weak var climbYN: UISegmentedControl!
     @IBOutlet weak var TipYN: UISegmentedControl!
     @IBOutlet weak var StalledYN: UISegmentedControl!
     @IBOutlet weak var TechFYN: UISegmentedControl!
@@ -88,6 +85,9 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
                         destVC.matchStore = matchStore
                     }
                 }
+            } else if id.elementsEqual("unwindToMatchView") {
+                matchStore.updateCurrentMatchForType(.finalStats, match: match)
+                matchStore.finishCurrentMatch()
             }
         }
     }
@@ -157,6 +157,26 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         case scaleHigh:
             match.teleHigh = sender.selectedSegmentIndex == 1
             break
+        case TipYN:
+            if sender.selectedSegmentIndex == 1 {
+                match.finalRobot.formUnion(.Tipped)
+            } else {
+                match.finalRobot.subtract(.Tipped)
+            }
+            break
+        case StalledYN:
+            if sender.selectedSegmentIndex == 1 {
+                match.finalRobot.formUnion(.Stalled)
+            } else {
+                match.finalRobot.subtract(.Stalled)
+            }
+            break
+        case TechFYN:
+            if sender.selectedSegmentIndex == 1 {
+                match.finalTechFouls = 1
+            } else {
+                match.finalTechFouls = 0
+            }
         default:
             break
         }

@@ -579,6 +579,9 @@
                                                                     <segment title="Yes"/>
                                                                 </segments>
                                                                 <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <connections>
+                                                                    <action selector="segmentedControlSelect:" destination="RmR-df-9YL" eventType="valueChanged" id="a7d-43-ALQ"/>
+                                                                </connections>
                                                             </segmentedControl>
                                                         </subviews>
                                                         <constraints>
@@ -602,6 +605,9 @@
                                                                     <segment title="Yes"/>
                                                                 </segments>
                                                                 <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <connections>
+                                                                    <action selector="segmentedControlSelect:" destination="RmR-df-9YL" eventType="valueChanged" id="UCA-BN-I3L"/>
+                                                                </connections>
                                                             </segmentedControl>
                                                         </subviews>
                                                     </stackView>
@@ -622,6 +628,9 @@
                                                                     <segment title="Yes"/>
                                                                 </segments>
                                                                 <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <connections>
+                                                                    <action selector="segmentedControlSelect:" destination="RmR-df-9YL" eventType="valueChanged" id="rwe-8s-A86"/>
+                                                                </connections>
                                                             </segmentedControl>
                                                         </subviews>
                                                     </stackView>
@@ -655,7 +664,11 @@
                                 <segue destination="CCN-mt-Ykg" kind="unwind" identifier="unwindCancelMatch" unwindAction="unwindToMatchView:" id="c5Q-V7-okO"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="z9a-UV-jZ5"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="z9a-UV-jZ5">
+                            <connections>
+                                <segue destination="CCN-mt-Ykg" kind="unwind" identifier="unwindToMatchView" unwindAction="unwindToMatchView:" id="vsP-tK-Wxf"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
