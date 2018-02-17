@@ -41,7 +41,6 @@
 		C45A9B942033CA8E001C2AC3 /* ServiceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C112016D36B00C90984 /* ServiceState.swift */; };
 		C45A9B952033CA8E001C2AC3 /* ServiceStore+ProtocolHandlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C122016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift */; };
 		C45A9B962033CA8E001C2AC3 /* ServiceStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4757C132016D36B00C90984 /* ServiceStore.swift */; };
-		C45A9B972033CA8E001C2AC3 /* PenaltyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49884FA202D274F00B02555 /* PenaltyViewController.swift */; };
 		C45A9B982033CA8E001C2AC3 /* FinalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77AD202AD20B006C34CC /* FinalViewController.swift */; };
 		C45A9B992033CA8E001C2AC3 /* SteamGearPlacementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB96C2013E7C60011DB45 /* SteamGearPlacementType.swift */; };
 		C45A9B9A2033CA8E001C2AC3 /* SteamStartPositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB96D2013E7C60011DB45 /* SteamStartPositionType.swift */; };
@@ -72,7 +71,6 @@
 		C481787220132531001EAF24 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C481787020132531001EAF24 /* LaunchScreen.storyboard */; };
 		C481787D20132531001EAF24 /* PowerScoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481787C20132531001EAF24 /* PowerScoutTests.swift */; };
 		C481788820132531001EAF24 /* PowerScoutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C481788720132531001EAF24 /* PowerScoutUITests.swift */; };
-		C49884FB202D274F00B02555 /* PenaltyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49884FA202D274F00B02555 /* PenaltyViewController.swift */; };
 		C4988508202D9E1700B02555 /* ResultsMatchInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4988505202D9E1700B02555 /* ResultsMatchInfoViewController.swift */; };
 		C4988509202D9E1700B02555 /* ResultsScoringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4988506202D9E1700B02555 /* ResultsScoringViewController.swift */; };
 		C4ABB5892032E762008CFBC1 /* SelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB94F2013E7050011DB45 /* SelectionButton.swift */; };
@@ -151,7 +149,6 @@
 		C481788320132531001EAF24 /* PowerScoutUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PowerScoutUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C481788720132531001EAF24 /* PowerScoutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerScoutUITests.swift; sourceTree = "<group>"; };
 		C481788920132531001EAF24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C49884FA202D274F00B02555 /* PenaltyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PenaltyViewController.swift; sourceTree = "<group>"; };
 		C4988505202D9E1700B02555 /* ResultsMatchInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsMatchInfoViewController.swift; sourceTree = "<group>"; };
 		C4988506202D9E1700B02555 /* ResultsScoringViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsScoringViewController.swift; sourceTree = "<group>"; };
 		C4BF77A7202927C3006C34CC /* PowerMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerMatch.swift; sourceTree = "<group>"; };
@@ -308,7 +305,6 @@
 			isa = PBXGroup;
 			children = (
 				C4988504202D9E1700B02555 /* Results */,
-				C49884FA202D274F00B02555 /* PenaltyViewController.swift */,
 				C4BF77AF202AD210006C34CC /* TeamInfoViewController.swift */,
 				C4BF77AD202AD20B006C34CC /* FinalViewController.swift */,
 				C47ABEAC2014441B007DAA6B /* DataEntryViewController.swift */,
@@ -685,7 +681,6 @@
 				C45A9B942033CA8E001C2AC3 /* ServiceState.swift in Sources */,
 				C45A9B952033CA8E001C2AC3 /* ServiceStore+ProtocolHandlers.swift in Sources */,
 				C45A9B962033CA8E001C2AC3 /* ServiceStore.swift in Sources */,
-				C45A9B972033CA8E001C2AC3 /* PenaltyViewController.swift in Sources */,
 				C45A9B982033CA8E001C2AC3 /* FinalViewController.swift in Sources */,
 				C45A9B992033CA8E001C2AC3 /* SteamGearPlacementType.swift in Sources */,
 				C45A9B9A2033CA8E001C2AC3 /* SteamStartPositionType.swift in Sources */,
@@ -738,7 +733,6 @@
 				C4BF77AE202AD20B006C34CC /* FinalViewController.swift in Sources */,
 				C481786620132531001EAF24 /* AppDelegate.swift in Sources */,
 				C40BB97F2013E7C60011DB45 /* MatchEncodingHelper.swift in Sources */,
-				C49884FB202D274F00B02555 /* PenaltyViewController.swift in Sources */,
 				C4988509202D9E1700B02555 /* ResultsScoringViewController.swift in Sources */,
 				C4BF77A8202927C3006C34CC /* PowerMatch.swift in Sources */,
 			);
