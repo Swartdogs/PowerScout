@@ -25,19 +25,16 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     @IBOutlet weak var scaleLow: UISegmentedControl!
     @IBOutlet weak var scaleMedium: UISegmentedControl!
     @IBOutlet weak var scaleHigh: UISegmentedControl!
-    @IBOutlet weak var teamNumberInput: UITextField!
-    @IBOutlet weak var matchNumberInput: UITextField!
     @IBOutlet weak var startPositionPick: UIPickerView!
     @IBOutlet weak var climbingConditionPick: UIPickerView!
     @IBOutlet weak var positionButton: UIButton!
     @IBOutlet weak var climbButton: UIButton!
-    @IBOutlet weak var climbYN: UISegmentedControl!
+    @IBOutlet weak var TipYN: UISegmentedControl!
+    @IBOutlet weak var StalledYN: UISegmentedControl!
+    @IBOutlet weak var TechFYN: UISegmentedControl!
     
     var match:PowerMatch = PowerMatch()
     var matchStore:MatchStore!
-    
-    let startPositions = ["Exchange", "Center", "Non-Exchange"]
-    let climbConditions = ["No attempt or failure to climb", "No climb but helped another", "Climb by themselves", "Climb with help", "Climb helping another team"]
     
     override func viewDidLoad() {
         startPositionPick.isHidden = true
@@ -85,6 +82,9 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
                         destVC.matchStore = matchStore
                     }
                 }
+            } else if id.elementsEqual("unwindToMatchView") {
+                matchStore.updateCurrentMatchForType(.finalStats, match: match)
+                matchStore.finishCurrentMatch()
             }
         }
     }
@@ -112,29 +112,29 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     
     func pickerView(_ pickerview: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
         if pickerview == startPositionPick {
-            return startPositions.count
+            return PowerStartPositionType.all.count
         } else {
-            return climbConditions.count
+            return PowerEndClimbPositionType.all.count
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let attrs = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 22)]
         if pickerView == startPositionPick {
-            return NSAttributedString(string: startPositions[row], attributes: attrs)
+            return NSAttributedString(string: PowerStartPositionType.all[row].toString(), attributes: attrs)
         } else {
-            return NSAttributedString(string: climbConditions[row], attributes: attrs)
+            return NSAttributedString(string: PowerEndClimbPositionType.all[row].toString(), attributes: attrs)
         }
     }
     
     func pickerView(_ pickerview: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerview == startPositionPick{
-            positionButton.setTitle(startPositions[row], for: .normal)
+            positionButton.setTitle(PowerStartPositionType.all[row].toString(), for: .normal)
             startPositionPick.isHidden = true
             match.autoStartPos = PowerStartPositionType(rawValue: row+1)!
         }
         if pickerview == climbingConditionPick{
-            climbButton.setTitle(climbConditions[row], for: .normal)
+            climbButton.setTitle(PowerEndClimbPositionType.all[row].toString(), for: .normal)
             climbingConditionPick.isHidden = true
             match.endClimbCondition = PowerEndClimbPositionType(rawValue: row)!
         }
@@ -154,6 +154,26 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         case scaleHigh:
             match.teleHigh = sender.selectedSegmentIndex == 1
             break
+        case TipYN:
+            if sender.selectedSegmentIndex == 1 {
+                match.finalRobot.formUnion(.Tipped)
+            } else {
+                match.finalRobot.subtract(.Tipped)
+            }
+            break
+        case StalledYN:
+            if sender.selectedSegmentIndex == 1 {
+                match.finalRobot.formUnion(.Stalled)
+            } else {
+                match.finalRobot.subtract(.Stalled)
+            }
+            break
+        case TechFYN:
+            if sender.selectedSegmentIndex == 1 {
+                match.finalTechFouls = 1
+            } else {
+                match.finalTechFouls = 0
+            }
         default:
             break
         }
