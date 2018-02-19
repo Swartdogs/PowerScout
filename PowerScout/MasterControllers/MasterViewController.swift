@@ -110,7 +110,7 @@ class MasterViewController: UITableViewController {
     }
     
     func clearMatchData(_ type:Int) {
-        let clearAllMatches = "Are you sure you want to clear all Match Data? Doing so will also permanently delete match data!"
+        let clearAllMatches = "Are you sure you want to clear all Match Data? Doing so will also permanently delete match data when data is exported next!"
         let ac = UIAlertController(title: "Clear Data", message: clearAllMatches, preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -120,7 +120,9 @@ class MasterViewController: UITableViewController {
             hud.label.text = "Clearing Data..."
             DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: {
                 self.matchStore.clearMatchData(type)
+                self.selectedMatch = nil
                 DispatchQueue.main.async(execute: {
+                    self.performSegue(withIdentifier: "SegueToInitialView", sender: self)
                     let hud = MBProgressHUD(for: self.navigationController!.view)
                     let imageView = UIImageView(image: UIImage(named: "Checkmark"))
                     hud?.customView = imageView
