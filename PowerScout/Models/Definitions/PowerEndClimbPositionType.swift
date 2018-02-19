@@ -21,7 +21,7 @@ enum PowerEndClimbPositionType: Int {
                (self == .assistOther)          ? "No climb - but helped another"   :
                (self == .soloClimb)            ? "Climb by themselves"       :
                (self == .assistedClimb)        ? "Climb with help" :
-               (self == .climbAndAssistOther)  ? "Climb - helping another team" : "None";
+               (self == .climbAndAssistOther)  ? "Climb - helping another team" : "No Attempt";
     }
     
     static let all:[PowerEndClimbPositionType] = [
