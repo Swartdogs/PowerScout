@@ -250,9 +250,17 @@ class MasterViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let match = matchStore.removeMatchAtIndex(indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             
+            if let mMatch = match as? MatchImpl, let sMatch = selectedMatch as? MatchImpl {
+                if mMatch == sMatch {
+                    self.performSegue(withIdentifier: "SegueToInitialView", sender: self)
+                    selectedMatch = nil
+                }
+            }
             _ = matchStore.saveChanges(withMatchType: PowerMatch.self)
+            self.tableView.reloadSections(IndexSet(integer: indexPath.section), with: .none)
         }
     }
 
