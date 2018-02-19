@@ -80,6 +80,8 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         readyToMoveOn()
         
         match = matchStore.currentMatch as? PowerMatch ?? match
+        
+        self.navigationItem.title = "Match: \(match.matchNumber) Team: \(match.teamNumber)"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
