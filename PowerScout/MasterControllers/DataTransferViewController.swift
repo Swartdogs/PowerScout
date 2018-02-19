@@ -310,7 +310,19 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         if let jsonData = json as? [Dictionary<String, AnyObject>] {
             var matches = [Match]();
             for matchData in jsonData {
-                matches.append(MatchImpl(withPList: matchData))
+                guard let matchTypeName = matchData["matchType"] as? String  else {
+                    print("WARNING: Match did not include match Type key! Defaulting to MatchImpl!")
+                    matches.append(MatchImpl(withPList: matchData))
+                    continue
+                }
+                
+                guard let matchType = NSClassFromString(matchTypeName) as? Match.Type else {
+                    print("WARNING: Invalid MatchType was given (\(matchTypeName)! Defaulting to MatchImpl!)")
+                    matches.append(MatchImpl(withPList: matchData))
+                    continue
+                }
+                
+                matches.append(matchType.init(withPList: matchData))
             }
             
             print("Matches Count: \(matches.count)")
