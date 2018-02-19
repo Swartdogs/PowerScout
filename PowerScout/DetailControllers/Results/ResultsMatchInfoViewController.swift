@@ -13,14 +13,6 @@ class ResultsMatchInfoViewController: UIViewController {
     @IBOutlet weak var teamNumber: UILabel!
     @IBOutlet weak var matchNumber: UILabel!
     @IBOutlet weak var alliance: UILabel!
-    @IBOutlet weak var finalResult: UILabel!
-    @IBOutlet weak var finalScore: UILabel!
-    @IBOutlet weak var finalRobot: UILabel!
-    @IBOutlet weak var finalFouls: UILabel!
-    @IBOutlet weak var finalTechFouls: UILabel!
-    @IBOutlet weak var finalYellowCards: UILabel!
-    @IBOutlet weak var finalRedCards: UILabel!
-    @IBOutlet weak var finalComments: UILabel!
     
     var match = PowerMatch()
     
@@ -39,31 +31,11 @@ class ResultsMatchInfoViewController: UIViewController {
         matchNumber.text = "\(match.matchNumber)"
         alliance.text = "\(match.alliance.toString())"
         
-        if match.finalResult == .noShow {
-            finalResult.text = "No Show"
-            finalScore.text = "---"
-            finalRobot.text = "---"
-            finalFouls.text = "---"
-            finalTechFouls.text = "---"
-            finalYellowCards.text = "---"
-            finalRedCards.text = "---"
-            finalComments.text = ""
-        } else {
-            finalResult.text = "\(match.finalResult.toString()) (\(match.finalRankingPoints))"
-            finalScore.text = "\(match.finalScore) (\(match.finalPenaltyScore))"
-            finalRobot.text = "\(match.finalRobot.toString())"
-            finalFouls.text = "\(match.finalFouls)"
-            finalTechFouls.text = "\(match.finalTechFouls)"
-            finalYellowCards.text = "\(match.finalYellowCards)"
-            finalRedCards.text = "\(match.finalRedCards)"
-            finalComments.text = match.finalComments
+        
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
     
 
     /*
@@ -76,4 +48,4 @@ class ResultsMatchInfoViewController: UIViewController {
     }
     */
 
-}
+

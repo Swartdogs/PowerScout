@@ -97,13 +97,13 @@ class PowerMatch : MatchImpl {
         matchHeader += "Auto Start Position, Auto Line Crossed, Auto Scale Cubes, Auto Switch Cubes, "
         
         // Tele Info
-        matchHeader += "Tele Scale Cubes, Tele Switch Cubes, Tele Exchange Cubes, Tele Low, Tele Normal, Tele High, "
+        matchHeader += "Tele Scale Cubes, Tele Switch Cubes, Tele Exchange Cubes, Tele Cubes Placed Low, Tele Cubes Placed Balanced, Tele Cubes Placed High, "
         
         // End Game Info
         matchHeader += "End Game Climb Condition, "
         
         // Final Info
-        matchHeader += "Final Score, Final Ranking Points, Penalty Points Received, Final Result, Fouls, Tech Fouls, Yellow Cards, Red Cards, Robot, Config, Comments \r\n"
+        matchHeader += "Received Tech Fouls, End Robot State \r\n"
         
         return matchHeader
     }
@@ -115,10 +115,10 @@ class PowerMatch : MatchImpl {
         // Team Info
         matchData += "\(match["team", "matchNumber"].intValue), "
         matchData += "\(match["team", "teamNumber"].intValue), "
-        matchData += "\(match["team", "alliance"].intValue), "
+        matchData += "\(AllianceType(rawValue: match["team", "alliance"].intValue)?.toString() ?? "Unknown"), "
         
         // Auto Info
-        matchData += "\(match["auto", "startPos"].intValue), "
+        matchData += "\(PowerStartPositionType(rawValue: match["auto", "startPos"].intValue)?.toString() ?? "Unknown"), "
         matchData += "\(match["auto", "crossed"].boolValue), "
         matchData += "\(match["auto", "scale"].intValue), "
         matchData += "\(match["auto", "switch"].intValue), "
@@ -132,20 +132,11 @@ class PowerMatch : MatchImpl {
         matchData += "\(match["tele", "high"].boolValue), "
         
         // End Game Info
-        matchData += "\(match["endg", "climbCond"].intValue), "
+        matchData += "\(PowerEndClimbPositionType(rawValue: match["endg", "climbCond"].intValue)?.toString() ?? "Unknown"), "
         
         // Final Info
-        matchData += "\(match["final", "score"].intValue),"
-        matchData += "\(match["final", "rPoints"].intValue),"
-        matchData += "\(match["final", "pScore"].intValue),"
-        matchData += "\(match["final", "result"].intValue),"
-        matchData += "\(match["final", "fouls"].intValue),"
-        matchData += "\(match["final", "tFouls"].intValue),"
-        matchData += "\(match["final", "yCards"].intValue),"
-        matchData += "\(match["final", "rCards"].intValue),"
-        matchData += "\(match["final", "robot"].intValue),"
-        matchData += "\(match["final", "config"].intValue),"
-        matchData += "\(match["final", "comments"].stringValue)"
+        matchData += "\(match["final", "tFouls"].intValue == 1 ? "Yes" : "No"),"
+        matchData += "\(RobotState(rawValue: match["final", "robot"].intValue).toString()),"
         
         return matchData
     }

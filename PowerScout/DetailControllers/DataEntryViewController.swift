@@ -25,19 +25,20 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     @IBOutlet weak var scaleLow: UISegmentedControl!
     @IBOutlet weak var scaleMedium: UISegmentedControl!
     @IBOutlet weak var scaleHigh: UISegmentedControl!
-    @IBOutlet weak var teamNumberInput: UITextField!
-    @IBOutlet weak var matchNumberInput: UITextField!
     @IBOutlet weak var startPositionPick: UIPickerView!
     @IBOutlet weak var climbingConditionPick: UIPickerView!
     @IBOutlet weak var positionButton: UIButton!
     @IBOutlet weak var climbButton: UIButton!
-    @IBOutlet weak var climbYN: UISegmentedControl!
+    @IBOutlet weak var TipYN: UISegmentedControl!
+    @IBOutlet weak var StalledYN: UISegmentedControl!
+    @IBOutlet weak var TechFYN: UISegmentedControl!
     
     var match:PowerMatch = PowerMatch()
     var matchStore:MatchStore!
     
-    let startPositions = ["Exchange", "Center", "Non-Exchange"]
-    let climbConditions = ["No attempt or failure to climb", "No climb but helped another", "Climb by themselves", "Climb with help", "Climb helping another team"]
+    var startPositionDone = false
+    var climbPositionDone = false
+    var readyToMove = false
     
     override func viewDidLoad() {
         startPositionPick.isHidden = true
@@ -72,6 +73,12 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        startPositionDone = false
+        climbPositionDone = false
+        readyToMove = false
+        
+        readyToMoveOn()
+        
         match = matchStore.currentMatch as? PowerMatch ?? match
     }
     
@@ -85,7 +92,27 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
                         destVC.matchStore = matchStore
                     }
                 }
+            } else if id.elementsEqual("unwindToMatchView") {
+                matchStore.updateCurrentMatchForType(.finalStats, match: match)
+                matchStore.finishCurrentMatch()
             }
+        }
+    }
+    
+    func readyToMoveOn() {
+        readyToMove = startPositionDone && climbPositionDone
+    }
+    
+    @IBAction func handleDoneButton(_ sender:UIBarButtonItem) {
+        if !readyToMove {
+            let alertController = UIAlertController(title: "Unable to Complete Match", message: "You must complete the Start Position and End Climb Condition Fields to complete the match!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            
+            alertController.addAction(okAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        } else {
+            self.performSegue(withIdentifier: "unwindToMatchView", sender: self)
         }
     }
     
@@ -99,11 +126,15 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         if climbingConditionPick.isHidden {
             climbingConditionPick.isHidden = false
         }
+        
+        readyToMoveOn()
     }
     @IBAction func positionSelect(_ sender: UIButton) {
         if startPositionPick.isHidden {
             startPositionPick.isHidden = false
         }
+        
+        readyToMoveOn()
     }
     
     func numberOfComponents(in pickerview: UIPickerView) -> Int{
@@ -112,32 +143,36 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     
     func pickerView(_ pickerview: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
         if pickerview == startPositionPick {
-            return startPositions.count
+            return PowerStartPositionType.all.count
         } else {
-            return climbConditions.count
+            return PowerEndClimbPositionType.all.count
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let attrs = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 22)]
         if pickerView == startPositionPick {
-            return NSAttributedString(string: startPositions[row], attributes: attrs)
+            return NSAttributedString(string: PowerStartPositionType.all[row].toString(), attributes: attrs)
         } else {
-            return NSAttributedString(string: climbConditions[row], attributes: attrs)
+            return NSAttributedString(string: PowerEndClimbPositionType.all[row].toString(), attributes: attrs)
         }
     }
     
     func pickerView(_ pickerview: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerview == startPositionPick{
-            positionButton.setTitle(startPositions[row], for: .normal)
+            positionButton.setTitle(PowerStartPositionType.all[row].toString(), for: .normal)
             startPositionPick.isHidden = true
             match.autoStartPos = PowerStartPositionType(rawValue: row+1)!
+            startPositionDone = true
         }
         if pickerview == climbingConditionPick{
-            climbButton.setTitle(climbConditions[row], for: .normal)
+            climbButton.setTitle(PowerEndClimbPositionType.all[row].toString(), for: .normal)
             climbingConditionPick.isHidden = true
             match.endClimbCondition = PowerEndClimbPositionType(rawValue: row)!
+            climbPositionDone = true
         }
+        
+        readyToMoveOn()
     }
     
     @IBAction func segmentedControlSelect(_ sender: UISegmentedControl) {
@@ -154,9 +189,31 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         case scaleHigh:
             match.teleHigh = sender.selectedSegmentIndex == 1
             break
+        case TipYN:
+            if sender.selectedSegmentIndex == 1 {
+                match.finalRobot.formUnion(.Tipped)
+            } else {
+                match.finalRobot.subtract(.Tipped)
+            }
+            break
+        case StalledYN:
+            if sender.selectedSegmentIndex == 1 {
+                match.finalRobot.formUnion(.Stalled)
+            } else {
+                match.finalRobot.subtract(.Stalled)
+            }
+            break
+        case TechFYN:
+            if sender.selectedSegmentIndex == 1 {
+                match.finalTechFouls = 1
+            } else {
+                match.finalTechFouls = 0
+            }
         default:
             break
         }
+        
+        readyToMoveOn()
     }
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
@@ -184,5 +241,7 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         default:
             break
         }
+        
+        readyToMoveOn()
     }
 }

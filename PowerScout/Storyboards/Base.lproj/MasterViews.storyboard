@@ -255,6 +255,7 @@
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
                         <segue destination="kJb-XC-gky" kind="showDetail" identifier="segueToRecentMatchResults" id="U1d-ME-dn0"/>
+                        <segue destination="Uof-tL-JLB" kind="showDetail" identifier="SegueToInitialView" id="PoB-KY-xo7"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ic-uc-kAe" sceneMemberID="firstResponder"/>
@@ -267,7 +268,15 @@
                 <viewControllerPlaceholder storyboardIdentifier="MatchSummaryNavController" storyboardName="Results" referencedIdentifier="MatchSummaryNavController" id="kJb-XC-gky" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="trn-na-Udz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2246" y="-630"/>
+            <point key="canvasLocation" x="1870" y="-677"/>
+        </scene>
+        <!--InitialNavController-->
+        <scene sceneID="e4i-XE-RUS">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="InitialNavController" id="Uof-tL-JLB" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Yu-7e-6rx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1846" y="-830"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JTd-kD-85I">
@@ -1015,7 +1024,7 @@
         <segue reference="VM3-k9-hEn"/>
         <segue reference="Nt8-lo-cZR"/>
         <segue reference="U1d-ME-dn0"/>
-        <segue reference="WbF-9A-5UB"/>
+        <segue reference="FE0-HP-URS"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.99810189008712769" green="0.41443628072738647" blue="0.0016002511838451028" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
