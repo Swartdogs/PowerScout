@@ -14,6 +14,7 @@ class MasterViewController: UITableViewController {
     @IBOutlet var clearExportButton:UIBarButtonItem!
     
     var matchStore:MatchStore!
+    var selectedMatch:Match?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,11 +59,6 @@ class MasterViewController: UITableViewController {
                 }
             }
             segue.destination.popoverPresentationController!.delegate = self
-        } else if segue.identifier == "segueToMatchQueue" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                self.matchStore.createMatchFromQueueIndex(indexPath.row, withType: PowerMatch.self, onComplete: nil)
-                segue.destination.popoverPresentationController!.delegate = self
-            }
         } else if segue.identifier == "SegueToTransfer" {
             if let vc = segue.destination as? DataTransferViewController {
                 vc.matchStore = matchStore
@@ -99,19 +95,11 @@ class MasterViewController: UITableViewController {
     
     func handleClear(_ sender:UIBarButtonItem) {
         let ac = UIAlertController(title: "Clear Matches", message: "", preferredStyle: .actionSheet)
-        
-        let clearMatchQueue = UIAlertAction(title: "Clear Match Queue", style: .destructive, handler: {(action) in
-            self.clearMatchData(1)
-        })
-        let clearCompletedMatches = UIAlertAction(title: "Clear Completed Matches", style: .destructive, handler: {(action) in
-            self.clearMatchData(2)
-        })
+
         let clearAllMatches = UIAlertAction(title: "Clear All Matches", style: .destructive, handler: {(action) in
             self.clearMatchData(3)
         })
-        
-        ac.addAction(clearMatchQueue)
-        ac.addAction(clearCompletedMatches)
+
         ac.addAction(clearAllMatches)
         
         ac.popoverPresentationController?.barButtonItem = sender
@@ -122,10 +110,8 @@ class MasterViewController: UITableViewController {
     }
     
     func clearMatchData(_ type:Int) {
-        let clearMatchQueue = "Are you sure you want to clear Match Queue Data? You will have to rebuild a list from the Tools view to get a new queue of matches"
-        let clearCompletedMatches = "Are you sure you want to clear completed matches? Doing so will permanently delete match data the next time you export all match data!"
-        let clearAllMatches = "Are you sure you want to clear all Match Data? You will have to rebuild a list from the Tools view to get a new queue of matches.  Doing so will also permanently delete match data the next time you export all match data!"
-        let ac = UIAlertController(title: "Clear Data", message: (type == 1) ? clearMatchQueue : (type == 2) ? clearCompletedMatches : clearAllMatches, preferredStyle: .alert)
+        let clearAllMatches = "Are you sure you want to clear all Match Data? Doing so will also permanently delete match data when data is exported next!"
+        let ac = UIAlertController(title: "Clear Data", message: clearAllMatches, preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let continueAction = UIAlertAction(title: "Continue", style: .destructive, handler: {(action) in
@@ -134,7 +120,9 @@ class MasterViewController: UITableViewController {
             hud.label.text = "Clearing Data..."
             DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: {
                 self.matchStore.clearMatchData(type)
+                self.selectedMatch = nil
                 DispatchQueue.main.async(execute: {
+                    self.performSegue(withIdentifier: "SegueToInitialView", sender: self)
                     let hud = MBProgressHUD(for: self.navigationController!.view)
                     let imageView = UIImageView(image: UIImage(named: "Checkmark"))
                     hud?.customView = imageView
@@ -231,39 +219,29 @@ class MasterViewController: UITableViewController {
     // MARK: - Table View
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section == 0 ? matchStore.matchesToScout.count > 0 ? "Matches Queued for Scouting" : nil :
-                              matchStore.allMatches.count     > 0 ? "Completed Matches"           : nil
+        return matchStore.allMatches.count > 0 ? "Completed Matches"           : nil
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? matchStore.matchesToScout.count : matchStore.allMatches.count
+        return matchStore.allMatches.count
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return section == 0 ? matchStore.matchesToScout.count > 0 ? "\(matchStore.matchesToScout.count) Match(es)" : nil :
-                              matchStore.allMatches.count     > 0 ? "\(matchStore.allMatches.count) Match(es)"     : nil
+        return matchStore.allMatches.count > 0 ? "\(matchStore.allMatches.count) Match(es)"     : nil
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MatchCell", for: indexPath) as! MatchCell
 
-        if indexPath.section == 0 {
-            let match = matchStore.matchesToScout[indexPath.row]
-            cell.matchNumber.text = "\(match.matchNumber)"
-            cell.teamNumber.text = "\(match.teamNumber)"
-            
-            cell.accessoryType = .none;
-        } else {
-            let match = matchStore.allMatches[indexPath.row]
-            cell.matchNumber.text = "\(match.matchNumber)"
-            cell.teamNumber.text = "\(match.teamNumber)"
-            
-            cell.accessoryType = ((match.isCompleted & 32) != 32) ? .checkmark : .none
-        }
+        let match = matchStore.allMatches[indexPath.row]
+        cell.matchNumber.text = "\(match.matchNumber)"
+        cell.teamNumber.text = "\(match.teamNumber)"
+        
+        cell.accessoryType = ((match.isCompleted & 32) != 32) ? .checkmark : .none
 
         return cell
     }
@@ -274,23 +252,23 @@ class MasterViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if indexPath.section == 0 {
-                matchStore.removeMatchQueueAtIndex(indexPath.row)
-            } else {
-                matchStore.removeMatchAtIndex(indexPath.row)
-            }
+            let match = matchStore.removeMatchAtIndex(indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             
+            if let mMatch = match as? MatchImpl, let sMatch = selectedMatch as? MatchImpl {
+                if mMatch == sMatch {
+                    self.performSegue(withIdentifier: "SegueToInitialView", sender: self)
+                    selectedMatch = nil
+                }
+            }
             _ = matchStore.saveChanges(withMatchType: PowerMatch.self)
+            self.tableView.reloadSections(IndexSet(integer: indexPath.section), with: .none)
         }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            performSegue(withIdentifier: "segueToMatchQueue", sender: self)
-        } else {
-            performSegue(withIdentifier: "showMatchSummary", sender: self)
-        }
+        self.selectedMatch = matchStore.allMatches[indexPath.row]
+        performSegue(withIdentifier: "showMatchSummary", sender: self)
     }
 }
 
