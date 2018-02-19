@@ -14,6 +14,7 @@ class MasterViewController: UITableViewController {
     @IBOutlet var clearExportButton:UIBarButtonItem!
     
     var matchStore:MatchStore!
+    var selectedMatch:Match?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -256,6 +257,7 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedMatch = matchStore.allMatches[indexPath.row]
         performSegue(withIdentifier: "showMatchSummary", sender: self)
     }
 }
