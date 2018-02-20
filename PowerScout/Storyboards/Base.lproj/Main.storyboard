@@ -19,7 +19,7 @@
                         <viewControllerLayoutGuide type="bottom" id="FWo-DJ-kwW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rJz-u8-i1b">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="0.0" width="703.5" height="704"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hox-Cg-h28">
@@ -128,11 +128,11 @@
         <!--Navigation Controller-->
         <scene sceneID="af2-Wa-WPG">
             <objects>
-                <navigationController id="2CT-vx-lE6" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="InitialNavController" id="2CT-vx-lE6" sceneMemberID="viewController">
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="ylH-tt-ah3">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="703.5" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>

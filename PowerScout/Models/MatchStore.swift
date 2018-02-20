@@ -259,9 +259,9 @@ class MatchStore {
         matchesToScout.remove(at: index)
     }
     
-    func removeMatchAtIndex(_ index:Int) {
-        guard 0..<allMatches.count ~= index else { return }
-        allMatches.remove(at: index)
+    func removeMatchAtIndex(_ index:Int) -> Match? {
+        guard 0..<allMatches.count ~= index else { return nil }
+        return allMatches.remove(at: index)
     }
     
     func removeMatch(_ thisMatch:Match) {
