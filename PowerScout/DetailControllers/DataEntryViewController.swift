@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var autoScale: UIStepper!
     @IBOutlet weak var autoSwitch: UIStepper!
@@ -25,13 +25,14 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     @IBOutlet weak var scaleLow: UISegmentedControl!
     @IBOutlet weak var scaleMedium: UISegmentedControl!
     @IBOutlet weak var scaleHigh: UISegmentedControl!
-    @IBOutlet weak var startPositionPick: UIPickerView!
-    @IBOutlet weak var climbingConditionPick: UIPickerView!
-    @IBOutlet weak var positionButton: UIButton!
-    @IBOutlet weak var climbButton: UIButton!
+    @IBOutlet weak var positionTextField: UITextField!
+    @IBOutlet weak var climbTextField:UITextField!
     @IBOutlet weak var TipYN: UISegmentedControl!
     @IBOutlet weak var StalledYN: UISegmentedControl!
     @IBOutlet weak var TechFYN: UISegmentedControl!
+    
+    var startPositionPick: UIPickerView!
+    var climbingConditionPick:UIPickerView!
     
     var match:PowerMatch = PowerMatch()
     var matchStore:MatchStore!
@@ -40,11 +41,18 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     var climbPositionDone = false
     var readyToMove = false
     
+    override var disablesAutomaticKeyboardDismissal: Bool {
+        return false
+    }
+    
     override func viewDidLoad() {
-        startPositionPick.isHidden = true
+        super.viewDidLoad()
+        
+        startPositionPick = UIPickerView()
+        climbingConditionPick = UIPickerView()
+        
         startPositionPick.dataSource = self
         startPositionPick.delegate = self
-        climbingConditionPick.isHidden = true
         climbingConditionPick.dataSource = self
         climbingConditionPick.delegate = self
         autoScale.wraps = false
@@ -67,7 +75,29 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         exchangedBlocks.autorepeat = false
         exchangedBlocks.maximumValue = 20
         exchangedBlocks.stepValue = 1
-        super.viewDidLoad()
+        
+        positionTextField.inputView = startPositionPick
+        positionTextField.delegate = self
+        climbTextField.inputView = climbingConditionPick
+        climbTextField.delegate = self
+        
+        let positionToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50))
+        positionToolbar.barStyle = UIBarStyle.default
+        positionToolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(DataEntryViewController.handlePickerDoneButton(_:)))
+        ]
+        positionToolbar.sizeToFit()
+        positionTextField.inputAccessoryView = positionToolbar
+        
+        let climbToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50))
+        climbToolbar.barStyle = UIBarStyle.default
+        climbToolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(DataEntryViewController.handlePickerDoneButton(_:)))
+        ]
+        climbToolbar.sizeToFit()
+        climbTextField.inputAccessoryView = climbToolbar
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,23 +152,13 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         
     }
     
-    // MARK: UIPickerView Functions
-    // UIPickerView stuff (DON'T TOUCH OR SUFFER HELL) I speak from experiance
-    @IBAction func climbCondSelect(_ sender: UIButton) {
-        if climbingConditionPick.isHidden {
-            climbingConditionPick.isHidden = false
-        }
-        
-        readyToMoveOn()
-    }
-    @IBAction func positionSelect(_ sender: UIButton) {
-        if startPositionPick.isHidden {
-            startPositionPick.isHidden = false
-        }
-        
-        readyToMoveOn()
+    @objc func handlePickerDoneButton(_ sender: UIBarButtonItem) {
+        self.positionTextField.resignFirstResponder()
+        self.climbTextField.resignFirstResponder()
     }
     
+    // MARK: UIPickerView Functions
+    // UIPickerView stuff (DON'T TOUCH OR SUFFER HELL) I speak from experiance
     func numberOfComponents(in pickerview: UIPickerView) -> Int{
        return 1
     }
@@ -162,19 +182,31 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     
     func pickerView(_ pickerview: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerview == startPositionPick{
-            positionButton.setTitle(PowerStartPositionType.all[row].toString(), for: .normal)
-            startPositionPick.isHidden = true
+            positionTextField.text = PowerStartPositionType.all[row].toString()
             match.autoStartPos = PowerStartPositionType(rawValue: row+1)!
             startPositionDone = true
+            self.positionTextField.resignFirstResponder()
         }
         if pickerview == climbingConditionPick{
-            climbButton.setTitle(PowerEndClimbPositionType.all[row].toString(), for: .normal)
-            climbingConditionPick.isHidden = true
+            climbTextField.text = PowerEndClimbPositionType.all[row].toString()
             match.endClimbCondition = PowerEndClimbPositionType(rawValue: row)!
             climbPositionDone = true
+            self.climbTextField.resignFirstResponder()
         }
         
         readyToMoveOn()
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        return false
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return false
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return false
     }
     
     @IBAction func segmentedControlSelect(_ sender: UISegmentedControl) {

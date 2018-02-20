@@ -76,6 +76,8 @@
 		C4988508202D9E1700B02555 /* ResultsMatchInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4988505202D9E1700B02555 /* ResultsMatchInfoViewController.swift */; };
 		C4988509202D9E1700B02555 /* ResultsScoringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4988506202D9E1700B02555 /* ResultsScoringViewController.swift */; };
 		C4ABB5892032E762008CFBC1 /* SelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C40BB94F2013E7050011DB45 /* SelectionButton.swift */; };
+		C4B0D9AB203BFB3400655CAB /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0D9AA203BFB3400655CAB /* PickerTextField.swift */; };
+		C4B0D9AC203BFB3400655CAB /* PickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0D9AA203BFB3400655CAB /* PickerTextField.swift */; };
 		C4BF77A8202927C3006C34CC /* PowerMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77A7202927C3006C34CC /* PowerMatch.swift */; };
 		C4BF77AA20292817006C34CC /* PowerStartPositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77A920292817006C34CC /* PowerStartPositionType.swift */; };
 		C4BF77AC2029284F006C34CC /* PowerEndClimbPositionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */; };
@@ -154,6 +156,7 @@
 		C481788920132531001EAF24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4988505202D9E1700B02555 /* ResultsMatchInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsMatchInfoViewController.swift; sourceTree = "<group>"; };
 		C4988506202D9E1700B02555 /* ResultsScoringViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsScoringViewController.swift; sourceTree = "<group>"; };
+		C4B0D9AA203BFB3400655CAB /* PickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTextField.swift; sourceTree = "<group>"; };
 		C4BF77A7202927C3006C34CC /* PowerMatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerMatch.swift; sourceTree = "<group>"; };
 		C4BF77A920292817006C34CC /* PowerStartPositionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerStartPositionType.swift; sourceTree = "<group>"; };
 		C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerEndClimbPositionType.swift; sourceTree = "<group>"; };
@@ -239,6 +242,7 @@
 				C40BB94F2013E7050011DB45 /* SelectionButton.swift */,
 				C40BB9502013E7050011DB45 /* themeDefinitions.swift */,
 				C40BB9512013E7050011DB45 /* UINavigationController+Rotation.swift */,
+				C4B0D9AA203BFB3400655CAB /* PickerTextField.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -676,6 +680,7 @@
 			files = (
 				C46386D52035442400424EA3 /* RollingAverage.swift in Sources */,
 				C45A9BA72033CB21001C2AC3 /* MatchCell.swift in Sources */,
+				C4B0D9AC203BFB3400655CAB /* PickerTextField.swift in Sources */,
 				C45A9BA62033CAD5001C2AC3 /* AppUtility.swift in Sources */,
 				C45A9BA22033CAC3001C2AC3 /* SelectionButton.swift in Sources */,
 				C45A9BA32033CAC3001C2AC3 /* themeDefinitions.swift in Sources */,
@@ -720,6 +725,7 @@
 				C40BB9802013E7C60011DB45 /* MatchStore.swift in Sources */,
 				C40BB97A2013E7C60011DB45 /* SteamStartPositionType.swift in Sources */,
 				C40F316420230D44004EF250 /* NearbyDevicesTableViewController.swift in Sources */,
+				C4B0D9AB203BFB3400655CAB /* PickerTextField.swift in Sources */,
 				C40BB97B2013E7C60011DB45 /* Definitions.swift in Sources */,
 				C40BB9522013E7050011DB45 /* AppUtility.swift in Sources */,
 				C4BF77AC2029284F006C34CC /* PowerEndClimbPositionType.swift in Sources */,
