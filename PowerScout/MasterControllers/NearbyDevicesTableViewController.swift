@@ -44,13 +44,14 @@ class NearbyDevicesTableViewController: UITableViewController {
         // Configure the cell...
         
         cell.textLabel!.text = nearbyDevice.displayName
+        cell.detailTextLabel?.text = nearbyDevice.type.toString()
         cell.selectionStyle = .blue
 
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let nearbyDevice = nearbyDevices[indexPath.row]
+        let nearbyDevice = self.nearbyDevices[indexPath.row]
         self.performSegue(withIdentifier: "UnwindSegueDoneFromBrowser", sender: nearbyDevice)
     }
 

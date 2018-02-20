@@ -51,6 +51,19 @@ class ViewController: UIViewController {
                 if let vc = segue.destination as? DebugDataTransferViewController {
                     vc.matchStore = matchStore
                     vc.serviceStore = serviceStore
+                    serviceStore.resetStateMachine()
+                    serviceStore.delegate = vc
+                    
+                    vc.transferMode = .doNothing
+                }
+            } else if id.elementsEqual("SegueToTransfer") {
+                if let vc = segue.destination as? DataTransferViewController {
+                    vc.matchStore = matchStore
+                    vc.serviceStore = serviceStore
+                    serviceStore.resetStateMachine()
+                    serviceStore.delegate = vc
+                    
+                    vc.transferMode = .doNothing
                 }
             }
         }
