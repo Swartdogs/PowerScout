@@ -392,12 +392,12 @@ extension ServiceStore: CBCentralManagerDelegate {
         filters[peripheral.identifier]!.addValue(RSSI.doubleValue)
         let filter = filters[peripheral.identifier]!
         let deviceIdx = self.foundNearbyDevices.index(where: {peripheral.identifier.hashValue == $0.hash && $0.type == .coreBluetooth})
-        if filter.average > -30.0 && deviceIdx == nil {
+        if filter.average > -60.0 && deviceIdx == nil {
             print("CentralManager did discover peripheral \(peripheral.debugDescription) with addata \(advertisementData.debugDescription) and rssi \(RSSI)")
             let newDevice = NearbyDevice(displayName: advertisementData[CBAdvertisementDataLocalNameKey] as? String ?? peripheral.name ?? "Unknown", type: .coreBluetooth, hash: peripheral.identifier.hashValue, mcInfo: [:], mcId: nil, cbPeripheral: peripheral)
             self.foundNearbyDevices.append(newDevice)
             self.delegate?.serviceStore(self, foundNearbyDevice: newDevice)
-        } else if filter.average < -30.0 && deviceIdx != nil {
+        } else if filter.average < -60.0 && deviceIdx != nil {
             print("CentralManager did undiscover peripheral \(peripheral.debugDescription) with addata \(advertisementData.debugDescription) and rssi \(RSSI)")
             let oldDevice = self.foundNearbyDevices.remove(at: deviceIdx!)
             self.delegate?.serviceStore(self, lostNearbyDevice: oldDevice)
