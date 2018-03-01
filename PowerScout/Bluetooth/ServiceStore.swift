@@ -127,14 +127,16 @@ class ServiceStore: NSObject {
     }
     
     func sendData(_ data:Data) {
-        if(sessionState != .connected) {
-            print("ERROR: state is not connected -- can't send data!")
-            return
-        }
-        do {
-            try MatchTransfer.session.send(data, toPeers: MatchTransfer.session.connectedPeers, with: .reliable)
-        } catch {
-            print("ERROR: could not send data!")
+        if transferType == .multipeerConnectivity {
+            if(sessionState != .connected) {
+                print("ERROR: state is not connected -- can't send data!")
+                return
+            }
+            do {
+                try MatchTransfer.session.send(data, toPeers: MatchTransfer.session.connectedPeers, with: .reliable)
+            } catch {
+                print("ERROR: could not send data!")
+            }
         }
     }
     
