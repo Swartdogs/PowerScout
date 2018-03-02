@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct Defense: PropertyListReadable {
-    var type:DefenseType = .unknown
+struct StrongDefense: PropertyListReadable {
+    var type:StrongDefenseType = .unknown
     var location:Int = 0
     var timesCrossed:Int = 0
     var failedTimesCrossed:Int = 0
@@ -24,7 +24,7 @@ struct Defense: PropertyListReadable {
         
     }
     
-    init(withDefenseType type:DefenseType) {
+    init(withDefenseType type:StrongDefenseType) {
         self.type = type
     }
     
@@ -40,7 +40,7 @@ struct Defense: PropertyListReadable {
             let af = values["afcross"] as? Int,
             let ab = values["abcross"] as? Int,
             let aa = values["aacross"] as? Int {
-            self.type = DefenseType(rawValue: t)!
+            self.type = StrongDefenseType(rawValue: t)!
             self.location = l
             self.timesCrossed = c
             self.failedTimesCrossed = f

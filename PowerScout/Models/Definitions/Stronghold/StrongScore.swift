@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Score: PropertyListReadable {
+struct StrongScore: PropertyListReadable {
     var type:ScoreType = .unknown
     var location:ScoreLocation = .unknown
     

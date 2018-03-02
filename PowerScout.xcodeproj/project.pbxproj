@@ -90,8 +90,8 @@
 		C4FC71DB2049B7F4000C3BEE /* FieldLayoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC71D92049B7F4000C3BEE /* FieldLayoutType.swift */; };
 		C4FC71DD2049B824000C3BEE /* AllianceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC71DC2049B824000C3BEE /* AllianceType.swift */; };
 		C4FC71DE2049B824000C3BEE /* AllianceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC71DC2049B824000C3BEE /* AllianceType.swift */; };
-		C4FC71E02049B840000C3BEE /* StrongActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC71DF2049B840000C3BEE /* StrongActionType.swift */; };
-		C4FC71E12049B840000C3BEE /* StrongActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC71DF2049B840000C3BEE /* StrongActionType.swift */; };
+		C4FC71E02049B840000C3BEE /* ActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC71DF2049B840000C3BEE /* ActionType.swift */; };
+		C4FC71E12049B840000C3BEE /* ActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC71DF2049B840000C3BEE /* ActionType.swift */; };
 		C4FC71E32049B864000C3BEE /* EditType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC71E22049B864000C3BEE /* EditType.swift */; };
 		C4FC71E42049B864000C3BEE /* EditType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC71E22049B864000C3BEE /* EditType.swift */; };
 		C4FC71E62049B87B000C3BEE /* SectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC71E52049B87B000C3BEE /* SectionType.swift */; };
@@ -126,6 +126,12 @@
 		C4FC72112049BB88000C3BEE /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC720F2049BB87000C3BEE /* Stack.swift */; };
 		C4FC72132049BBA0000C3BEE /* PropertyListReadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC72122049BBA0000C3BEE /* PropertyListReadable.swift */; };
 		C4FC72142049BBA0000C3BEE /* PropertyListReadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC72122049BBA0000C3BEE /* PropertyListReadable.swift */; };
+		C4FC72192049C2A3000C3BEE /* ActionDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC72182049C2A3000C3BEE /* ActionDataType.swift */; };
+		C4FC721A2049C2A3000C3BEE /* ActionDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC72182049C2A3000C3BEE /* ActionDataType.swift */; };
+		C4FC721C2049C348000C3BEE /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC721B2049C348000C3BEE /* Action.swift */; };
+		C4FC721D2049C348000C3BEE /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC721B2049C348000C3BEE /* Action.swift */; };
+		C4FC721F2049C3CC000C3BEE /* ActionEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC721E2049C3CC000C3BEE /* ActionEdit.swift */; };
+		C4FC72202049C3CC000C3BEE /* ActionEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC721E2049C3CC000C3BEE /* ActionEdit.swift */; };
 		C4FC801A201EF3DE0073D087 /* DebugDataTransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FC8019201EF3DE0073D087 /* DebugDataTransferViewController.swift */; };
 		C8960BF2C27029302CEC1C9B /* Pods_PowerScoutDebugging.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FE63DE85D261E81D3C17622 /* Pods_PowerScoutDebugging.framework */; };
 /* End PBXBuildFile section */
@@ -209,7 +215,7 @@
 		C4FC71D62049B7CA000C3BEE /* StrongScoreLocationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongScoreLocationType.swift; sourceTree = "<group>"; };
 		C4FC71D92049B7F4000C3BEE /* FieldLayoutType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldLayoutType.swift; sourceTree = "<group>"; };
 		C4FC71DC2049B824000C3BEE /* AllianceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllianceType.swift; sourceTree = "<group>"; };
-		C4FC71DF2049B840000C3BEE /* StrongActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongActionType.swift; sourceTree = "<group>"; };
+		C4FC71DF2049B840000C3BEE /* ActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionType.swift; sourceTree = "<group>"; };
 		C4FC71E22049B864000C3BEE /* EditType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditType.swift; sourceTree = "<group>"; };
 		C4FC71E52049B87B000C3BEE /* SectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionType.swift; sourceTree = "<group>"; };
 		C4FC71E82049B9C9000C3BEE /* StrongDefenseAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongDefenseAction.swift; sourceTree = "<group>"; };
@@ -227,6 +233,9 @@
 		C4FC720C2049BB78000C3BEE /* StrongActionEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrongActionEdit.swift; sourceTree = "<group>"; };
 		C4FC720F2049BB87000C3BEE /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		C4FC72122049BBA0000C3BEE /* PropertyListReadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyListReadable.swift; sourceTree = "<group>"; };
+		C4FC72182049C2A3000C3BEE /* ActionDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionDataType.swift; sourceTree = "<group>"; };
+		C4FC721B2049C348000C3BEE /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
+		C4FC721E2049C3CC000C3BEE /* ActionEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionEdit.swift; sourceTree = "<group>"; };
 		C4FC8019201EF3DE0073D087 /* DebugDataTransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugDataTransferViewController.swift; sourceTree = "<group>"; };
 		E2D24E694F4F9F710E5EE5C5 /* Pods_PowerScout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PowerScout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA393782602B7CFAE85CDBEE /* Pods-PowerScout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PowerScout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PowerScout/Pods-PowerScout.debug.xcconfig"; sourceTree = "<group>"; };
@@ -339,6 +348,8 @@
 		C40BB96B2013E7C60011DB45 /* Definitions */ = {
 			isa = PBXGroup;
 			children = (
+				C4FC72182049C2A3000C3BEE /* ActionDataType.swift */,
+				C4FC71DF2049B840000C3BEE /* ActionType.swift */,
 				C4FC71DC2049B824000C3BEE /* AllianceType.swift */,
 				C4FC71E22049B864000C3BEE /* EditType.swift */,
 				C4FC71D92049B7F4000C3BEE /* FieldLayoutType.swift */,
@@ -356,6 +367,8 @@
 				C4FC72162049BDBB000C3BEE /* PowerUp */,
 				C4FC72172049BE75000C3BEE /* Steamworks */,
 				C4FC72152049BD93000C3BEE /* Stronghold */,
+				C4FC721B2049C348000C3BEE /* Action.swift */,
+				C4FC721E2049C3CC000C3BEE /* ActionEdit.swift */,
 			);
 			path = Definitions;
 			sourceTree = "<group>";
@@ -470,7 +483,6 @@
 				C4FC72092049BB59000C3BEE /* StrongAction.swift */,
 				C4FC72062049BB2B000C3BEE /* StrongActionDataType.swift */,
 				C4FC720C2049BB78000C3BEE /* StrongActionEdit.swift */,
-				C4FC71DF2049B840000C3BEE /* StrongActionType.swift */,
 				C4FC71FD2049BA76000C3BEE /* StrongDefense.swift */,
 				C4FC71E82049B9C9000C3BEE /* StrongDefenseAction.swift */,
 				C4FC72032049BB07000C3BEE /* StrongDefenseInfo.swift */,
@@ -790,7 +802,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4FC71E42049B864000C3BEE /* EditType.swift in Sources */,
-				C4FC71E12049B840000C3BEE /* StrongActionType.swift in Sources */,
+				C4FC721D2049C348000C3BEE /* Action.swift in Sources */,
+				C4FC71E12049B840000C3BEE /* ActionType.swift in Sources */,
 				C46386D52035442400424EA3 /* RollingAverage.swift in Sources */,
 				C45A9BA72033CB21001C2AC3 /* MatchCell.swift in Sources */,
 				C4B0D9AC203BFB3400655CAB /* PickerTextField.swift in Sources */,
@@ -802,6 +815,7 @@
 				C45A9BA22033CAC3001C2AC3 /* SelectionButton.swift in Sources */,
 				C45A9BA32033CAC3001C2AC3 /* themeDefinitions.swift in Sources */,
 				C4FC71DE2049B824000C3BEE /* AllianceType.swift in Sources */,
+				C4FC72202049C3CC000C3BEE /* ActionEdit.swift in Sources */,
 				C4FC72142049BBA0000C3BEE /* PropertyListReadable.swift in Sources */,
 				C4FC71D82049B7CA000C3BEE /* StrongScoreLocationType.swift in Sources */,
 				C4FC71D52049B798000C3BEE /* ScoreType.swift in Sources */,
@@ -814,6 +828,7 @@
 				C45A9B952033CA8E001C2AC3 /* ServiceStore+ProtocolHandlers.swift in Sources */,
 				C45A9B962033CA8E001C2AC3 /* ServiceStore.swift in Sources */,
 				C45A9B982033CA8E001C2AC3 /* FinalViewController.swift in Sources */,
+				C4FC721A2049C2A3000C3BEE /* ActionDataType.swift in Sources */,
 				C4FC71F92049BA4D000C3BEE /* RobotState.swift in Sources */,
 				C45A9B992033CA8E001C2AC3 /* SteamGearPlacementType.swift in Sources */,
 				C4FC720E2049BB78000C3BEE /* StrongActionEdit.swift in Sources */,
@@ -847,6 +862,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4FC71D72049B7CA000C3BEE /* StrongScoreLocationType.swift in Sources */,
+				C4FC721C2049C348000C3BEE /* Action.swift in Sources */,
 				C4ABB5892032E762008CFBC1 /* SelectionButton.swift in Sources */,
 				C40BB9432013E6FE0011DB45 /* MasterViewController.swift in Sources */,
 				C4FC72012049BAE0000C3BEE /* StrongScore.swift in Sources */,
@@ -855,6 +871,7 @@
 				C4FC71FE2049BA76000C3BEE /* StrongDefense.swift in Sources */,
 				C4FC71F52049BA3A000C3BEE /* PenaltyType.swift in Sources */,
 				C4FC72042049BB07000C3BEE /* StrongDefenseInfo.swift in Sources */,
+				C4FC72192049C2A3000C3BEE /* ActionDataType.swift in Sources */,
 				C40BB9532013E7050011DB45 /* CustomContainerArrayView.swift in Sources */,
 				C4757C172016D36B00C90984 /* ServiceStore.swift in Sources */,
 				C4757C162016D36B00C90984 /* ServiceStore+ProtocolHandlers.swift in Sources */,
@@ -871,13 +888,14 @@
 				C4FC71F82049BA4D000C3BEE /* RobotState.swift in Sources */,
 				C4BF77AC2029284F006C34CC /* PowerEndClimbPositionType.swift in Sources */,
 				C4BF77AA20292817006C34CC /* PowerStartPositionType.swift in Sources */,
+				C4FC721F2049C3CC000C3BEE /* ActionEdit.swift in Sources */,
 				C47CD0B42034FA45003C6EF5 /* RollingAverage.swift in Sources */,
 				C4FC71EF2049B9FC000C3BEE /* ResultType.swift in Sources */,
 				C40BB9792013E7C60011DB45 /* SteamGearPlacementType.swift in Sources */,
 				C4FC801A201EF3DE0073D087 /* DebugDataTransferViewController.swift in Sources */,
 				C4757C142016D36B00C90984 /* Service.swift in Sources */,
 				C4757C152016D36B00C90984 /* ServiceState.swift in Sources */,
-				C4FC71E02049B840000C3BEE /* StrongActionType.swift in Sources */,
+				C4FC71E02049B840000C3BEE /* ActionType.swift in Sources */,
 				C40BB9582013E7050011DB45 /* themeDefinitions.swift in Sources */,
 				C4FC71E32049B864000C3BEE /* EditType.swift in Sources */,
 				C40BB9592013E7050011DB45 /* UINavigationController+Rotation.swift in Sources */,

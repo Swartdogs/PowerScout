@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct DefenseInfo: PropertyListReadable {
-    var type:DefenseType = .unknown
-    var actionPerformed:DefenseAction = .none
+struct StrongDefenseInfo: PropertyListReadable {
+    var type:StrongDefenseType = .unknown
+    var actionPerformed:StrongDefenseAction = .none
     
     init() {
         
@@ -19,8 +19,8 @@ struct DefenseInfo: PropertyListReadable {
     init?(propertyListRepresentation: NSDictionary?) {
         guard let values = propertyListRepresentation else { return nil }
         if let t = values["type"] as? Int, let a = values["action"] as? Int {
-            self.type = DefenseType(rawValue: t)!
-            self.actionPerformed = DefenseAction(rawValue: a)!
+            self.type = StrongDefenseType(rawValue: t)!
+            self.actionPerformed = StrongDefenseAction(rawValue: a)!
         }
     }
     

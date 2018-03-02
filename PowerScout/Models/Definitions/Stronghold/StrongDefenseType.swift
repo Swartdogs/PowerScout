@@ -8,10 +8,10 @@
 
 import Foundation
 
-enum DefenseType:Int {
+enum StrongDefenseType:Int {
     case unknown = 0, portcullis, chevaldefrise, moat, ramparts, drawbridge, sallyport, rockwall, roughterrain, lowbar
     
-    func complementType() -> DefenseType {
+    func complementType() -> StrongDefenseType {
         return (self == .portcullis) ? .chevaldefrise :
             (self == .chevaldefrise) ? .portcullis :
             (self == .moat) ? .ramparts :

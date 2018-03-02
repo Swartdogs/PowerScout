@@ -1,5 +1,5 @@
 //
-//  StrongActionType.swift
+//  ActionType.swift
 //  PowerScout
 //
 //  Created by Srinivas Dhanwada on 3/2/18.

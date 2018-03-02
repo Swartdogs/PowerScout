@@ -1,5 +1,5 @@
 //
-//  StrongAction.swift
+//  Action.swift
 //  PowerScout
 //
 //  Created by Srinivas Dhanwada on 3/2/18.
@@ -8,10 +8,10 @@
 
 import Foundation
 
-struct StrongAction {
-    var section:SectionType = .tele
-    var type:ActionType = .unknown
-    var data:StrongActionDataType = .none
+struct Action: PropertyListReadable {
+    var section: SectionType = .tele
+    var type: ActionType = .unknown
+    var data: ActionDataType = .none
     
     init() {}
     
@@ -22,7 +22,7 @@ struct StrongAction {
             let d = values["data"] as? NSDictionary {
             self.type = ActionType(rawValue: t)!
             self.section = SectionType(rawValue: s)!
-            self.data = StrongActionDataType(propertyListRepresentation: d)!
+            self.data = ActionDataType(propertyListRepresentation: d)!
         }
     }
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum DefenseAction: Int {
+enum StrongDefenseAction: Int {
     case none = 0, crossed, attemptedCross, crossedWithBall, assistedCross
     
     func toString() -> String {

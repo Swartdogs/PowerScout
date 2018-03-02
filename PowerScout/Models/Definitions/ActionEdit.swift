@@ -1,5 +1,5 @@
 //
-//  StrongActionEdit.swift
+//  ActionEdit.swift
 //  PowerScout
 //
 //  Created by Srinivas Dhanwada on 3/2/18.
@@ -8,14 +8,15 @@
 
 import Foundation
 
-struct StrongActionEdit {
-    var action:StrongAction
+struct ActionEdit {
+    var action:Action
     var index:Int
     var edit:EditType
     
-    init(edit:EditType, action:StrongAction, atIndex index:Int) {
+    init(edit:EditType, action:Action, atIndex index:Int) {
         self.edit = edit
         self.action = action
         self.index = index
     }
 }
+
