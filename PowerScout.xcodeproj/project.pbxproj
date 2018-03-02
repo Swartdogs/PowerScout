@@ -340,32 +340,22 @@
 			isa = PBXGroup;
 			children = (
 				C4FC71DC2049B824000C3BEE /* AllianceType.swift */,
-				C4FC71D92049B7F4000C3BEE /* FieldLayoutType.swift */,
-				C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */,
-				C4BF77A920292817006C34CC /* PowerStartPositionType.swift */,
-				C4FC71D32049B798000C3BEE /* ScoreType.swift */,
-				C40BB96C2013E7C60011DB45 /* SteamGearPlacementType.swift */,
-				C40BB96D2013E7C60011DB45 /* SteamStartPositionType.swift */,
-				C4FC71DF2049B840000C3BEE /* StrongActionType.swift */,
-				C4FC71D12049B774000C3BEE /* StrongDefenseType.swift */,
-				C4FC71D62049B7CA000C3BEE /* StrongScoreLocationType.swift */,
 				C4FC71E22049B864000C3BEE /* EditType.swift */,
-				C4FC71E52049B87B000C3BEE /* SectionType.swift */,
-				C4FC71E82049B9C9000C3BEE /* StrongDefenseAction.swift */,
+				C4FC71D92049B7F4000C3BEE /* FieldLayoutType.swift */,
 				C4FC71EB2049B9DF000C3BEE /* FinalConfigType.swift */,
-				C4FC71EE2049B9FC000C3BEE /* ResultType.swift */,
-				C4FC71F12049BA14000C3BEE /* UpdateType.swift */,
-				C4FC71F42049BA3A000C3BEE /* PenaltyType.swift */,
-				C4FC71F72049BA4D000C3BEE /* RobotState.swift */,
 				C4FC71FA2049BA5E000C3BEE /* MatchQueueData.swift */,
-				C4FC71FD2049BA76000C3BEE /* StrongDefense.swift */,
-				C4FC72002049BAE0000C3BEE /* StrongScore.swift */,
-				C4FC72032049BB07000C3BEE /* StrongDefenseInfo.swift */,
-				C4FC72062049BB2B000C3BEE /* StrongActionDataType.swift */,
-				C4FC72092049BB59000C3BEE /* StrongAction.swift */,
-				C4FC720C2049BB78000C3BEE /* StrongActionEdit.swift */,
-				C4FC720F2049BB87000C3BEE /* Stack.swift */,
+				C4FC71F42049BA3A000C3BEE /* PenaltyType.swift */,
 				C4FC72122049BBA0000C3BEE /* PropertyListReadable.swift */,
+				C4FC71EE2049B9FC000C3BEE /* ResultType.swift */,
+				C4FC71F72049BA4D000C3BEE /* RobotState.swift */,
+				C4FC71D32049B798000C3BEE /* ScoreType.swift */,
+				C4FC71E52049B87B000C3BEE /* SectionType.swift */,
+				C4FC720F2049BB87000C3BEE /* Stack.swift */,
+				C4FC71D62049B7CA000C3BEE /* StrongScoreLocationType.swift */,
+				C4FC71F12049BA14000C3BEE /* UpdateType.swift */,
+				C4FC72162049BDBB000C3BEE /* PowerUp */,
+				C4FC72172049BE75000C3BEE /* Steamworks */,
+				C4FC72152049BD93000C3BEE /* Stronghold */,
 			);
 			path = Definitions;
 			sourceTree = "<group>";
@@ -472,6 +462,40 @@
 				C4988506202D9E1700B02555 /* ResultsScoringViewController.swift */,
 			);
 			path = Results;
+			sourceTree = "<group>";
+		};
+		C4FC72152049BD93000C3BEE /* Stronghold */ = {
+			isa = PBXGroup;
+			children = (
+				C4FC72092049BB59000C3BEE /* StrongAction.swift */,
+				C4FC72062049BB2B000C3BEE /* StrongActionDataType.swift */,
+				C4FC720C2049BB78000C3BEE /* StrongActionEdit.swift */,
+				C4FC71DF2049B840000C3BEE /* StrongActionType.swift */,
+				C4FC71FD2049BA76000C3BEE /* StrongDefense.swift */,
+				C4FC71E82049B9C9000C3BEE /* StrongDefenseAction.swift */,
+				C4FC72032049BB07000C3BEE /* StrongDefenseInfo.swift */,
+				C4FC71D12049B774000C3BEE /* StrongDefenseType.swift */,
+				C4FC72002049BAE0000C3BEE /* StrongScore.swift */,
+			);
+			path = Stronghold;
+			sourceTree = "<group>";
+		};
+		C4FC72162049BDBB000C3BEE /* PowerUp */ = {
+			isa = PBXGroup;
+			children = (
+				C4BF77AB2029284F006C34CC /* PowerEndClimbPositionType.swift */,
+				C4BF77A920292817006C34CC /* PowerStartPositionType.swift */,
+			);
+			path = PowerUp;
+			sourceTree = "<group>";
+		};
+		C4FC72172049BE75000C3BEE /* Steamworks */ = {
+			isa = PBXGroup;
+			children = (
+				C40BB96C2013E7C60011DB45 /* SteamGearPlacementType.swift */,
+				C40BB96D2013E7C60011DB45 /* SteamStartPositionType.swift */,
+			);
+			path = Steamworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
