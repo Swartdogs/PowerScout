@@ -13,7 +13,7 @@
         <!--Detail-->
         <scene sceneID="YXq-Nr-Li6">
             <objects>
-                <viewController title="Detail" id="9xi-cg-hXL" sceneMemberID="viewController">
+                <viewController title="Detail" id="9xi-cg-hXL" customClass="InitialDetailViewController" customModule="PowerScout" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ODt-2m-ly1"/>
                         <viewControllerLayoutGuide type="bottom" id="FWo-DJ-kwW"/>
@@ -96,16 +96,28 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: ??" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aVO-kf-OGL">
+                                <rect key="frame" x="20.5" y="664" width="662.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="hox-Cg-h28" firstAttribute="top" secondItem="ODt-2m-ly1" secondAttribute="bottom" constant="20" id="39D-W1-WA9"/>
                             <constraint firstItem="hox-Cg-h28" firstAttribute="centerX" secondItem="rJz-u8-i1b" secondAttribute="centerX" id="CFm-Fq-vZj"/>
+                            <constraint firstItem="FWo-DJ-kwW" firstAttribute="top" secondItem="aVO-kf-OGL" secondAttribute="bottom" constant="20" id="IZh-qZ-NUz"/>
+                            <constraint firstItem="aVO-kf-OGL" firstAttribute="centerX" secondItem="rJz-u8-i1b" secondAttribute="centerX" id="bjb-bn-uPh"/>
                             <constraint firstAttribute="leadingMargin" secondItem="hox-Cg-h28" secondAttribute="leading" id="jjw-Mi-Klk"/>
+                            <constraint firstAttribute="trailing" secondItem="aVO-kf-OGL" secondAttribute="trailing" constant="20.5" id="wcd-5x-gkq"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Power Up Scout" id="QrQ-0h-YHz"/>
+                    <connections>
+                        <outlet property="versionLabel" destination="aVO-kf-OGL" id="qph-5d-a10"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="udx-EE-KWP" sceneMemberID="firstResponder"/>
             </objects>
