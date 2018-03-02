@@ -313,10 +313,10 @@
 				C40BB94A2013E7050011DB45 /* AppUtility.swift */,
 				C40BB94B2013E7050011DB45 /* CustomContainerArrayView.swift */,
 				C40BB94D2013E7050011DB45 /* MatchCell.swift */,
+				C4B0D9AA203BFB3400655CAB /* PickerTextField.swift */,
 				C40BB94F2013E7050011DB45 /* SelectionButton.swift */,
 				C40BB9502013E7050011DB45 /* themeDefinitions.swift */,
 				C40BB9512013E7050011DB45 /* UINavigationController+Rotation.swift */,
-				C4B0D9AA203BFB3400655CAB /* PickerTextField.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -325,10 +325,10 @@
 			isa = PBXGroup;
 			children = (
 				C40BB9612013E75C0011DB45 /* DataEntry.storyboard */,
+				C481787020132531001EAF24 /* LaunchScreen.storyboard */,
+				C481786B20132531001EAF24 /* Main.storyboard */,
 				C40BB9632013E75C0011DB45 /* MasterViews.storyboard */,
 				C40BB95B2013E75B0011DB45 /* Results.storyboard */,
-				C481786B20132531001EAF24 /* Main.storyboard */,
-				C481787020132531001EAF24 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -336,11 +336,11 @@
 		C40BB96A2013E7C60011DB45 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C40BB96B2013E7C60011DB45 /* Definitions */,
 				C40BB9712013E7C60011DB45 /* Match.swift */,
 				C40BB9722013E7C60011DB45 /* MatchEncodingHelper.swift */,
 				C40BB9732013E7C60011DB45 /* MatchStore.swift */,
 				C4BF77A7202927C3006C34CC /* PowerMatch.swift */,
+				C40BB96B2013E7C60011DB45 /* Definitions */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -348,7 +348,9 @@
 		C40BB96B2013E7C60011DB45 /* Definitions */ = {
 			isa = PBXGroup;
 			children = (
+				C4FC721B2049C348000C3BEE /* Action.swift */,
 				C4FC72182049C2A3000C3BEE /* ActionDataType.swift */,
+				C4FC721E2049C3CC000C3BEE /* ActionEdit.swift */,
 				C4FC71DF2049B840000C3BEE /* ActionType.swift */,
 				C4FC71DC2049B824000C3BEE /* AllianceType.swift */,
 				C4FC71E22049B864000C3BEE /* EditType.swift */,
@@ -366,8 +368,6 @@
 				C4FC72162049BDBB000C3BEE /* PowerUp */,
 				C4FC72172049BE75000C3BEE /* Steamworks */,
 				C4FC72152049BD93000C3BEE /* Stronghold */,
-				C4FC721B2049C348000C3BEE /* Action.swift */,
-				C4FC721E2049C3CC000C3BEE /* ActionEdit.swift */,
 			);
 			path = Definitions;
 			sourceTree = "<group>";
@@ -436,15 +436,15 @@
 		C481786420132531001EAF24 /* PowerScout */ = {
 			isa = PBXGroup;
 			children = (
+				C481787320132531001EAF24 /* Info.plist */,
+				C481786520132531001EAF24 /* AppDelegate.swift */,
+				C481786E20132531001EAF24 /* Assets.xcassets */,
 				C4757C0F2016D36B00C90984 /* Bluetooth */,
 				C47ABEAB2014441B007DAA6B /* DetailControllers */,
+				C40BB93A2013E6FE0011DB45 /* MasterControllers */,
 				C40BB96A2013E7C60011DB45 /* Models */,
 				C40BB95A2013E70D0011DB45 /* Storyboards */,
 				C40BB9492013E7050011DB45 /* Support */,
-				C40BB93A2013E6FE0011DB45 /* MasterControllers */,
-				C481786520132531001EAF24 /* AppDelegate.swift */,
-				C481786E20132531001EAF24 /* Assets.xcassets */,
-				C481787320132531001EAF24 /* Info.plist */,
 			);
 			path = PowerScout;
 			sourceTree = "<group>";
