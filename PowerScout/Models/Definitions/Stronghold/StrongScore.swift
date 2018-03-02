@@ -10,7 +10,7 @@ import Foundation
 
 struct StrongScore: PropertyListReadable {
     var type:ScoreType = .unknown
-    var location:ScoreLocation = .unknown
+    var location:StrongScoreLocationType = .unknown
     
     init() {
         
@@ -20,7 +20,7 @@ struct StrongScore: PropertyListReadable {
         guard let values = propertyListRepresentation else { return nil }
         if let t = values["type"] as? Int, let l = values["loc"] as? Int {
             self.type = ScoreType(rawValue: t)!
-            self.location = ScoreLocation(rawValue: l)!
+            self.location = StrongScoreLocationType(rawValue: l)!
         }
     }
     

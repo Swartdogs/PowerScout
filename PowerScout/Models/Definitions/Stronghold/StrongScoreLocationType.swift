@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ScoreLocation: Int {
+enum StrongScoreLocationType: Int {
     case unknown = 0, batter, courtyard, defenses
     
     func toString() -> String {

@@ -362,7 +362,6 @@
 				C4FC71D32049B798000C3BEE /* ScoreType.swift */,
 				C4FC71E52049B87B000C3BEE /* SectionType.swift */,
 				C4FC720F2049BB87000C3BEE /* Stack.swift */,
-				C4FC71D62049B7CA000C3BEE /* StrongScoreLocationType.swift */,
 				C4FC71F12049BA14000C3BEE /* UpdateType.swift */,
 				C4FC72162049BDBB000C3BEE /* PowerUp */,
 				C4FC72172049BE75000C3BEE /* Steamworks */,
@@ -480,6 +479,7 @@
 		C4FC72152049BD93000C3BEE /* Stronghold */ = {
 			isa = PBXGroup;
 			children = (
+				C4FC71D62049B7CA000C3BEE /* StrongScoreLocationType.swift */,
 				C4FC72092049BB59000C3BEE /* StrongAction.swift */,
 				C4FC72062049BB2B000C3BEE /* StrongActionDataType.swift */,
 				C4FC720C2049BB78000C3BEE /* StrongActionEdit.swift */,
