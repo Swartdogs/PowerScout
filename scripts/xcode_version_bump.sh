@@ -44,7 +44,7 @@ case "$update_type" in
     ;;
 esac
 
-echo "Performing Bump: $majornum.$minornum.$buildnum ~> $new_majornum.$new_minornum.$new_buildnum..."
+echo "Performing Xcode Bump: $majornum.$minornum.$buildnum ~> $new_majornum.$new_minornum.$new_buildnum..."
 
 /usr/libexec/Plistbuddy -c "Set CFBundleVersion $new_buildnum" "$plist"
 /usr/libexec/Plistbuddy -c "Set CFBundleShortVersionString $new_majornum.$new_minornum" "$plist"
