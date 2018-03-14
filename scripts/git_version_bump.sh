@@ -9,6 +9,7 @@ update_type="$1"
 root_dir="$(git rev-parse --show-toplevel)"
 plist="$root_dir/PowerScout/Info.plist"
 latest_tag="$(git describe --tags --abbrev=0)"
+current_branch="$(git rev-parse --abbrev-ref HEAD)"
 
 majornum=`echo "$latest_tag" | awk -F "." '{print $1}'`
 minornum=`echo "$latest_tag" | awk -F "." '{print $2}'`
@@ -16,6 +17,13 @@ patchnum=`echo "$latest_tag" | awk -F "." '{print $3}'`
 new_majornum="$majornum"
 new_minornum="$minornum"
 new_patchnum="$patchnum"
+
+if [[ "$current_branch" != "master" ]]; then
+	echo "Current Branch: $current_branch"
+	echo "You must be on the master branch to run this script!"
+	echo "To switch branches, type \`git checkout master\`"
+	exit 3
+fi
 
 case "$update_type" in
   MAJOR)
