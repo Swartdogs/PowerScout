@@ -212,7 +212,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="vrd-16-0Lb">
-                                <rect key="frame" x="16" y="16" width="736" height="580"/>
+                                <rect key="frame" x="16" y="16" width="736" height="616"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dpf-5y-ITy" userLabel="Autonomous">
                                         <rect key="frame" x="0.0" y="0.0" width="736" height="194.5"/>
@@ -445,7 +445,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8ck-Kb-Yn3" userLabel="Extra">
-                                        <rect key="frame" x="0.0" y="440.5" width="736" height="139.5"/>
+                                        <rect key="frame" x="0.0" y="440.5" width="736" height="175.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Final Details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pw-vn-dFn">
                                                 <rect key="frame" x="0.0" y="0.0" width="736" height="39.5"/>
@@ -454,7 +454,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mdh-7U-d85">
-                                                <rect key="frame" x="0.0" y="39.5" width="736" height="100"/>
+                                                <rect key="frame" x="0.0" y="39.5" width="736" height="136"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IW2-Ad-LgX">
                                                         <rect key="frame" x="0.0" y="0.0" width="736" height="28"/>
@@ -515,7 +515,7 @@
                                                                 <color key="textColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EPq-Zs-hlQ" userLabel="TechFoul">
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EPq-Zs-hlQ" userLabel="TechFoul">
                                                                 <rect key="frame" x="538" y="0.0" width="198" height="29"/>
                                                                 <segments>
                                                                     <segment title="No"/>
@@ -528,10 +528,34 @@
                                                             </segmentedControl>
                                                         </subviews>
                                                     </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QkR-Me-LJw">
+                                                        <rect key="frame" x="0.0" y="108" width="736" height="28"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Defense:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vn7-PV-BjH">
+                                                                <rect key="frame" x="0.0" y="0.0" width="530" height="28"/>
+                                                                <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="v4C-dD-5Xd" userLabel="TechFoul">
+                                                                <rect key="frame" x="538" y="0.0" width="198" height="29"/>
+                                                                <segments>
+                                                                    <segment title="No"/>
+                                                                    <segment title="Yes"/>
+                                                                </segments>
+                                                                <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <connections>
+                                                                    <action selector="segmentedControlSelect:" destination="RmR-df-9YL" eventType="valueChanged" id="ibV-Hv-hwh"/>
+                                                                </connections>
+                                                            </segmentedControl>
+                                                        </subviews>
+                                                    </stackView>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="Wy4-pw-GnD" firstAttribute="width" secondItem="XZB-sh-3tn" secondAttribute="width" id="CUO-r2-wTG"/>
                                                     <constraint firstItem="EPq-Zs-hlQ" firstAttribute="width" secondItem="XZB-sh-3tn" secondAttribute="width" id="IFc-yW-VjJ"/>
+                                                    <constraint firstItem="v4C-dD-5Xd" firstAttribute="width" secondItem="EPq-Zs-hlQ" secondAttribute="width" id="suC-tR-Wn9"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
@@ -566,6 +590,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="DefenseYN" destination="v4C-dD-5Xd" id="jpk-hs-WS8"/>
                         <outlet property="StalledYN" destination="Wy4-pw-GnD" id="agQ-lb-wsj"/>
                         <outlet property="TechFYN" destination="EPq-Zs-hlQ" id="TFn-gP-Hxs"/>
                         <outlet property="TipYN" destination="XZB-sh-3tn" id="02K-iM-TfC"/>

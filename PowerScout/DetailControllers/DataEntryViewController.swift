@@ -30,6 +30,7 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     @IBOutlet weak var TipYN: UISegmentedControl!
     @IBOutlet weak var StalledYN: UISegmentedControl!
     @IBOutlet weak var TechFYN: UISegmentedControl!
+    @IBOutlet weak var DefenseYN: UISegmentedControl!
     
     var startPositionPick: UIPickerView!
     var climbingConditionPick:UIPickerView!
@@ -242,6 +243,13 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
                 match.finalTechFouls = 1
             } else {
                 match.finalTechFouls = 0
+            }
+        case DefenseYN:
+            if sender.selectedSegmentIndex == 1 {
+                // needs the match.final defense
+            }
+            else {
+                //same here
             }
         default:
             break
