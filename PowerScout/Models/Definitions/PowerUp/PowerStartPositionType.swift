@@ -12,11 +12,17 @@ enum PowerStartPositionType:Int {
     case none = 0
     case exchange
     case center
-    case nonExchange
+    case nes
     
     func toString() -> String {
         return (self == .exchange)    ? "Exchange"        :
                (self == .center)      ? "Center"          :
-               (self == .nonExchange) ? "Not at Exchange" : "None";
+               (self == .nes) ? "NES" : "None";
     }
+    
+    static let all:[PowerStartPositionType] = [
+        .exchange,
+        .center,
+        .nes
+    ]
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBluetooth
 import MultipeerConnectivity
 import SwiftState
 
@@ -19,15 +20,30 @@ class ServiceStore: NSObject {
                                                 MatchTransferDiscoveryInfo.MatchTypeKey: "PowerScout",
                                                 MatchTransferDiscoveryInfo.VersionKey: MatchTransferDiscoveryInfo.SendVersion],
                                                serviceType: MatchTransfer.serviceType)
+    let matchStore:MatchStore!
+    var peripheralManager:CBPeripheralManager!
+    var centralManager:CBCentralManager!
     
+    var dataCharateristic:CBCharacteristic? = nil
+    var connectCharacteristic:CBCharacteristic? = nil
+    var doneCharacteristic:CBCharacteristic? = nil
+    var lengthCharacteristic:CBCharacteristic? = nil
+    var transferCharacteristic:CBCharacteristic? = nil
+    var transferLength:Int = 0
+    var dataTransferred:Int = 0
+    var dataReceived:Int = 0
+    var transferData:Data = Data()
+    
+    var transferType:MatchTransferType = .coreBluetooth
     var _stateMachine:StateMachine<ServiceState, ServiceEvent>? = nil
+    var filters:[UUID:RollingAverage] = [:]
     
     var stateMachine:StateMachine<ServiceState, ServiceEvent> {
         return _stateMachine!
     }
     
     weak var delegate:ServiceStoreDelegate?
-    var foundPeers:[MCPeerID:[String:String]] = [:]
+    var foundNearbyDevices:[NearbyDevice] = []
     var sessionState:MCSessionState = .notConnected
     
     var machineState:ServiceState {
@@ -54,15 +70,30 @@ class ServiceStore: NSObject {
         ].contains(stateMachine.state)
     }
     
-    override init() {
+    init(withMatchStore matchStore: MatchStore) {
+        print("Setting up ServiceStore")
+        self.matchStore = matchStore
         super.init()
         _stateMachine = _createServiceStateMachine()
         browser.delegate = self
         advertiser.delegate = self
+        peripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
+        centralManager = CBCentralManager(delegate: self, queue: nil, options: nil)
         MatchTransfer.session.delegate = self
-        print("Setting up ServiceStore")
     }
     
+    func setupCBAdvertisementServices() {
+        let dataCharacteristic = CBMutableCharacteristic(type: MatchTransferUUIDs.dataCharacteristic, properties: CBCharacteristicProperties.read, value: nil, permissions: CBAttributePermissions.readable)
+        let connectCharacteristic = CBMutableCharacteristic(type: MatchTransferUUIDs.connectCharacteristic, properties: .write, value: nil, permissions: .writeable)
+        let doneCharacteristic = CBMutableCharacteristic(type: MatchTransferUUIDs.doneCharacteristic, properties: .write, value: nil, permissions: .writeable)
+        let lengthCharacteristic = CBMutableCharacteristic(type: MatchTransferUUIDs.lengthCharacteristic, properties: .read, value: nil, permissions: CBAttributePermissions.readable)
+        let transferCharacteristic = CBMutableCharacteristic(type: MatchTransferUUIDs.transferCharacteristic, properties: .write, value: nil, permissions: .writeable)
+        let service = CBMutableService(type: MatchTransferUUIDs.dataService, primary: true)
+        service.characteristics = [dataCharacteristic, connectCharacteristic, doneCharacteristic, lengthCharacteristic, transferCharacteristic]
+        peripheralManager.add(service)
+    }
+    
+    // MARK: Convenience event triggers
     func proceedWithAdvertising() {
         _triggerEvent(.advertProceed)
     }
@@ -115,7 +146,7 @@ class ServiceStore: NSObject {
     
     private func _disconnectSession() {
         
-        foundPeers.removeAll()
+        foundNearbyDevices.removeAll()
         
         guard sessionState != .notConnected else {
             print("Can't Disconnect the session if it's already disconnected!")
@@ -134,28 +165,49 @@ class ServiceStore: NSObject {
     }
     
     private func _handleStartAdvertising() {
-        MatchTransfer.session.delegate = self
-        advertiser.startAdvertisingPeer()
+        if transferType == .multipeerConnectivity {
+            MatchTransfer.session.delegate = self
+            advertiser.startAdvertisingPeer()
+        } else if transferType == .coreBluetooth {
+            peripheralManager.startAdvertising([
+                CBAdvertisementDataLocalNameKey: UIDevice.current.name,
+                CBAdvertisementDataServiceUUIDsKey: [MatchTransferUUIDs.dataService]
+                ])
+        }
         print("Started Advertiser")
     }
     
     private func _handleStopAdvertising() {
-        MatchTransfer.session.disconnect()
-        advertiser.stopAdvertisingPeer()
-        MatchTransfer.session.delegate = nil
+        if transferType == .multipeerConnectivity {
+            MatchTransfer.session.disconnect()
+            advertiser.stopAdvertisingPeer()
+            MatchTransfer.session.delegate = nil
+        } else if transferType == .coreBluetooth {
+            peripheralManager.stopAdvertising()
+        }
         print("Stopped Advertiser")
     }
     
     private func _handleStartBrowser() {
-        MatchTransfer.session.delegate = self
-        browser.startBrowsingForPeers()
+        if transferType == .multipeerConnectivity {
+            MatchTransfer.session.delegate = self
+            browser.startBrowsingForPeers()
+        } else if transferType == .coreBluetooth {
+            filters.removeAll()
+            centralManager.scanForPeripherals(withServices: [MatchTransferUUIDs.dataService], options: [
+                CBCentralManagerScanOptionAllowDuplicatesKey: true])
+        }
         print("Started Browsing")
     }
     
     private func _handleStopBrowser() {
-        MatchTransfer.session.disconnect()
-        browser.stopBrowsingForPeers()
-        MatchTransfer.session.delegate = nil
+        if transferType == .multipeerConnectivity {
+            MatchTransfer.session.disconnect()
+            browser.stopBrowsingForPeers()
+            MatchTransfer.session.delegate = nil
+        } else if transferType == .coreBluetooth {
+            centralManager.stopScan()
+        }
         print("Stopped Browser")
     }
     
@@ -250,16 +302,22 @@ class ServiceStore: NSObject {
             case (.browseRunning, .browseInvitationPending) :
                 if let nearbyDevice = userInfo as? NearbyDevice {
                     if nearbyDevice.type == .multipeerConnectivity {
-                        if let peerInfo = self.foundPeers.first(where: { $0.key.displayName == nearbyDevice.displayName }) {
-                            print("Inviting: \(peerInfo.key.displayName)")
-                            self.browser.invitePeer(peerInfo.key, to: MatchTransfer.session, withContext: nil, timeout: 10.0)
+                        if let peer = self.foundNearbyDevices.first(where: {$0.hash == nearbyDevice.hash}) {
+                            print("Inviting: \(peer.displayName)")
+                            self.browser.invitePeer(peer.mcId!, to: MatchTransfer.session, withContext: nil, timeout: 10.0)
                         } else {
                             print("WARN: No found peer matches nearby device \(nearbyDevice.displayName), going back to running")
                             self.goBackWithBrowsing()
                         }
-                    } else {
-                        print("WARN: CoreBluetooth devices are not supported at this time, going back to running")
-                        self.goBackWithBrowsing()
+                    } else if nearbyDevice.type == .coreBluetooth {
+                        if let device = self.foundNearbyDevices.first(where: {$0.hash == nearbyDevice.hash}) {
+                            self.centralManager.stopScan()
+                            print("Connecting to \(device.displayName)")
+                            self.centralManager.connect(device.cbPeripheral!, options: nil)
+                        } else {
+                            print("WARN: No found peer matches nearby device \(nearbyDevice.displayName), going back to running")
+                            self.goBackWithBrowsing()
+                        }
                     }
                 } else {
                     print("WARN: No nearby device was selected, going back to running")

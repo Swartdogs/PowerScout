@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var autoScale: UIStepper!
     @IBOutlet weak var autoSwitch: UIStepper!
@@ -25,25 +25,35 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     @IBOutlet weak var scaleLow: UISegmentedControl!
     @IBOutlet weak var scaleMedium: UISegmentedControl!
     @IBOutlet weak var scaleHigh: UISegmentedControl!
-    @IBOutlet weak var teamNumberInput: UITextField!
-    @IBOutlet weak var matchNumberInput: UITextField!
-    @IBOutlet weak var startPositionPick: UIPickerView!
-    @IBOutlet weak var climbingConditionPick: UIPickerView!
-    @IBOutlet weak var positionButton: UIButton!
-    @IBOutlet weak var climbButton: UIButton!
-    @IBOutlet weak var climbYN: UISegmentedControl!
+    @IBOutlet weak var positionTextField: UITextField!
+    @IBOutlet weak var climbTextField:UITextField!
+    @IBOutlet weak var TipYN: UISegmentedControl!
+    @IBOutlet weak var StalledYN: UISegmentedControl!
+    @IBOutlet weak var TechFYN: UISegmentedControl!
+    @IBOutlet weak var DefenseYN: UISegmentedControl!
+    
+    var startPositionPick: UIPickerView!
+    var climbingConditionPick:UIPickerView!
     
     var match:PowerMatch = PowerMatch()
     var matchStore:MatchStore!
     
-    let startPositions = ["Exchange", "Center", "Non-Exchange"]
-    let climbConditions = ["No attempt or failure to climb", "No climb but helped another", "Climb by themselves", "Climb with help", "Climb helping another team"]
+    var startPositionDone = false
+    var climbPositionDone = false
+    var readyToMove = false
+    
+    override var disablesAutomaticKeyboardDismissal: Bool {
+        return false
+    }
     
     override func viewDidLoad() {
-        startPositionPick.isHidden = true
+        super.viewDidLoad()
+        
+        startPositionPick = UIPickerView()
+        climbingConditionPick = UIPickerView()
+        
         startPositionPick.dataSource = self
         startPositionPick.delegate = self
-        climbingConditionPick.isHidden = true
         climbingConditionPick.dataSource = self
         climbingConditionPick.delegate = self
         autoScale.wraps = false
@@ -66,13 +76,43 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         exchangedBlocks.autorepeat = false
         exchangedBlocks.maximumValue = 20
         exchangedBlocks.stepValue = 1
-        super.viewDidLoad()
+        
+        positionTextField.inputView = startPositionPick
+        positionTextField.delegate = self
+        climbTextField.inputView = climbingConditionPick
+        climbTextField.delegate = self
+        
+        let positionToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50))
+        positionToolbar.barStyle = UIBarStyle.default
+        positionToolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(DataEntryViewController.handlePickerDoneButton(_:)))
+        ]
+        positionToolbar.sizeToFit()
+        positionTextField.inputAccessoryView = positionToolbar
+        
+        let climbToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50))
+        climbToolbar.barStyle = UIBarStyle.default
+        climbToolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(DataEntryViewController.handlePickerDoneButton(_:)))
+        ]
+        climbToolbar.sizeToFit()
+        climbTextField.inputAccessoryView = climbToolbar
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        startPositionDone = false
+        climbPositionDone = false
+        readyToMove = false
+        
+        readyToMoveOn()
+        
         match = matchStore.currentMatch as? PowerMatch ?? match
+        
+        self.navigationItem.title = "Match: \(match.matchNumber) Team: \(match.teamNumber)"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -85,7 +125,27 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
                         destVC.matchStore = matchStore
                     }
                 }
+            } else if id.elementsEqual("unwindToMatchView") {
+                matchStore.updateCurrentMatchForType(.finalStats, match: match)
+                matchStore.finishCurrentMatch()
             }
+        }
+    }
+    
+    func readyToMoveOn() {
+        readyToMove = startPositionDone && climbPositionDone
+    }
+    
+    @IBAction func handleDoneButton(_ sender:UIBarButtonItem) {
+        if !readyToMove {
+            let alertController = UIAlertController(title: "Unable to Complete Match", message: "You must complete the Start Position and End Climb Condition Fields to complete the match!", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            
+            alertController.addAction(okAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        } else {
+            self.performSegue(withIdentifier: "unwindToMatchView", sender: self)
         }
     }
     
@@ -93,51 +153,61 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         
     }
     
-    // MARK: UIPickerView Functions
-    // UIPickerView stuff (DON'T TOUCH OR SUFFER HELL) I speak from experiance
-    @IBAction func climbCondSelect(_ sender: UIButton) {
-        if climbingConditionPick.isHidden {
-            climbingConditionPick.isHidden = false
-        }
-    }
-    @IBAction func positionSelect(_ sender: UIButton) {
-        if startPositionPick.isHidden {
-            startPositionPick.isHidden = false
-        }
+    @objc func handlePickerDoneButton(_ sender: UIBarButtonItem) {
+        self.positionTextField.resignFirstResponder()
+        self.climbTextField.resignFirstResponder()
     }
     
+    // MARK: UIPickerView Functions
+    // UIPickerView stuff (DON'T TOUCH OR SUFFER HELL) I speak from experiance
     func numberOfComponents(in pickerview: UIPickerView) -> Int{
        return 1
     }
     
     func pickerView(_ pickerview: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
         if pickerview == startPositionPick {
-            return startPositions.count
+            return PowerStartPositionType.all.count
         } else {
-            return climbConditions.count
+            return PowerEndClimbPositionType.all.count
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let attrs = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 22)]
         if pickerView == startPositionPick {
-            return NSAttributedString(string: startPositions[row], attributes: attrs)
+            return NSAttributedString(string: PowerStartPositionType.all[row].toString(), attributes: attrs)
         } else {
-            return NSAttributedString(string: climbConditions[row], attributes: attrs)
+            return NSAttributedString(string: PowerEndClimbPositionType.all[row].toString(), attributes: attrs)
         }
     }
     
     func pickerView(_ pickerview: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerview == startPositionPick{
-            positionButton.setTitle(startPositions[row], for: .normal)
-            startPositionPick.isHidden = true
+            positionTextField.text = PowerStartPositionType.all[row].toString()
             match.autoStartPos = PowerStartPositionType(rawValue: row+1)!
+            startPositionDone = true
+            self.positionTextField.resignFirstResponder()
         }
         if pickerview == climbingConditionPick{
-            climbButton.setTitle(climbConditions[row], for: .normal)
-            climbingConditionPick.isHidden = true
+            climbTextField.text = PowerEndClimbPositionType.all[row].toString()
             match.endClimbCondition = PowerEndClimbPositionType(rawValue: row)!
+            climbPositionDone = true
+            self.climbTextField.resignFirstResponder()
         }
+        
+        readyToMoveOn()
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        return false
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return false
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return false
     }
     
     @IBAction func segmentedControlSelect(_ sender: UISegmentedControl) {
@@ -154,9 +224,38 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         case scaleHigh:
             match.teleHigh = sender.selectedSegmentIndex == 1
             break
+        case TipYN:
+            if sender.selectedSegmentIndex == 1 {
+                match.finalRobot.formUnion(.Tipped)
+            } else {
+                match.finalRobot.subtract(.Tipped)
+            }
+            break
+        case StalledYN:
+            if sender.selectedSegmentIndex == 1 {
+                match.finalRobot.formUnion(.Stalled)
+            } else {
+                match.finalRobot.subtract(.Stalled)
+            }
+            break
+        case TechFYN:
+            if sender.selectedSegmentIndex == 1 {
+                match.finalTechFouls = 1
+            } else {
+                match.finalTechFouls = 0
+            }
+        case DefenseYN:
+            if sender.selectedSegmentIndex == 1 {
+                // needs the match.final defense
+            }
+            else {
+                //same here
+            }
         default:
             break
         }
+        
+        readyToMoveOn()
     }
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
@@ -184,5 +283,7 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         default:
             break
         }
+        
+        readyToMoveOn()
     }
 }

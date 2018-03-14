@@ -44,27 +44,21 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            serviceStore = appDelegate.serviceStore
-        } else {
-            serviceStore = ServiceStore()
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        serviceStore.resetStateMachine()
         serviceStore.delegate = self
-        
-        transferMode = .doNothing
         updateUI()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        serviceStore.delegate = nil
-        serviceStore.resetStateMachine()
+        if (self.isMovingFromParentViewController || self.isBeingDismissed) {
+            serviceStore.delegate = nil
+            serviceStore.resetStateMachine()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -274,6 +268,10 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
                 if let vc = segue.destination as? DebugDataTransferViewController {
                     vc.matchStore = matchStore
                     vc.serviceStore = serviceStore
+                    serviceStore.resetStateMachine()
+                    serviceStore.delegate = vc
+                    
+                    vc.transferMode = .doNothing
                 }
             } else if identifier.elementsEqual("SegueToDataSelection") {
                 if let vc = segue.destination as? DataSelectionViewController {
@@ -293,12 +291,12 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         }
     }
     
-    func serviceStore(_ serviceStore: ServiceStore, withSession session: MCSession, didReceiveData data: Data, fromPeer peerId: MCPeerID) {
+    func serviceStore(_ serviceStore: ServiceStore, didReceiveData data: Data, fromDevice device: NearbyDevice) {
         if let message = String(data: data, encoding: .utf8) {
             print("Message decoded: \(message)")
             if message == "ping" {
                 DispatchQueue.main.async { [weak self] in
-                    let alert = UIAlertController(title: "Ping!", message: "\(peerId.displayName) pinged you!", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Ping!", message: "\(device.displayName) pinged you!", preferredStyle: .alert)
                     let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
                     alert.addAction(ok)
                     self?.present(alert, animated: true, completion: nil)
@@ -310,7 +308,19 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         if let jsonData = json as? [Dictionary<String, AnyObject>] {
             var matches = [Match]();
             for matchData in jsonData {
-                matches.append(MatchImpl(withPList: matchData))
+                guard let matchTypeName = matchData["matchType"] as? String  else {
+                    print("WARNING: Match did not include match Type key! Defaulting to MatchImpl!")
+                    matches.append(MatchImpl(withPList: matchData))
+                    continue
+                }
+                
+                guard let matchType = NSClassFromString(matchTypeName) as? Match.Type else {
+                    print("WARNING: Invalid MatchType was given (\(matchTypeName)! Defaulting to MatchImpl!)")
+                    matches.append(MatchImpl(withPList: matchData))
+                    continue
+                }
+                
+                matches.append(matchType.init(withPList: matchData))
             }
             
             print("Matches Count: \(matches.count)")
@@ -318,18 +328,14 @@ class DataTransferViewController: UIViewController, ServiceStoreDelegate {
         }
     }
     
-    func serviceStore(_ serviceStore: ServiceStore, withBrowser browser: MCNearbyServiceBrowser, foundPeer peerId: MCPeerID) {
-        print("found peer: \(peerId.displayName)")
-        if delegate != nil {
-            delegate?.dataTransferViewController(self, foundNearbyDevice: NearbyDevice(displayName: peerId.displayName, type: .multipeerConnectivity))
-        }
+    func serviceStore(_ serviceStore: ServiceStore, foundNearbyDevice device: NearbyDevice) {
+        print("found nearby device: \(device.displayName) with type: \(device.type)")
+        delegate?.dataTransferViewController(self, foundNearbyDevice: device)
     }
     
-    func serviceStore(_ serviceStore: ServiceStore, withBrowser browser: MCNearbyServiceBrowser, lostPeer peerId: MCPeerID) {
-        print("lost peer: \(peerId.displayName)")
-        if delegate != nil {
-            delegate?.dataTransferViewController(self, lostNearbyDevice: NearbyDevice(displayName: peerId.displayName, type: .multipeerConnectivity))
-        }
+    func serviceStore(_ serviceStore: ServiceStore, lostNearbyDevice device: NearbyDevice) {
+        print("lost nearby device: \(device.displayName) with type: \(device.type)")
+        delegate?.dataTransferViewController(self, lostNearbyDevice: device)
     }
     
     func serviceStore(_ serviceStore: ServiceStore, transitionedFromState fromState: ServiceState, toState: ServiceState, forEvent event: ServiceEvent, withUserInfo userInfo: Any?) {

@@ -9,6 +9,10 @@
 import UIKit
 
 class ResultsScoringViewController: UIViewController {
+    @IBOutlet weak var infoTeamNumber: UILabel!
+    @IBOutlet weak var infoMatchNumber: UILabel!
+    @IBOutlet weak var infoAlliance: UILabel!
+    
     @IBOutlet weak var autoStartPosLabel: UILabel!
     @IBOutlet weak var autoCrossedLineLabel: UILabel!
     @IBOutlet weak var autoScaleCubesLabel: UILabel!
@@ -22,6 +26,8 @@ class ResultsScoringViewController: UIViewController {
     @IBOutlet weak var teleHighCubesLabel: UILabel!
     
     @IBOutlet weak var endgClimbConditionLabel: UILabel!
+    @IBOutlet weak var endgRobotState: UILabel!
+    @IBOutlet weak var endgReceivedTechFoul: UILabel!
     
     var match = PowerMatch()
     
@@ -34,7 +40,9 @@ class ResultsScoringViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationItem.title = "Score Results"
+        infoTeamNumber.text = "\(match.teamNumber)"
+        infoMatchNumber.text = "\(match.matchNumber)"
+        infoAlliance.text = match.alliance.toString()
         
         if match.finalResult == .noShow {
             autoStartPosLabel.text = "---"
@@ -50,6 +58,8 @@ class ResultsScoringViewController: UIViewController {
             teleHighCubesLabel.text = "---"
             
             endgClimbConditionLabel.text = "---"
+            endgReceivedTechFoul.text = "---"
+            endgRobotState.text = "---"
         } else {
             autoStartPosLabel.text = match.autoStartPos.toString()
             autoCrossedLineLabel.text = "\(match.autoCrossedLine ? "Yes" : "No")"
@@ -64,6 +74,8 @@ class ResultsScoringViewController: UIViewController {
             teleHighCubesLabel.text = "\(match.teleHigh ? "Yes" : "No")"
             
             endgClimbConditionLabel.text = match.endClimbCondition.toString()
+            endgReceivedTechFoul.text = (match.finalTechFouls == 1) ? "Yes" : "No"
+            endgRobotState.text = match.finalRobot.toString()
         }
     }
 
