@@ -16,6 +16,7 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     @IBOutlet weak var teleScale: UIStepper!
     @IBOutlet weak var teleSwitch: UIStepper!
     @IBOutlet weak var exchangedBlocks: UIStepper!
+    @IBOutlet weak var autoAmmountScaleMiss: UIStepper!
     @IBOutlet weak var autoAmmountSwitch: UILabel!
     @IBOutlet weak var autoAmmountScale: UILabel!
     @IBOutlet weak var teleAmmountScale: UILabel!

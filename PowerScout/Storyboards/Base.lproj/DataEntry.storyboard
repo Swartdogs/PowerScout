@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="ipad9_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -212,7 +212,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="vrd-16-0Lb">
-                                <rect key="frame" x="16" y="16" width="736" height="743"/>
+                                <rect key="frame" x="16" y="16" width="736" height="707"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dpf-5y-ITy" userLabel="Autonomous">
                                         <rect key="frame" x="0.0" y="0.0" width="736" height="232.5"/>
@@ -311,13 +311,13 @@
                                                 <rect key="frame" x="0.0" y="127.5" width="736" height="28"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crossed Auto Line:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1KB-ju-rsx">
-                                                        <rect key="frame" x="0.0" y="0.0" width="471.5" height="28"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="489.5" height="28"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="PXL-oC-oAo">
-                                                        <rect key="frame" x="479.5" y="0.0" width="256.5" height="29"/>
+                                                        <rect key="frame" x="497.5" y="0.0" width="238.5" height="29"/>
                                                         <segments>
                                                             <segment title="No"/>
                                                             <segment title="Yes"/>
@@ -333,13 +333,13 @@
                                                 <rect key="frame" x="0.0" y="165.5" width="736" height="28"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Did Robot Cross Field:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82G-w8-3Pr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="498.5" height="28"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="489.5" height="28"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <color key="textColor" name="systemOrangeColor" catalog="System" colorSpace="catalog"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gjB-Cz-FCq" userLabel="Cross Field">
-                                                        <rect key="frame" x="506.5" y="0.0" width="229.5" height="29"/>
+                                                        <rect key="frame" x="497.5" y="0.0" width="238.5" height="29"/>
                                                         <segments>
                                                             <segment title="No"/>
                                                             <segment title="Yes"/>
@@ -413,6 +413,9 @@
                                                 </subviews>
                                             </stackView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="gjB-Cz-FCq" firstAttribute="width" secondItem="PXL-oC-oAo" secondAttribute="width" id="7xO-tB-7h6"/>
+                                        </constraints>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="VI8-Xm-3B9" userLabel="Teleop">
                                         <rect key="frame" x="0.0" y="257.5" width="736" height="249"/>
@@ -593,7 +596,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8ck-Kb-Yn3" userLabel="Extra">
-                                        <rect key="frame" x="0.0" y="531.5" width="736" height="211.5"/>
+                                        <rect key="frame" x="0.0" y="531.5" width="736" height="175.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Final Details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pw-vn-dFn">
                                                 <rect key="frame" x="0.0" y="0.0" width="736" height="39.5"/>
@@ -602,7 +605,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="mdh-7U-d85">
-                                                <rect key="frame" x="0.0" y="39.5" width="736" height="172"/>
+                                                <rect key="frame" x="0.0" y="39.5" width="736" height="136"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IW2-Ad-LgX">
                                                         <rect key="frame" x="0.0" y="0.0" width="736" height="28"/>
@@ -703,32 +706,6 @@
                                                             </segmentedControl>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6mk-c0-akC">
-                                                        <rect key="frame" x="0.0" y="144" width="736" height="28"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Consider as Alliance Partner:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwS-36-5Iz">
-                                                                <rect key="frame" x="0.0" y="0.0" width="485.5" height="28"/>
-                                                                <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                <color key="textColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gXc-0Z-snY" userLabel="TechFoul">
-                                                                <rect key="frame" x="493.5" y="0.0" width="242.5" height="29"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="242.5" id="FcG-r4-UWU"/>
-                                                                </constraints>
-                                                                <segments>
-                                                                    <segment title="No"/>
-                                                                    <segment title="Yes"/>
-                                                                </segments>
-                                                                <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                <connections>
-                                                                    <action selector="segmentedControlSelect:" destination="RmR-df-9YL" eventType="valueChanged" id="EVj-Vu-r7T"/>
-                                                                </connections>
-                                                            </segmentedControl>
-                                                        </subviews>
-                                                    </stackView>
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstItem="v4C-dD-5Xd" firstAttribute="width" secondItem="EPq-Zs-hlQ" secondAttribute="width" id="suC-tR-Wn9"/>
@@ -769,6 +746,7 @@
                         <outlet property="TipYN" destination="XZB-sh-3tn" id="02K-iM-TfC"/>
                         <outlet property="ammountExchangedBlocks" destination="z15-Rr-0P9" id="r6N-jx-aP8"/>
                         <outlet property="autoAmmountScale" destination="wM1-kd-PYi" id="PEc-Tp-hvJ"/>
+                        <outlet property="autoAmmountScaleMiss" destination="1RR-so-4Q3" id="RUs-sM-O16"/>
                         <outlet property="autoAmmountSwitch" destination="YfX-Vf-4JF" id="t5Z-6I-QfB"/>
                         <outlet property="autoLine" destination="PXL-oC-oAo" id="zep-Bz-Xst"/>
                         <outlet property="autoScale" destination="ssU-XW-a6d" id="gR0-Ao-ijX"/>
