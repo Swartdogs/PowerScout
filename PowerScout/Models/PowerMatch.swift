@@ -14,6 +14,7 @@ class PowerMatch : MatchImpl {
     var autoStartPos:PowerStartPositionType = .none
     var autoCrossedLine:Bool = false
     var autoScaleCubes:Int = 0
+    var autoScaleMissedCubes:Int = 0
     var autoSwitchCubes:Int = 0
     
     // Teleop Info

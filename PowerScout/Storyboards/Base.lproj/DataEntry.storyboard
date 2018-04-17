@@ -746,10 +746,11 @@
                         <outlet property="TipYN" destination="XZB-sh-3tn" id="02K-iM-TfC"/>
                         <outlet property="ammountExchangedBlocks" destination="z15-Rr-0P9" id="r6N-jx-aP8"/>
                         <outlet property="autoAmmountScale" destination="wM1-kd-PYi" id="PEc-Tp-hvJ"/>
-                        <outlet property="autoAmmountScaleMiss" destination="1RR-so-4Q3" id="RUs-sM-O16"/>
+                        <outlet property="autoAmmountScaleMiss" destination="Mcn-VE-ob2" id="zzj-9k-cxc"/>
                         <outlet property="autoAmmountSwitch" destination="YfX-Vf-4JF" id="t5Z-6I-QfB"/>
                         <outlet property="autoLine" destination="PXL-oC-oAo" id="zep-Bz-Xst"/>
                         <outlet property="autoScale" destination="ssU-XW-a6d" id="gR0-Ao-ijX"/>
+                        <outlet property="autoScaleMiss" destination="1RR-so-4Q3" id="GGR-KY-7ns"/>
                         <outlet property="autoSwitch" destination="u7P-SE-NNx" id="6LP-NH-sol"/>
                         <outlet property="climbTextField" destination="alq-8w-2Cr" id="QMf-RW-I79"/>
                         <outlet property="exchangedBlocks" destination="5Ec-b2-pcU" id="LLW-FU-S1F"/>

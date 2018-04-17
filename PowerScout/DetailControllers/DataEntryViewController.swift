@@ -16,9 +16,10 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     @IBOutlet weak var teleScale: UIStepper!
     @IBOutlet weak var teleSwitch: UIStepper!
     @IBOutlet weak var exchangedBlocks: UIStepper!
-    @IBOutlet weak var autoAmmountScaleMiss: UIStepper!
+    @IBOutlet weak var autoScaleMiss: UIStepper!
     @IBOutlet weak var autoAmmountSwitch: UILabel!
     @IBOutlet weak var autoAmmountScale: UILabel!
+    @IBOutlet weak var autoAmmountScaleMiss: UILabel!
     @IBOutlet weak var teleAmmountScale: UILabel!
     @IBOutlet weak var teleAmmountSwitch: UILabel!
     @IBOutlet weak var ammountExchangedBlocks: UILabel!
@@ -61,6 +62,10 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         autoScale.autorepeat = false
         autoScale.maximumValue = 20
         autoScale.stepValue = 1
+        autoScaleMiss.wraps = false
+        autoScaleMiss.autorepeat = false
+        autoScaleMiss.maximumValue = 20
+        autoScaleMiss.stepValue = 1
         autoSwitch.wraps = false
         autoSwitch.autorepeat = false
         autoSwitch.maximumValue = 20
@@ -280,6 +285,11 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         case exchangedBlocks:
             match.teleExchangeCubes = Int(sender.value)
             ammountExchangedBlocks.text = match.teleExchangeCubes.description
+            break
+        case autoScaleMiss:
+            match.autoScaleMissedCubes = Int(sender.value)
+            autoAmmountScaleMiss.text =
+                match.autoScaleMissedCubes.description
             break
         default:
             break

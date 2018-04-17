@@ -320,7 +320,7 @@ class MatchStore {
             if match.selectedForDataTransfer {
                 match.selectedForDataTransfer = false
                 match.lastExportedByXfer = Date()
-                match.shouldExport = match.lastExportedByXfer == nil
+                //match.shouldExport = match.lastExportedByXfer == nil
             }
         }
     }
