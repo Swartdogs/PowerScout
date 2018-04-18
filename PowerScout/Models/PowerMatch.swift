@@ -13,6 +13,7 @@ class PowerMatch : MatchImpl {
     // Auto Info
     var autoStartPos:PowerStartPositionType = .none
     var autoCrossedLine:Bool = false
+    var autoCrossedField:Bool = false
     var autoScaleCubes:Int = 0
     var autoScaleMissedCubes:Int = 0
     var autoSwitchCubes:Int = 0
@@ -29,6 +30,8 @@ class PowerMatch : MatchImpl {
     
     // End Game Info
     var endClimbCondition:PowerEndClimbPositionType = .none
+    var endPlayedDefense:Bool = false
+    var endConsiderPartner:Bool = false
     
     required init() {
         super.init()
@@ -46,6 +49,7 @@ class PowerMatch : MatchImpl {
         // Auto Info
         autoStartPos = PowerStartPositionType(rawValue: json["auto"]["startPos"].intValue)!
         autoCrossedLine = json["auto"]["crossed"].boolValue
+        autoCrossedField = json["auto"]["crossedField"].bool ?? false
         autoScaleCubes = json["auto"]["scale"].intValue
         autoSwitchCubes = json["auto"]["switch"].intValue
         
@@ -59,6 +63,8 @@ class PowerMatch : MatchImpl {
         
         // End Game Info
         endClimbCondition = PowerEndClimbPositionType(rawValue: json["endg"]["climbCond"].intValue)!
+        endPlayedDefense = json["endg"]["playedDefense"].bool ?? false
+        endConsiderPartner = json["endg"]["playedDefense"].bool ?? false
     }
     
     override var messageDictionary: [String : AnyObject] {
@@ -70,6 +76,7 @@ class PowerMatch : MatchImpl {
         // Auto Info
         auto["startPos"] = autoStartPos.rawValue as AnyObject?
         auto["crossed"] = autoCrossedLine as AnyObject?
+        auto["crossedField"] = autoCrossedField as AnyObject?
         auto["scale"] = autoScaleCubes as AnyObject?
         auto["switch"] = autoSwitchCubes as AnyObject?
         
@@ -83,6 +90,8 @@ class PowerMatch : MatchImpl {
         
         // End Game Info
         endg["climbCond"] = endClimbCondition.rawValue as AnyObject?
+        endg["playedDefense"] = endPlayedDefense as AnyObject?
+        endg["considerPartner"] = endConsiderPartner as AnyObject?
         
         data["auto"] = auto as AnyObject?
         data["tele"] = tele as AnyObject?
