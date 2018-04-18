@@ -398,7 +398,7 @@
                                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dli-Dd-wIs">
                                                                         <rect key="frame" x="368" y="0.0" width="360" height="24"/>
                                                                         <subviews>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Cubes Placed on Switch:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="md0-28-hiE">
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Failed to place on Switch:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="md0-28-hiE">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="234.5" height="24"/>
                                                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                                                                 <color key="textColor" red="0.41003605770000001" green="0.41003605770000001" blue="0.41003605770000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -517,7 +517,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Played Defense:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Mo-nY-RoM">
                                                         <rect key="frame" x="0.0" y="0.0" width="360" height="24"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J1u-CW-ew5" userLabel="Endg Defensive State">
@@ -535,7 +535,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Consider as Alliance Partner:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KXX-Wv-Tfy">
                                                         <rect key="frame" x="0.0" y="0.0" width="360" height="24"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wz3-XC-RoY" userLabel="Endg Allience Partner">
@@ -562,11 +562,16 @@
                     </view>
                     <navigationItem key="navigationItem" title="Match Info" id="ez4-gD-vcc"/>
                     <connections>
+                        <outlet property="autoCrossedField" destination="r3l-FH-EF7" id="0Fi-Fz-3VD"/>
                         <outlet property="autoCrossedLineLabel" destination="NdB-Go-MKC" id="bu7-Fl-Eod"/>
                         <outlet property="autoScaleCubesLabel" destination="ClX-8O-z94" id="7BP-ke-cjr"/>
+                        <outlet property="autoScaleCubesMissedLabel" destination="vmE-X0-WMa" id="e22-4T-KHx"/>
                         <outlet property="autoStartPosLabel" destination="6c9-cE-1Es" id="I8Z-Bw-D3h"/>
                         <outlet property="autoSwitchCubesLabel" destination="Seo-5u-1pK" id="kDg-xV-JY8"/>
+                        <outlet property="autoSwitchCubesMissedLabel" destination="sko-AG-nxI" id="Skp-VA-H8Q"/>
                         <outlet property="endgClimbConditionLabel" destination="7PN-XW-hWr" id="Rpn-ts-VB5"/>
+                        <outlet property="endgConsiderPartner" destination="wz3-XC-RoY" id="RMh-5X-sLt"/>
+                        <outlet property="endgPlayedDefense" destination="J1u-CW-ew5" id="KlF-TM-bLP"/>
                         <outlet property="endgReceivedTechFoul" destination="Myl-hk-U2h" id="FDs-DR-cwZ"/>
                         <outlet property="endgRobotState" destination="pe2-l4-HZw" id="Y9Z-xE-yPj"/>
                         <outlet property="infoAlliance" destination="mzK-yx-Zda" id="qhn-V9-NQP"/>
@@ -574,7 +579,9 @@
                         <outlet property="infoTeamNumber" destination="QIZ-tz-bMU" id="aYn-8y-U9e"/>
                         <outlet property="teleExchangeCubesLabel" destination="QHZ-mt-JT3" id="cIy-Bw-aOl"/>
                         <outlet property="teleScaleCubesLabel" destination="BOU-Qe-Xwh" id="Grv-WR-KCx"/>
+                        <outlet property="teleScaleCubesMissedLabel" destination="l4U-Zu-rV3" id="tcT-d0-AeE"/>
                         <outlet property="teleSwitchCubesLabel" destination="gjG-xO-lt5" id="9iV-dW-VAP"/>
+                        <outlet property="teleSwitchCubesMissedLabel" destination="gBX-Ms-Ioe" id="xwr-xW-JWR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rVq-9g-Ijb" userLabel="First Responder" sceneMemberID="firstResponder"/>

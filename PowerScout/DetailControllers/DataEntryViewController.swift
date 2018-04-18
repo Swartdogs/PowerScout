@@ -30,15 +30,17 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     @IBOutlet weak var teleAmmountSwitch: UILabel!
     @IBOutlet weak var ammountExchangedBlocks: UILabel!
     @IBOutlet weak var autoLine: UISegmentedControl!
-    @IBOutlet weak var scaleLow: UISegmentedControl!
-    @IBOutlet weak var scaleMedium: UISegmentedControl!
-    @IBOutlet weak var scaleHigh: UISegmentedControl!
+    @IBOutlet weak var autoField: UISegmentedControl!
+//    @IBOutlet weak var scaleLow: UISegmentedControl!
+//    @IBOutlet weak var scaleMedium: UISegmentedControl!
+//    @IBOutlet weak var scaleHigh: UISegmentedControl!
     @IBOutlet weak var positionTextField: UITextField!
     @IBOutlet weak var climbTextField:UITextField!
     @IBOutlet weak var TipYN: UISegmentedControl!
     @IBOutlet weak var StalledYN: UISegmentedControl!
     @IBOutlet weak var TechFYN: UISegmentedControl!
     @IBOutlet weak var DefenseYN: UISegmentedControl!
+    @IBOutlet weak var PartnerYN: UISegmentedControl!
     
     var startPositionPick: UIPickerView!
     var climbingConditionPick:UIPickerView!
@@ -227,15 +229,20 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         case autoLine:
             match.autoCrossedLine = sender.selectedSegmentIndex == 1
             break
-        case scaleLow:
-            match.teleLow = sender.selectedSegmentIndex == 1
+        case autoField:
+            match.autoCrossedField = sender.selectedSegmentIndex == 1
             break
-        case scaleMedium:
-            match.teleNormal = sender.selectedSegmentIndex == 1
-            break
-        case scaleHigh:
-            match.teleHigh = sender.selectedSegmentIndex == 1
-            break
+            
+            // These were removed, so they can't be referenced in code anymore (should probably delete these lines)
+//        case scaleLow:
+//            match.teleLow = sender.selectedSegmentIndex == 1
+//            break
+//        case scaleMedium:
+//            match.teleNormal = sender.selectedSegmentIndex == 1
+//            break
+//        case scaleHigh:
+//            match.teleHigh = sender.selectedSegmentIndex == 1
+//            break
         case TipYN:
             if sender.selectedSegmentIndex == 1 {
                 match.finalRobot.formUnion(.Tipped)
@@ -257,12 +264,11 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
                 match.finalTechFouls = 0
             }
         case DefenseYN:
-            if sender.selectedSegmentIndex == 1 {
-                // needs the match.final defense
-            }
-            else {
-                //same here
-            }
+            match.endPlayedDefense = sender.selectedSegmentIndex == 1
+            break
+        case PartnerYN:
+            match.endConsiderPartner = sender.selectedSegmentIndex == 1
+            break
         default:
             break
         }
