@@ -16,10 +16,16 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     @IBOutlet weak var teleScale: UIStepper!
     @IBOutlet weak var teleSwitch: UIStepper!
     @IBOutlet weak var exchangedBlocks: UIStepper!
+    @IBOutlet weak var autoSwitchMiss: UIStepper!
     @IBOutlet weak var autoScaleMiss: UIStepper!
+    @IBOutlet weak var teleScaleMiss: UIStepper!
+    @IBOutlet weak var teleSwitchMiss: UIStepper!
+    @IBOutlet weak var teleAmmountSwitchMiss: UILabel!
+    @IBOutlet weak var teleAmmountScaleMiss: UILabel!
     @IBOutlet weak var autoAmmountSwitch: UILabel!
     @IBOutlet weak var autoAmmountScale: UILabel!
     @IBOutlet weak var autoAmmountScaleMiss: UILabel!
+    @IBOutlet weak var autoAmmountSwitchMiss: UILabel!
     @IBOutlet weak var teleAmmountScale: UILabel!
     @IBOutlet weak var teleAmmountSwitch: UILabel!
     @IBOutlet weak var ammountExchangedBlocks: UILabel!
@@ -288,8 +294,19 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
             break
         case autoScaleMiss:
             match.autoScaleMissedCubes = Int(sender.value)
-            autoAmmountScaleMiss.text =
-                match.autoScaleMissedCubes.description
+            autoAmmountScaleMiss.text = match.autoScaleMissedCubes.description
+            break
+        case autoSwitchMiss:
+            match.autoSwitchMissedCubes = Int(sender.value)
+            autoAmmountSwitchMiss.text = match.autoSwitchMissedCubes.description
+            break
+        case teleScaleMiss:
+            match.teleScaleMissedCubes = Int(sender.value)
+            teleAmmountScaleMiss.text = match.teleScaleMissedCubes.description
+            break
+        case teleSwitchMiss:
+            match.teleSwitchMissedCubes = Int(sender.value)
+            teleAmmountSwitchMiss.text = match.teleSwitchMissedCubes.description
             break
         default:
             break

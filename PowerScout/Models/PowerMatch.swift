@@ -16,11 +16,13 @@ class PowerMatch : MatchImpl {
     var autoScaleCubes:Int = 0
     var autoScaleMissedCubes:Int = 0
     var autoSwitchCubes:Int = 0
-    
+    var autoSwitchMissedCubes:Int = 0
     // Teleop Info
     var teleScaleCubes:Int = 0
     var teleSwitchCubes:Int = 0
     var teleExchangeCubes:Int = 0
+    var teleScaleMissedCubes:Int = 0
+    var teleSwitchMissedCubes:Int = 0
     var teleLow:Bool = false
     var teleNormal:Bool =  false
     var teleHigh:Bool = false

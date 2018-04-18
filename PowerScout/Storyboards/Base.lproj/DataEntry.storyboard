@@ -394,7 +394,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zmr-mb-f0Q">
                                                                 <rect key="frame" x="230" y="0.0" width="138" height="29"/>
                                                                 <subviews>
-                                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="kAe-By-KWJ" userLabel="Auto Faile Switch">
+                                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="kAe-By-KWJ" userLabel="Auto Faile Switch">
                                                                         <rect key="frame" x="0.0" y="0.0" width="94" height="29"/>
                                                                         <connections>
                                                                             <action selector="stepperValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="Ag2-nd-fRG"/>
@@ -469,7 +469,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DVj-aY-oXl">
                                                                 <rect key="frame" x="225.5" y="0.0" width="142.5" height="29"/>
                                                                 <subviews>
-                                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="B2Y-FA-yaF" userLabel="Tele Fail Scale">
+                                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="B2Y-FA-yaF" userLabel="Tele Fail Scale">
                                                                         <rect key="frame" x="0.0" y="0.0" width="94" height="29"/>
                                                                         <connections>
                                                                             <action selector="stepperValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="YUt-gb-wzy"/>
@@ -530,7 +530,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="CLv-Ne-yJh">
                                                                 <rect key="frame" x="227.5" y="0.0" width="136.5" height="29"/>
                                                                 <subviews>
-                                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="QyW-Od-r21" userLabel="Tele Fail Switch">
+                                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="QyW-Od-r21" userLabel="Tele Fail Switch">
                                                                         <rect key="frame" x="0.0" y="0.0" width="94" height="29"/>
                                                                         <connections>
                                                                             <action selector="stepperValueChanged:" destination="RmR-df-9YL" eventType="valueChanged" id="iqU-Mu-HfX"/>
@@ -748,17 +748,23 @@
                         <outlet property="autoAmmountScale" destination="wM1-kd-PYi" id="PEc-Tp-hvJ"/>
                         <outlet property="autoAmmountScaleMiss" destination="Mcn-VE-ob2" id="zzj-9k-cxc"/>
                         <outlet property="autoAmmountSwitch" destination="YfX-Vf-4JF" id="t5Z-6I-QfB"/>
+                        <outlet property="autoAmmountSwitchMiss" destination="Nhp-3Z-WTB" id="Q2l-5b-onZ"/>
                         <outlet property="autoLine" destination="PXL-oC-oAo" id="zep-Bz-Xst"/>
                         <outlet property="autoScale" destination="ssU-XW-a6d" id="gR0-Ao-ijX"/>
                         <outlet property="autoScaleMiss" destination="1RR-so-4Q3" id="GGR-KY-7ns"/>
                         <outlet property="autoSwitch" destination="u7P-SE-NNx" id="6LP-NH-sol"/>
+                        <outlet property="autoSwitchMiss" destination="kAe-By-KWJ" id="lEP-jP-4ri"/>
                         <outlet property="climbTextField" destination="alq-8w-2Cr" id="QMf-RW-I79"/>
                         <outlet property="exchangedBlocks" destination="5Ec-b2-pcU" id="LLW-FU-S1F"/>
                         <outlet property="positionTextField" destination="KY5-Rx-mz6" id="HTG-Y0-nTh"/>
                         <outlet property="teleAmmountScale" destination="6g9-zA-wjj" id="WOR-T0-BAP"/>
                         <outlet property="teleAmmountSwitch" destination="tmo-Cm-bTe" id="tLT-fE-dUn"/>
+                        <outlet property="teleAmmountSwitchMiss" destination="hFR-Mb-XTI" id="PPx-9d-cIw"/>
                         <outlet property="teleScale" destination="tjV-W9-3GG" id="TLH-at-4El"/>
+                        <outlet property="teleScaleMiss" destination="B2Y-FA-yaF" id="5pd-yB-2bZ"/>
+                        <outlet property="teleScaleMissAmount" destination="sSa-AT-gIJ" id="P1H-X0-iY9"/>
                         <outlet property="teleSwitch" destination="5H9-cL-hfP" id="e6x-2N-llq"/>
+                        <outlet property="teleSwitchMiss" destination="QyW-Od-r21" id="OgB-Kn-8dd"/>
                         <segue destination="CCN-mt-Ykg" kind="unwind" identifier="unwindToMatchView" unwindAction="unwindToCompletedMatchView:" id="jtE-Yb-ZIb"/>
                     </connections>
                 </viewController>
