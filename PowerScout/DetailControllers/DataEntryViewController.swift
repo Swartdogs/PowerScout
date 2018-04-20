@@ -16,20 +16,31 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
     @IBOutlet weak var teleScale: UIStepper!
     @IBOutlet weak var teleSwitch: UIStepper!
     @IBOutlet weak var exchangedBlocks: UIStepper!
+    @IBOutlet weak var autoSwitchMiss: UIStepper!
+    @IBOutlet weak var autoScaleMiss: UIStepper!
+    @IBOutlet weak var teleScaleMiss: UIStepper!
+    @IBOutlet weak var teleSwitchMiss: UIStepper!
+    @IBOutlet weak var teleAmmountSwitchMiss: UILabel!
+    @IBOutlet weak var teleAmmountScaleMiss: UILabel!
     @IBOutlet weak var autoAmmountSwitch: UILabel!
     @IBOutlet weak var autoAmmountScale: UILabel!
+    @IBOutlet weak var autoAmmountScaleMiss: UILabel!
+    @IBOutlet weak var autoAmmountSwitchMiss: UILabel!
     @IBOutlet weak var teleAmmountScale: UILabel!
     @IBOutlet weak var teleAmmountSwitch: UILabel!
     @IBOutlet weak var ammountExchangedBlocks: UILabel!
     @IBOutlet weak var autoLine: UISegmentedControl!
-    @IBOutlet weak var scaleLow: UISegmentedControl!
-    @IBOutlet weak var scaleMedium: UISegmentedControl!
-    @IBOutlet weak var scaleHigh: UISegmentedControl!
+    @IBOutlet weak var autoField: UISegmentedControl!
+//    @IBOutlet weak var scaleLow: UISegmentedControl!
+//    @IBOutlet weak var scaleMedium: UISegmentedControl!
+//    @IBOutlet weak var scaleHigh: UISegmentedControl!
     @IBOutlet weak var positionTextField: UITextField!
     @IBOutlet weak var climbTextField:UITextField!
     @IBOutlet weak var TipYN: UISegmentedControl!
     @IBOutlet weak var StalledYN: UISegmentedControl!
     @IBOutlet weak var TechFYN: UISegmentedControl!
+    @IBOutlet weak var DefenseYN: UISegmentedControl!
+    @IBOutlet weak var PartnerYN: UISegmentedControl!
     
     var startPositionPick: UIPickerView!
     var climbingConditionPick:UIPickerView!
@@ -59,6 +70,10 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         autoScale.autorepeat = false
         autoScale.maximumValue = 20
         autoScale.stepValue = 1
+        autoScaleMiss.wraps = false
+        autoScaleMiss.autorepeat = false
+        autoScaleMiss.maximumValue = 20
+        autoScaleMiss.stepValue = 1
         autoSwitch.wraps = false
         autoSwitch.autorepeat = false
         autoSwitch.maximumValue = 20
@@ -214,15 +229,20 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         case autoLine:
             match.autoCrossedLine = sender.selectedSegmentIndex == 1
             break
-        case scaleLow:
-            match.teleLow = sender.selectedSegmentIndex == 1
+        case autoField:
+            match.autoCrossedField = sender.selectedSegmentIndex == 1
             break
-        case scaleMedium:
-            match.teleNormal = sender.selectedSegmentIndex == 1
-            break
-        case scaleHigh:
-            match.teleHigh = sender.selectedSegmentIndex == 1
-            break
+            
+            // These were removed, so they can't be referenced in code anymore (should probably delete these lines)
+//        case scaleLow:
+//            match.teleLow = sender.selectedSegmentIndex == 1
+//            break
+//        case scaleMedium:
+//            match.teleNormal = sender.selectedSegmentIndex == 1
+//            break
+//        case scaleHigh:
+//            match.teleHigh = sender.selectedSegmentIndex == 1
+//            break
         case TipYN:
             if sender.selectedSegmentIndex == 1 {
                 match.finalRobot.formUnion(.Tipped)
@@ -243,6 +263,12 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
             } else {
                 match.finalTechFouls = 0
             }
+        case DefenseYN:
+            match.endPlayedDefense = sender.selectedSegmentIndex == 1
+            break
+        case PartnerYN:
+            match.endConsiderPartner = sender.selectedSegmentIndex == 1
+            break
         default:
             break
         }
@@ -271,6 +297,22 @@ class DataEntryViewController: UIViewController, UIPickerViewDataSource, UIPicke
         case exchangedBlocks:
             match.teleExchangeCubes = Int(sender.value)
             ammountExchangedBlocks.text = match.teleExchangeCubes.description
+            break
+        case autoScaleMiss:
+            match.autoScaleMissedCubes = Int(sender.value)
+            autoAmmountScaleMiss.text = match.autoScaleMissedCubes.description
+            break
+        case autoSwitchMiss:
+            match.autoSwitchMissedCubes = Int(sender.value)
+            autoAmmountSwitchMiss.text = match.autoSwitchMissedCubes.description
+            break
+        case teleScaleMiss:
+            match.teleScaleMissedCubes = Int(sender.value)
+            teleAmmountScaleMiss.text = match.teleScaleMissedCubes.description
+            break
+        case teleSwitchMiss:
+            match.teleSwitchMissedCubes = Int(sender.value)
+            teleAmmountSwitchMiss.text = match.teleSwitchMissedCubes.description
             break
         default:
             break
